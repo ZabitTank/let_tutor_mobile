@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: "LetTutor",
-      home: const LoginView(),
+      home: LoginView(formKey: GlobalKey<FormState>()),
       theme: baseTheme(),
     );
   }

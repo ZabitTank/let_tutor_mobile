@@ -10,6 +10,9 @@ ThemeData baseTheme() {
     focusColor: BaseColor.blue,
     hintColor: BaseColor.hint,
     primaryColor: BaseColor.blue,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+    )
   );
   return base;
 }

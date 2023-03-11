@@ -16,8 +16,6 @@ class BaseColor {
 }
 
 class BaseTextStyle {
-  static const appFontFamily = "Roboto";
-
   static TextStyle heading1({Color? color, double? fontSize}) {
     return TextStyle(
         fontSize: fontSize ?? 32,
@@ -96,11 +94,13 @@ class BaseTextStyle {
         fontWeight: FontWeight.w500);
   }
 
-  static TextStyle appBar({Color? color, double? fontSize,FontWeight? fontWeight}) {
+  static TextStyle appBar(
+      {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 14,
-        color: color ?? BaseColor.black,
-        fontWeight: fontWeight ?? FontWeight.w800,);
+      fontSize: fontSize ?? 32,
+      color: color ?? BaseColor.black,
+      fontWeight: fontWeight ?? FontWeight.w800,
+    );
   }
 
   static TextStyle button({Color? color, double? fontSize}) {
