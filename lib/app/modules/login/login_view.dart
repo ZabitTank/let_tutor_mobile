@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
 import 'package:let_tutor_mobile/app/widgets/custom_widget.dart';
+import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
 
@@ -41,7 +42,7 @@ class LoginView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(width: 300, height: 300, color: Colors.red),
+                TestWidget.emptySquareContainer(size: 300, color: Colors.red),
                 const SizedBox(height: 15),
                 Text(
                   "Say hello to your English tutors",
