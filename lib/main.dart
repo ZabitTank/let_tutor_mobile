@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/modules/course/courses_view.dart';
+import 'package:let_tutor_mobile/app/modules/course_detail/course_detail.dart';
 import 'package:let_tutor_mobile/core/theme/base_theme.dart';
 
 void main() {
@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "LetTutor",
       // home: LoginView(formKey: GlobalKey<FormState>()),
-      home: const CoursesView(),
+      // home: const CoursesView(),
+      home: const CourseDetail(),
+
       theme: baseTheme(),
     );
   }

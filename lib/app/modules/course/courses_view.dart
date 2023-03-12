@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/modules/course/widgets/course_card.dart';
+import 'package:let_tutor_mobile/app/modules/course/widgets/course_info_card.dart';
 import 'package:let_tutor_mobile/app/widgets/main_appbar.dart';
 import 'package:let_tutor_mobile/app/widgets/search_textfield.dart';
 import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
