@@ -22,4 +22,16 @@ class TestWidget {
       ),
     );
   }
+
+  static Widget emptyRetangleContainer(
+      {required double width, required double height, Color? color}) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: color ?? Colors.black,
+        shape: BoxShape.rectangle,
+      ),
+    );
+  }
 }
