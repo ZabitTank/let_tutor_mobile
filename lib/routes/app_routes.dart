@@ -7,6 +7,7 @@ abstract class Routes {
   static const courses = Paths.courses;
   static const courseLearnTopic = Paths.courseLearnTopic;
   static const courseDetail = Paths.courseDetail;
+  static const coursesHistory = Paths.coursesHistory;
   static const teachers = Paths.teachers;
   static const teacherDetail = Paths.teacherDetail;
   static const schedules = Paths.schedules;
@@ -22,6 +23,7 @@ abstract class Paths {
   static const courses = '/courses';
   static const courseDetail = '/course-detail';
   static const courseLearnTopic = '/course-learn-topic';
+  static const coursesHistory = '/courses-history';
   static const teachers = '/teachers';
   static const teacherDetail = '/teacher-detail';
   static const schedules = '/schedules';

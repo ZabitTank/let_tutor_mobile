@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_view.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/core/theme/base_theme.dart';
+import 'package:let_tutor_mobile/routes/app_pages.dart';
 
 Future<void> _setup() async {}
 
@@ -15,12 +16,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "LetTutor",
-      // home: LoginView(formKey: GlobalKey<FormState>()),
-      // home: const CoursesView(),
-      home: const CourseDetail(),
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
       theme: lightTheme,
+      darkTheme: darkTheme,
     );
   }
 }

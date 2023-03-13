@@ -1,19 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/login/login_controller.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key, required this.formKey});
-
-  final GlobalKey<FormState> formKey;
+class LoginView extends GetView<LoginController> {
+  const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey();
+
     return Scaffold(
         appBar: AppBar(
           bottomOpacity: 20,

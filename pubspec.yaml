@@ -14,31 +14,40 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.4.0
-  multiselect: ^0.1.0
-  multi_select_flutter: ^4.1.3
+  ##framework
+  get: ^4.6.5
+
+  ## feature
   dio: ^5.1.1
   flutter_secure_storage: ^8.0.0
 
-  #chat gpt
+  ## UI
+  multiselect: ^0.1.0
+  multi_select_flutter: ^4.1.3
+
+  # from chat gpt dependency
+
   ##generate json
   json_annotation: ^4.8.1
+
   ## enviroment
   flutter_dotenv: ^5.0.2
-  ##quick setting screen
+
+  ## UI
+  flutter_spinkit: ^5.1.0
+  avatar_glow: ^2.0.2
+  ###quick setting screen
   settings_ui: ^2.0.2
 
   ## save chat
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  ## fast loading screen
-  flutter_easyloading: ^3.0.5
-  ### Feature
+  hive_generator: ^2.0.0
+
+  ## Feature
   flutter_tts: ^3.6.3
   speech_to_text: ^6.1.1
-  ### UI
-  flutter_spinkit: ^5.1.0
-  avatar_glow: ^2.0.2
-  hive_generator: ^2.0.0
+  flutter_easyloading: ^3.0.5
 
 dev_dependencies:
   flutter_test:

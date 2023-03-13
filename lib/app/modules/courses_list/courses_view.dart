@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/courses_list/courses_controller.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/widgets/course_info_card.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/common_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/search_textfield.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class CoursesView extends StatelessWidget {
+class CoursesView extends GetView<CoursesController> {
   const CoursesView({super.key});
 
   @override

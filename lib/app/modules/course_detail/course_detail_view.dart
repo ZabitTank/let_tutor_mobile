@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
+import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_controller.dart';
 import 'package:let_tutor_mobile/app/modules/course_detail/widgets/course_explore_card.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/common_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
-class CourseDetail extends StatelessWidget {
+class CourseDetail extends GetView<CourseDetailController> {
   const CourseDetail({super.key});
 
   @override
