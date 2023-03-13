@@ -1,34 +1,82 @@
-
 import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
+final ThemeData lightTheme = ThemeData(
+  brightness: Brightness.light,
+  primaryColor: BaseColor.lightPrimaryColor,
+  scaffoldBackgroundColor: BaseColor.white,
+  cardColor: BaseColor.lightCardColor,
+  textTheme: TextTheme(
+    bodySmall: BaseTextStyle.body3(color: Colors.black),
+    bodyMedium: BaseTextStyle.body2(color: Colors.black),
+    bodyLarge: BaseTextStyle.body1(color: Colors.black),
+    headlineLarge: BaseTextStyle.heading1(color: Colors.black),
+    headlineMedium: BaseTextStyle.heading2(color: Colors.black),
+    headlineSmall: BaseTextStyle.heading3(color: Colors.black),
+    labelSmall: BaseTextStyle.caption(
+      fontSize: 12,
+      color: const Color.fromARGB(255, 255, 253, 253),
+    ),
+    labelMedium: BaseTextStyle.caption(
+      fontSize: 16,
+      color: const Color.fromARGB(255, 210, 66, 66),
+    ),
+  ),
+  appBarTheme: AppBarTheme(
+      color: Colors.white,
+      elevation: 0,
+      iconTheme: const IconThemeData(color: Colors.black),
+      titleTextStyle: BaseTextStyle.heading2(color: BaseColor.blue)),
+  inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 40,
+        vertical: 20,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28),
+        borderSide: const BorderSide(color: BaseColor.lightPrimaryColor),
+        gapPadding: 10,
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28),
+        borderSide: const BorderSide(color: BaseColor.red),
+        gapPadding: 10,
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28),
+        borderSide: const BorderSide(color: Colors.grey),
+        gapPadding: 10,
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28),
+        borderSide: const BorderSide(color: BaseColor.red),
+        gapPadding: 10,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28),
+        borderSide: const BorderSide(color: BaseColor.lightPrimaryColor),
+        gapPadding: 10,
+      ),
+      focusColor: BaseColor.lightPrimaryColor),
+);
 
-ThemeData baseTheme() {
-  final ThemeData base = ThemeData(
-    backgroundColor: Colors.white,
-    dividerColor: BaseColor.hint,
-    errorColor: BaseColor.red,
-    focusColor: BaseColor.blue,
-    hintColor: BaseColor.hint,
-    primaryColor: BaseColor.blue,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.white,
-    )
-  );
-  return base;
-}
-
-
-class BaseColor {
-  static const Color black = Color(0xFF222222);
-  static const Color hint = Color(0xFFA3A3A3);
-  static const Color lightGrey = Color(0xFFF3F3F3);
-  static const Color blue = Color(0xFF003399);
-  static const Color secondaryBlue = Color(0xFFE5EEFF);
-  static const Color off = Color(0xFFC3CAE9);
-  static const Color orange = Color(0xFFFF9900);
-  static const Color secondaryOrange = Color(0xFFFFF5E5);
-  static const Color red = Color(0xFFD43513);
-  static const Color secondaryRed = Color(0xFFFBEAE9);
-  static const Color green = Color(0xFF00C11F);
-  static const Color secondaryGreen = Color(0xFFE9FCEC);
-}
+final ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: Colors.lightGreen,
+  scaffoldBackgroundColor: const Color(0xff343541),
+  cardColor: const Color(0xff444654),
+  textTheme: TextTheme(
+    bodySmall: BaseTextStyle.body3(color: Colors.white),
+    bodyMedium: BaseTextStyle.body2(color: Colors.white),
+    bodyLarge: BaseTextStyle.body1(color: Colors.white),
+    headlineLarge: BaseTextStyle.heading1(color: Colors.white),
+    headlineMedium: BaseTextStyle.heading2(color: Colors.white),
+    headlineSmall: BaseTextStyle.heading3(color: Colors.white),
+    labelSmall: BaseTextStyle.caption(
+      color: const Color.fromARGB(255, 60, 234, 135),
+    ),
+  ),
+  appBarTheme: const AppBarTheme(
+    color: Color.fromARGB(0, 53, 67, 55),
+  ),
+);
