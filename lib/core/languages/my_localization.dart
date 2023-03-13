@@ -1,4 +1,5 @@
 import 'package:let_tutor_mobile/core/languages/_en.dart';
+import 'package:let_tutor_mobile/core/languages/_vi.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
 
 class MyLocalization {
@@ -7,7 +8,7 @@ class MyLocalization {
   static const Map<LocalizationCode, Map<LocalizationKeys, String>>
       _localizedValues = {
     LocalizationCode.english: en,
-    LocalizationCode.vietnam: {}
+    LocalizationCode.vietnam: vi,
   };
 
   static set language(LocalizationCode? lang) {

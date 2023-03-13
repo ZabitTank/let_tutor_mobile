@@ -10,6 +10,7 @@ enum TokenType {
 
 // screen - content1 - object
 enum LocalizationKeys {
+  language,
   login1TitleText,
   login1SubTitleText,
   login2UserUserNameText,
@@ -21,6 +22,19 @@ enum LocalizationKeys {
   login3ForgotPasswordHightLightText,
 
   login3OtherSignupHightLightText,
+
+  settingscreen_appbar,
+  settingscreen_section_common,
+  settingscreen_section_common_language,
+  settingscreen_section_common_theme,
+  settingscreen_section_gpt_key,
+  settingscreen_section_gpt_use_system_key,
+  settingscreen_section_gpt_use_your_key,
+  settingscreen_section_gpt,
+  settingscreen_section_auto_voice,
+  settingscreen_section_gpt_delete,
+  settingscreen_section_gpt_delete_confirm,
+  settingscreen_section_chatlog,
 }
 
 @HiveType(typeId: 0)

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/home/home_controller.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
@@ -14,8 +16,11 @@ class NavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Drawer Builded");
     Color hightlightColor = Theme.of(context).highlightColor;
     Color primaryColor = Theme.of(context).primaryColor;
+    int currentIndex = Get.find<HomeController>().tabIndex.value;
+    String currentPage = Get.currentRoute;
 
     return Drawer(
       child: ListView(
@@ -25,109 +30,123 @@ class NavigationDrawer extends StatelessWidget {
             color: BaseColor.black,
           ),
           buildDrawerItem(
-            text: "Tutor",
-            icon: Icons.menu_book,
+            text: "Tutors",
+            icon: Icons.group,
             textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.teachers
+            tileColor: currentPage == Routes.home && currentIndex == 0
                 ? hightlightColor
                 : primaryColor,
             onTap: () {
-              Get.offNamed(Routes.teachers);
-            },
-          ),
-          buildDrawerItem(
-            text: "Schedule",
-            icon: Icons.calendar_month,
-            textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.schedules
-                ? hightlightColor
-                : primaryColor,
-            onTap: () {
-              Get.offNamed(Routes.schedules);
-            },
-          ),
-          buildDrawerItem(
-            text: "History",
-            icon: Icons.schedule,
-            textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.coursesHistory
-                ? hightlightColor
-                : primaryColor,
-            onTap: () {
-              Get.offNamed(Routes.coursesHistory);
+              _handleNavigationToHome(0);
             },
           ),
           buildDrawerItem(
             text: "Courses",
             icon: Icons.school,
             textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.courses
+            tileColor: currentPage == Routes.home && currentIndex == 1
                 ? hightlightColor
                 : primaryColor,
             onTap: () {
-              Get.offNamed(Routes.courses);
+              _handleNavigationToHome(1);
             },
           ),
           buildDrawerItem(
-            text: "My Courses",
-            icon: Icons.menu_book_sharp,
+            text: "Schedules",
+            icon: Icons.calendar_month,
             textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.courses
+            tileColor: currentPage == Routes.home && currentIndex == 2
                 ? hightlightColor
                 : primaryColor,
             onTap: () {
-              Get.offNamed(Routes.courses);
+              _handleNavigationToHome(2);
             },
           ),
           buildDrawerItem(
-            text: "Become Tutor",
-            icon: Icons.abc,
+            text: "Chat",
+            icon: Icons.chat,
             textIconColor: Theme.of(context).primaryColor,
-            tileColor: Get.currentRoute == Routes.teachers
+            tileColor: currentPage == Routes.home && currentIndex == 4
                 ? hightlightColor
                 : primaryColor,
-            onTap: () {},
+            onTap: () {
+              _handleNavigationToHome(3);
+            },
+          ),
+          buildDrawerItem(
+            text: "Profile",
+            icon: CupertinoIcons.profile_circled,
+            textIconColor: Theme.of(context).primaryColor,
+            tileColor: Get.currentRoute == Routes.profile
+                ? hightlightColor
+                : primaryColor,
+            onTap: () {
+              Get.toNamed(Routes.profile);
+            },
+          ),
+          buildDrawerItem(
+            text: "Settings",
+            icon: Icons.settings,
+            textIconColor: Theme.of(context).primaryColor,
+            tileColor: Get.currentRoute == Routes.settings
+                ? hightlightColor
+                : primaryColor,
+            onTap: () {
+              Get.toNamed(Routes.settings);
+            },
           ),
           buildDrawerItem(
             text: "Logout",
             icon: Icons.logout,
             textIconColor: Theme.of(context).primaryColor,
             tileColor: context.appBarStyle?.color,
-            onTap: () {},
+            onTap: () {
+              debugPrint("Log out");
+            },
           ),
         ],
       ),
     );
   }
-}
 
-Widget buildDrawerHeader(String accountName, String accountEmail) {
-  return UserAccountsDrawerHeader(
-    accountName: Text(accountName),
-    accountEmail: Text(accountEmail),
-    currentAccountPicture: const CircleAvatar(
-      backgroundImage: AssetImage(AssetsManager.userImage),
-    ),
-    currentAccountPictureSize: const Size.square(72),
-  );
-}
+  Widget buildDrawerHeader(String accountName, String accountEmail) {
+    return UserAccountsDrawerHeader(
+      accountName: Text(accountName),
+      accountEmail: Text(accountEmail),
+      currentAccountPicture: const CircleAvatar(
+        backgroundImage: AssetImage(AssetsManager.userImage),
+      ),
+      currentAccountPictureSize: const Size.square(72),
+    );
+  }
 
-Widget buildDrawerItem({
-  required String text,
-  required IconData icon,
-  required Color textIconColor,
-  required Color? tileColor,
-  required VoidCallback onTap,
-}) {
-  return ListTile(
-    leading: Icon(
-      icon,
-      color: textIconColor,
-    ),
-    title: Text(
-      text,
-      style: TextStyle(color: tileColor),
-    ),
-    onTap: onTap,
-  );
+  Widget buildDrawerItem({
+    required String text,
+    required IconData icon,
+    required Color textIconColor,
+    required Color? tileColor,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: textIconColor,
+      ),
+      title: Text(
+        text,
+        style: TextStyle(color: tileColor),
+      ),
+      onTap: onTap,
+    );
+  }
+
+  void _handleNavigationToHome(int index) {
+    Get.back(closeOverlays: true);
+    if (Get.currentRoute != Routes.home) {
+      Get.until(
+        (route) => Get.currentRoute == Routes.home,
+      );
+    }
+    Get.find<HomeController>().changeTabIndex(index);
+  }
 }

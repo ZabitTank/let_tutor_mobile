@@ -11,6 +11,9 @@ abstract class Routes {
   static const teachers = Paths.teachers;
   static const teacherDetail = Paths.teacherDetail;
   static const schedules = Paths.schedules;
+  static const chat = Paths.chat;
+  static const profile = Paths.profile;
+  static const settings = Paths.settings;
 }
 
 abstract class Paths {
@@ -27,4 +30,7 @@ abstract class Paths {
   static const teachers = '/teachers';
   static const teacherDetail = '/teacher-detail';
   static const schedules = '/schedules';
+  static const chat = '/chat';
+  static const profile = '/profile';
+  static const settings = '/settings';
 }

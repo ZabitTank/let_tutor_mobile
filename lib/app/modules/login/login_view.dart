@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/login/login_controller.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
@@ -10,71 +11,14 @@ import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
-import 'package:let_tutor_mobile/core/utils/helper.dart';
-import 'package:let_tutor_mobile/core/values/constants.dart';
+import 'package:let_tutor_mobile/routes/app_routes.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey();
-
     return Scaffold(
-        appBar: AppBar(
-          bottomOpacity: 20,
-          leading: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsetsDirectional.only(start: 2),
-            child: Image.asset(
-              'assets/icons/lettutor_icon.png',
-              fit: BoxFit.contain,
-              width: 40,
-            ),
-          ),
-          title: Text(
-            "LetTutor",
-            style: context.appBarStyle,
-          ),
-          titleSpacing: 2,
-          actions: [
-            PopupMenuButton<String>(
-              icon: const Icon(Icons.language),
-              onSelected: (String result) {
-                switch (result) {
-                  case 'filter1':
-                    break;
-                  case 'filter2':
-                    break;
-                  default:
-                }
-              },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: 'filter1',
-                  child: IconWithTitleTile(
-                    icon: Image.asset(
-                      AssetsManager.vnIcon,
-                      height: 20,
-                      width: 20,
-                    ),
-                    title: Text("Tiếng việt", style: context.bodySmall),
-                  ),
-                ),
-                PopupMenuItem<String>(
-                  value: 'filter1',
-                  child: IconWithTitleTile(
-                    icon: Image.asset(
-                      AssetsManager.enIcon,
-                      height: 20,
-                      width: 20,
-                    ),
-                    title: Text("Tiếng anh", style: context.bodySmall),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+        appBar: LetTutorAppBar.mainAppBarWithIconLogin(context),
         body: SingleChildScrollView(
           child: Container(
             width: double.maxFinite,
@@ -100,7 +44,7 @@ class LoginView extends GetView<LoginController> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.all(18),
                   child: Form(
-                    key: formKey,
+                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -111,8 +55,8 @@ class LoginView extends GetView<LoginController> {
                         const SizedBox(height: 10),
                         ValidInputField(
                           textInputType: TextInputType.emailAddress,
-                          controller: TextEditingController(),
-                          validator: FieldValidator.phoneNumberValidation,
+                          controller: controller.emailController,
+                          validator: FieldValidator.emailValidator,
                           inputDecoration: const InputDecoration(
                             hintText: 'Someemail@Email.com',
                             errorText: null,
@@ -135,7 +79,8 @@ class LoginView extends GetView<LoginController> {
                           style: context.bodyMedium,
                         ),
                         const SizedBox(height: 10),
-                        PasswordInputField(controller: TextEditingController()),
+                        PasswordInputField(
+                            controller: controller.passwordController),
                         const SizedBox(height: 15),
                         GestureDetector(
                           child: Text(
@@ -152,7 +97,9 @@ class LoginView extends GetView<LoginController> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offNamed(Routes.home);
+                    },
                     style: TextButton.styleFrom(
                       minimumSize: const Size(double.infinity, 20),
                       backgroundColor: Colors.blue,
@@ -224,25 +171,3 @@ const List<String> dropdownListString = [
   "Tiếng Việt",
   "Tiếng Anh",
 ];
-
-class IconWithTitleTile extends StatelessWidget {
-  const IconWithTitleTile(
-      {super.key, required this.title, required this.icon, this.gap});
-
-  final Text title;
-  final Image icon;
-  final double? gap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        icon,
-        title,
-      ],
-    );
-  }
-}
