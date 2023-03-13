@@ -53,3 +53,21 @@ class CustomWidgets {
     );
   }
 }
+
+class IconWithTitleTile extends StatelessWidget {
+  const IconWithTitleTile(
+      {super.key, required this.title, required this.icon, this.gap});
+
+  final Text title;
+  final ImageIcon icon;
+  final double? gap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: icon,
+      title: title,
+      horizontalTitleGap: gap ?? 5,
+    );
+  }
+}

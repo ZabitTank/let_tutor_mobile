@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/course_detail/widgets/course_explore_card.dart';
-import 'package:let_tutor_mobile/app/widgets/main_appbar.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/common_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseDetail extends StatelessWidget {
@@ -8,17 +9,11 @@ class CourseDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const sw_20 = SizedBox(
-      width: 20,
-    );
-    const sh_10 = SizedBox(
-      height: 10,
-    );
-    const sh_20 = SizedBox(
-      height: 20,
-    );
     return Scaffold(
-      appBar: LetTutorCommomWidget.mainAppBar(),
+      appBar: LetTutorAppBar.mainAppBarWithTitleAndBackButton(
+        context: context,
+        title: "Course Detail",
+      ),
       floatingActionButton: FloatingActionButton(
         hoverColor: BaseColor.green,
         onPressed: () {},
@@ -30,30 +25,30 @@ class CourseDetail extends StatelessWidget {
           child: Column(
             children: [
               const CourseCardExplore(),
-              sh_20,
+              addVerticalSpace(20),
               const CourseDescriptionHeader(description: "Overview"),
               const CourseAttribute(
                 title: "Why take this course",
                 description: lorem,
                 icon: questionMaskIcon,
               ),
-              sh_20,
+              addVerticalSpace(20),
               const CourseDescriptionHeader(description: "Experience Level"),
               const CourseAttribute(
                 title: "Beginner",
                 description: "This course for noob",
                 icon: peopleIcon,
               ),
-              sh_20,
+              addVerticalSpace(20),
               const CourseDescriptionHeader(description: "Course Length"),
               const CourseAttribute(
                 title: "6 Topic",
                 description: "Sleep now",
                 icon: docIcon,
               ),
-              sh_20,
+              addVerticalSpace(20),
               const CourseDescriptionHeader(description: "List Topics"),
-              sh_10,
+              addVerticalSpace(10),
               ...topics
                   .asMap()
                   .entries

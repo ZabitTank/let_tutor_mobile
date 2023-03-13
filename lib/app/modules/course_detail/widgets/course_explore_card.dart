@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseCardExplore extends StatelessWidget {
@@ -53,7 +53,7 @@ class CourseCardExplore extends StatelessWidget {
                       onPressed: () {},
                       child: Text(
                         "Discover",
-                        style: BaseTextStyle.heading3(),
+                        style: BaseTextStyle.heading3(color: BaseColor.white),
                       ),
                     ),
                   )

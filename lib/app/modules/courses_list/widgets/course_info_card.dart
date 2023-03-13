@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseCard extends StatelessWidget {

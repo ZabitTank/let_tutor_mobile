@@ -16,13 +16,37 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   multiselect: ^0.1.0
   multi_select_flutter: ^4.1.3
+  dio: ^5.1.1
+  flutter_secure_storage: ^8.0.0
+
+  #chat gpt
+  ##generate json
+  json_annotation: ^4.8.1
+  ## enviroment
+  flutter_dotenv: ^5.0.2
+  ##quick setting screen
+  settings_ui: ^2.0.2
+
+  ## save chat
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  ## fast loading screen
+  flutter_easyloading: ^3.0.5
+  ### Feature
+  flutter_tts: ^3.6.3
+  speech_to_text: ^6.1.1
+  ### UI
+  flutter_spinkit: ^5.1.0
+  avatar_glow: ^2.0.2
+  hive_generator: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-
+  build_runner: ^2.3.3
+  json_serializable: ^6.6.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

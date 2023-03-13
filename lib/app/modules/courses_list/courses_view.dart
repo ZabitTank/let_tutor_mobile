@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/modules/course/widgets/course_info_card.dart';
-import 'package:let_tutor_mobile/app/widgets/main_appbar.dart';
-import 'package:let_tutor_mobile/app/widgets/search_textfield.dart';
-import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/courses_list/widgets/course_info_card.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/common_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/search_textfield.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -24,7 +24,7 @@ class CoursesView extends StatelessWidget {
       length: 3,
       initialIndex: 0,
       child: Scaffold(
-        appBar: LetTutorCommomWidget.mainAppBar(),
+        appBar: LetTutorAppBar.mainAppBarWithIcon(context),
         floatingActionButton: FloatingActionButton(
           hoverColor: BaseColor.green,
           onPressed: () {},

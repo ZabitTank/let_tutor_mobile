@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
-import 'package:let_tutor_mobile/app/widgets/custom_widget.dart';
-import 'package:let_tutor_mobile/app/widgets/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
 
