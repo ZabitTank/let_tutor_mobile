@@ -5,8 +5,10 @@ class AssetsManager {
 
   // LETTUTOR
   static const String lettutorIcon = "$imagePath/lettutor_icon.png";
-  static const String lettutorLoginBanner = "$iconPath/login_banner.png";
+  static const String vnIcon = "$iconPath/vn_icon.png";
+  static const String enIcon = "$iconPath/en_icon.png";
 
+  static const String lettutorLoginBanner = "$imagePath/login_banner.png";
   // GPT
   static const String userImage = "$imagePath/person.png";
   static const String chatImage = "$imagePath/chat_logo.png";

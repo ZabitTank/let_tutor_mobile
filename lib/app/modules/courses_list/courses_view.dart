@@ -6,6 +6,7 @@ import 'package:let_tutor_mobile/app/modules/courses_list/courses_controller.dar
 import 'package:let_tutor_mobile/app/modules/courses_list/widgets/course_info_card.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/search_textfield.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -42,6 +43,7 @@ class CoursesView extends GetView<CoursesController> {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
+                sh_20,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -53,7 +55,7 @@ class CoursesView extends GetView<CoursesController> {
                         children: [
                           Text(
                             'Explore Courses',
-                            style: BaseTextStyle.heading2(),
+                            style: context.headlineMedium,
                           ),
                           sh_10,
                           const SearchField()
@@ -66,13 +68,13 @@ class CoursesView extends GetView<CoursesController> {
                 sh_20,
                 Text(
                   lorem,
-                  style: BaseTextStyle.body2(),
+                  style: context.bodyMedium,
                 ),
                 sh_20,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Filter Level", style: BaseTextStyle.subtitle3()),
+                    Text("Filter Level", style: context.labelSmall),
                     MultiSelectDialogField(
                       items: levels.map((e) => MultiSelectItem(e, e!)).toList(),
                       onConfirm: (values) {
@@ -80,7 +82,7 @@ class CoursesView extends GetView<CoursesController> {
                       },
                     ),
                     sh_20,
-                    Text("Filter Categories", style: BaseTextStyle.subtitle3()),
+                    Text("Filter Categories", style: context.labelSmall),
                     MultiSelectDialogField(
                       items: categories
                           .map((e) => MultiSelectItem(e, e!))
@@ -90,7 +92,7 @@ class CoursesView extends GetView<CoursesController> {
                       },
                     ),
                     sh_20,
-                    Text("Sort", style: BaseTextStyle.subtitle3()),
+                    Text("Sort", style: context.labelSmall),
                     DropdownButton<String>(
                       value: sort,
                       items: sorts
@@ -133,7 +135,7 @@ class CoursesView extends GetView<CoursesController> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "English for Traveling",
-                        style: BaseTextStyle.heading2(),
+                        style: context.headlineMedium,
                       ),
                     ),
                     sh_20,

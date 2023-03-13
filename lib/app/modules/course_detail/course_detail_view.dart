@@ -4,6 +4,7 @@ import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_controller.dart';
 import 'package:let_tutor_mobile/app/modules/course_detail/widgets/course_explore_card.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseDetail extends GetView<CourseDetailController> {
@@ -64,10 +65,14 @@ class CourseDetail extends GetView<CourseDetailController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("${entry.key}.",
-                                  style: BaseTextStyle.body2()),
-                              Text("${entry.value}.",
-                                  style: BaseTextStyle.body2()),
+                              Text(
+                                "${entry.key}.",
+                                style: context.bodyMedium,
+                              ),
+                              Text(
+                                "${entry.value}.",
+                                style: context.bodyMedium,
+                              ),
                             ],
                           ),
                         ),
@@ -103,16 +108,16 @@ class CourseAttribute extends StatelessWidget {
             const SizedBox(
               width: 3,
             ),
-            Text(
-              title,
-              style: BaseTextStyle.subtitle2(),
-            ),
+            Text(title, style: context.labelMedium),
           ],
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           width: double.infinity,
-          child: Text(description),
+          child: Text(
+            description,
+            style: context.bodySmall,
+          ),
         )
       ],
     );
@@ -134,7 +139,7 @@ class CourseDescriptionHeader extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       child: Text(
         description,
-        style: BaseTextStyle.heading2(),
+        style: context.headlineMedium,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseCardExplore extends StatelessWidget {
@@ -34,12 +35,12 @@ class CourseCardExplore extends StatelessWidget {
                 children: [
                   Text(
                     "What a title",
-                    style: BaseTextStyle.heading3(),
+                    style: context.headlineSmall,
                   ),
                   sh_10,
                   Text(
                     "For teenager who have an excellent sleep chetah lorem pnacik",
-                    style: BaseTextStyle.body3(),
+                    style: context.bodySmall,
                   ),
                   sh_20,
                   Container(

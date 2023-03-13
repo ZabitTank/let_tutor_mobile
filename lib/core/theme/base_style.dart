@@ -10,31 +10,19 @@ class BaseTextStyle {
   static TextStyle heading2(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 24, color: color, fontWeight: FontWeight.w500);
+        fontSize: fontSize ?? 28, color: color, fontWeight: FontWeight.w500);
   }
 
   static TextStyle heading3(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 22, color: color, fontWeight: FontWeight.w400);
-  }
-
-  static TextStyle heading4(
-      {Color? color, double? fontSize, FontWeight? fontWeight}) {
-    return TextStyle(
-        fontSize: fontSize ?? 20, color: color, fontWeight: FontWeight.w600);
-  }
-
-  static TextStyle heading5(
-      {Color? color, double? fontSize, FontWeight? fontWeight}) {
-    return TextStyle(
-        fontSize: fontSize ?? 18, color: color, fontWeight: FontWeight.w400);
+        fontSize: fontSize ?? 24, color: color, fontWeight: FontWeight.w400);
   }
 
   static TextStyle subtitle1(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 18, color: color, fontWeight: FontWeight.w500);
+        fontSize: fontSize ?? 22, color: color, fontWeight: FontWeight.w500);
   }
 
   static TextStyle subtitle2(
@@ -67,7 +55,28 @@ class BaseTextStyle {
   static TextStyle body3(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 14, color: color, fontWeight: FontWeight.w500);
+        fontSize: fontSize ?? 14, color: color, fontWeight: FontWeight.w400);
+  }
+
+  static TextStyle label1(
+      {Color? color, double? fontSize, FontWeight? fontWeight}) {
+    return TextStyle(
+        fontSize: fontSize ?? 20, color: color, fontWeight: FontWeight.w600);
+  }
+
+  static TextStyle label2(
+      {Color? color, double? fontSize, FontWeight? fontWeight}) {
+    return TextStyle(
+        fontSize: fontSize ?? 16, color: color, fontWeight: FontWeight.w500);
+  }
+
+  static TextStyle label3(
+      {Color? color, double? fontSize, FontWeight? fontWeight}) {
+    return TextStyle(
+        decoration: TextDecoration.underline,
+        fontSize: fontSize ?? 14,
+        color: color,
+        fontWeight: FontWeight.w500);
   }
 
   static TextStyle appBar(

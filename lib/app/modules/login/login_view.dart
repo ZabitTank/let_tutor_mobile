@@ -7,8 +7,11 @@ import 'package:let_tutor_mobile/app/modules/login/login_controller.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
+import 'package:let_tutor_mobile/core/utils/helper.dart';
+import 'package:let_tutor_mobile/core/values/constants.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -30,12 +33,47 @@ class LoginView extends GetView<LoginController> {
           ),
           title: Text(
             "LetTutor",
-            style: BaseTextStyle.appBar(
-                color: BaseColor.blue,
-                fontSize: 30,
-                fontWeight: FontWeight.w900),
+            style: context.appBarStyle,
           ),
           titleSpacing: 2,
+          actions: [
+            PopupMenuButton<String>(
+              icon: const Icon(Icons.language),
+              onSelected: (String result) {
+                switch (result) {
+                  case 'filter1':
+                    break;
+                  case 'filter2':
+                    break;
+                  default:
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'filter1',
+                  child: IconWithTitleTile(
+                    icon: Image.asset(
+                      AssetsManager.vnIcon,
+                      height: 20,
+                      width: 20,
+                    ),
+                    title: Text("Tiếng việt", style: context.bodySmall),
+                  ),
+                ),
+                PopupMenuItem<String>(
+                  value: 'filter1',
+                  child: IconWithTitleTile(
+                    icon: Image.asset(
+                      AssetsManager.enIcon,
+                      height: 20,
+                      width: 20,
+                    ),
+                    title: Text("Tiếng anh", style: context.bodySmall),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -49,13 +87,13 @@ class LoginView extends GetView<LoginController> {
                 Text(
                   "Say hello to your English tutors",
                   textAlign: TextAlign.center,
-                  style: BaseTextStyle.heading2(),
+                  style: context.headlineMedium,
                 ),
                 const SizedBox(height: 15),
                 Text(
                   "Say hello to your English tutorsSay hello to your English tutorsSay hello to your English tutorsSay hello to your English tutorsSay hello to your English tutors",
                   textAlign: TextAlign.center,
-                  style: BaseTextStyle.subtitle2(),
+                  style: context.labelMedium,
                 ),
                 const SizedBox(height: 15),
                 Container(
@@ -68,7 +106,7 @@ class LoginView extends GetView<LoginController> {
                       children: [
                         Text(
                           "Email",
-                          style: BaseTextStyle.body2(),
+                          style: context.bodyMedium,
                         ),
                         const SizedBox(height: 10),
                         ValidInputField(
@@ -94,7 +132,7 @@ class LoginView extends GetView<LoginController> {
                         const SizedBox(height: 15),
                         Text(
                           "Password",
-                          style: BaseTextStyle.body2(),
+                          style: context.bodyMedium,
                         ),
                         const SizedBox(height: 10),
                         PasswordInputField(controller: TextEditingController()),
@@ -102,7 +140,8 @@ class LoginView extends GetView<LoginController> {
                         GestureDetector(
                           child: Text(
                             'Fotgot Password?',
-                            style: BaseTextStyle.subtitle3(color: Colors.blue),
+                            style: BaseTextStyle.subtitle3(
+                                color: Theme.of(context).primaryColor),
                           ),
                           onTap: () {},
                         ),
@@ -120,10 +159,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                     child: Text(
                       "Login",
-                      style: BaseTextStyle.heading3(
-                        fontSize: 32,
-                        color: Colors.white,
-                      ),
+                      style: context.labelLarge,
                     ),
                   ),
                 ),
@@ -134,7 +170,7 @@ class LoginView extends GetView<LoginController> {
                 const SizedBox(height: 15),
                 Text(
                   'Or Continue With',
-                  style: BaseTextStyle.subtitle2(),
+                  style: context.labelMedium,
                 ),
                 const SizedBox(height: 15),
                 Padding(
@@ -143,7 +179,7 @@ class LoginView extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       CustomWidgets.iconButtonCircle(
-                          Colors.blue, FontAwesomeIcons.facebook,
+                          Colors.white, FontAwesomeIcons.facebook,
                           iconColor: Colors.blue, onTap: () {}),
                       CustomWidgets.iconButtonCircle(
                           Colors.red, FontAwesomeIcons.googlePlusG,
@@ -158,11 +194,12 @@ class LoginView extends GetView<LoginController> {
                 RichText(
                   text: TextSpan(
                     text: "Don't Have Account? ",
-                    style: BaseTextStyle.body2(),
+                    style: context.bodyMedium,
                     children: <TextSpan>[
                       TextSpan(
                         text: 'Register Now',
-                        style: BaseTextStyle.body2(color: Colors.blue),
+                        style: BaseTextStyle.body2(
+                            color: Theme.of(context).primaryColor),
                         recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
                     ],
@@ -193,15 +230,19 @@ class IconWithTitleTile extends StatelessWidget {
       {super.key, required this.title, required this.icon, this.gap});
 
   final Text title;
-  final ImageIcon icon;
+  final Image icon;
   final double? gap;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: icon,
-      title: title,
-      horizontalTitleGap: gap ?? 5,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        icon,
+        title,
+      ],
     );
   }
 }

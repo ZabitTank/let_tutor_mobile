@@ -1,6 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/core/extensions/string.dart';
 
 class FieldValidator {
+  static Future<bool> validateField(GlobalKey<FormState> form) async {
+    final isValid = form.currentState!.validate();
+    if (!isValid) {
+      return false;
+    }
+    // call api to check
+    form.currentState?.save();
+    return true;
+  }
+
   static String? phoneNumberValidation(String value) {
     if (value.isEmpty) {
       return "This field must be filled";

@@ -3,26 +3,27 @@ import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: BaseColor.lPrimaryColor,
+  primaryColor: BaseColor.blue,
   highlightColor: BaseColor.red,
   scaffoldBackgroundColor: BaseColor.white,
   cardColor: BaseColor.lCardColor,
   textTheme: TextTheme(
-    bodySmall: BaseTextStyle.body3(color: BaseColor.black),
-    bodyMedium: BaseTextStyle.body2(color: BaseColor.black),
-    bodyLarge: BaseTextStyle.body1(color: BaseColor.black),
     headlineLarge:
         BaseTextStyle.heading1(color: const Color.fromARGB(255, 6, 65, 136)),
     headlineMedium:
-        BaseTextStyle.heading3(color: const Color.fromARGB(255, 16, 112, 181)),
+        BaseTextStyle.heading2(color: const Color.fromARGB(255, 16, 112, 181)),
     headlineSmall:
-        BaseTextStyle.heading4(color: const Color.fromARGB(255, 20, 202, 230)),
-    labelSmall: BaseTextStyle.caption(fontSize: 12, color: BaseColor.red),
-    labelMedium: BaseTextStyle.caption(fontSize: 16, color: BaseColor.red),
+        BaseTextStyle.heading3(color: const Color.fromARGB(255, 20, 202, 230)),
+    bodyLarge: BaseTextStyle.body1(color: BaseColor.black),
+    bodyMedium: BaseTextStyle.body2(color: BaseColor.black),
+    bodySmall: BaseTextStyle.body3(color: BaseColor.black),
+    labelLarge: BaseTextStyle.label1(color: BaseColor.white),
+    labelMedium: BaseTextStyle.label2(color: BaseColor.black),
+    labelSmall: BaseTextStyle.label3(color: BaseColor.black),
   ),
   appBarTheme: AppBarTheme(
-      color: Colors.white,
-      elevation: 0,
+      color: BaseColor.white,
+      elevation: 3,
       iconTheme: const IconThemeData(color: Colors.black),
       titleTextStyle: BaseTextStyle.heading2(color: BaseColor.blue)),
   inputDecorationTheme: InputDecorationTheme(

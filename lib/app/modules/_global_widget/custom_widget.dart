@@ -39,8 +39,8 @@ class CustomWidgets {
         onTap!();
       },
       child: Container(
-          height: 40,
-          padding: const EdgeInsets.all(20.0),
+          height: 35,
+          width: 35,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
             shape: BoxShape.circle,
@@ -48,6 +48,7 @@ class CustomWidgets {
           ),
           child: Icon(
             icon,
+            size: 30,
             color: iconColor,
           )), //
     );

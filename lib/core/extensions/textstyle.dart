@@ -10,4 +10,6 @@ extension GetTextStyle on BuildContext {
   TextStyle? get headlineMedium => Theme.of(this).textTheme.headlineMedium;
   TextStyle? get headlineSmall => Theme.of(this).textTheme.headlineSmall;
   TextStyle? get labelSmall => Theme.of(this).textTheme.labelSmall;
+  TextStyle? get labelMedium => Theme.of(this).textTheme.labelMedium;
+  TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
 }
