@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/navigation_drawer.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/courses_controller.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/widgets/course_info_card.dart';
-import 'package:let_tutor_mobile/app/modules/_global_widget/common_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/search_textfield.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -26,7 +27,11 @@ class CoursesView extends GetView<CoursesController> {
       length: 3,
       initialIndex: 0,
       child: Scaffold(
-        appBar: LetTutorAppBar.mainAppBarWithIcon(context),
+        appBar: LetTutorAppBar.mainAppBarWithTitleAndBackButton(
+          context: context,
+          title: "Courses",
+        ),
+        drawer: createNavigationDrawer(),
         floatingActionButton: FloatingActionButton(
           hoverColor: BaseColor.green,
           onPressed: () {},

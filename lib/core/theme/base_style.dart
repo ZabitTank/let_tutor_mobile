@@ -16,7 +16,7 @@ class BaseTextStyle {
   static TextStyle heading3(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 24, color: color, fontWeight: FontWeight.w400);
+        fontSize: fontSize ?? 22, color: color, fontWeight: FontWeight.w400);
   }
 
   static TextStyle heading4(
@@ -28,7 +28,7 @@ class BaseTextStyle {
   static TextStyle heading5(
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
-        fontSize: fontSize ?? 20, color: color, fontWeight: FontWeight.w400);
+        fontSize: fontSize ?? 18, color: color, fontWeight: FontWeight.w400);
   }
 
   static TextStyle subtitle1(
@@ -47,7 +47,7 @@ class BaseTextStyle {
       {Color? color, double? fontSize, FontWeight? fontWeight}) {
     return TextStyle(
         decoration: TextDecoration.underline,
-        fontSize: fontSize ?? 16,
+        fontSize: fontSize ?? 14,
         color: color,
         fontWeight: FontWeight.w500);
   }
@@ -107,7 +107,8 @@ class BaseColor {
   static const Color green = Color(0xFF00C11F);
   static const Color secondaryGreen = Color(0xFFE9FCEC);
 
-  static const lightTeacherCardColor = Color(0xff127A90);
-  static const lightCardColor = Color.fromARGB(255, 214, 218, 219);
-  static const lightPrimaryColor = Color(0xff1B67D9);
+  static const lTeacherCardColor = Color(0xff127A90);
+  static const lCardColor = Color.fromARGB(255, 214, 218, 219);
+  static const lPrimaryColor = Color(0xff1B67D9);
+  static const lHightLightColor = Color.fromARGB(255, 0, 0, 239);
 }

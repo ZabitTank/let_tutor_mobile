@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.routes,
       theme: lightTheme,
       darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
     );
   }
 }

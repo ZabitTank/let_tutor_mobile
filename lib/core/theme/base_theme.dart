@@ -3,24 +3,22 @@ import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: BaseColor.lightPrimaryColor,
+  primaryColor: BaseColor.lPrimaryColor,
+  highlightColor: BaseColor.red,
   scaffoldBackgroundColor: BaseColor.white,
-  cardColor: BaseColor.lightCardColor,
+  cardColor: BaseColor.lCardColor,
   textTheme: TextTheme(
-    bodySmall: BaseTextStyle.body3(color: Colors.black),
-    bodyMedium: BaseTextStyle.body2(color: Colors.black),
-    bodyLarge: BaseTextStyle.body1(color: Colors.black),
-    headlineLarge: BaseTextStyle.heading1(color: Colors.black),
-    headlineMedium: BaseTextStyle.heading2(color: Colors.black),
-    headlineSmall: BaseTextStyle.heading3(color: Colors.black),
-    labelSmall: BaseTextStyle.caption(
-      fontSize: 12,
-      color: const Color.fromARGB(255, 255, 253, 253),
-    ),
-    labelMedium: BaseTextStyle.caption(
-      fontSize: 16,
-      color: const Color.fromARGB(255, 210, 66, 66),
-    ),
+    bodySmall: BaseTextStyle.body3(color: BaseColor.black),
+    bodyMedium: BaseTextStyle.body2(color: BaseColor.black),
+    bodyLarge: BaseTextStyle.body1(color: BaseColor.black),
+    headlineLarge:
+        BaseTextStyle.heading1(color: const Color.fromARGB(255, 6, 65, 136)),
+    headlineMedium:
+        BaseTextStyle.heading3(color: const Color.fromARGB(255, 16, 112, 181)),
+    headlineSmall:
+        BaseTextStyle.heading4(color: const Color.fromARGB(255, 20, 202, 230)),
+    labelSmall: BaseTextStyle.caption(fontSize: 12, color: BaseColor.red),
+    labelMedium: BaseTextStyle.caption(fontSize: 16, color: BaseColor.red),
   ),
   appBarTheme: AppBarTheme(
       color: Colors.white,
@@ -34,7 +32,7 @@ final ThemeData lightTheme = ThemeData(
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(28),
-        borderSide: const BorderSide(color: BaseColor.lightPrimaryColor),
+        borderSide: const BorderSide(color: BaseColor.lPrimaryColor),
         gapPadding: 10,
       ),
       errorBorder: OutlineInputBorder(
@@ -54,10 +52,10 @@ final ThemeData lightTheme = ThemeData(
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(28),
-        borderSide: const BorderSide(color: BaseColor.lightPrimaryColor),
+        borderSide: const BorderSide(color: BaseColor.lPrimaryColor),
         gapPadding: 10,
       ),
-      focusColor: BaseColor.lightPrimaryColor),
+      focusColor: BaseColor.lPrimaryColor),
 );
 
 final ThemeData darkTheme = ThemeData(

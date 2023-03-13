@@ -22,8 +22,10 @@ class LetTutorAppBar {
     );
   }
 
-  static AppBar mainAppBarWithTitleAndBackButton(
-      {required BuildContext context, required String title}) {
+  static AppBar mainAppBarWithTitleAndBackButton({
+    required BuildContext context,
+    required String title,
+  }) {
     return AppBar(
       centerTitle: true,
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -39,10 +41,15 @@ class LetTutorAppBar {
       actions: [
         Align(
           alignment: Alignment.topCenter,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-          ),
+          child: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.list),
+              onPressed: () {
+                debugPrint("open drawer");
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
         ),
       ],
       title: Text(
