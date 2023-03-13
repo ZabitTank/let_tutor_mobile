@@ -7,7 +7,6 @@ class SchedulesView extends GetView<SchedulesController> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Build");
     return const Center(
       child: Text("Schedule"),
     );

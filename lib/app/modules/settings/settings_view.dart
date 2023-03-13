@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/navigation_drawer.dart';
 import 'package:let_tutor_mobile/app/modules/settings/settings_controller.dart';
+import 'package:let_tutor_mobile/core/extensions/string.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/languages/my_localization.dart';
+import 'package:let_tutor_mobile/core/values/constants.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -19,46 +23,66 @@ class SettingsView extends GetView<SettingsController> {
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: Text(MyLocalization.translate(
-                LocalizationKeys.settingscreen_section_common)),
+            title: Text(LocalizationKeys.settingscreen_section_common.name.tr),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
-                title: Text(MyLocalization.translate(
-                    LocalizationKeys.settingscreen_section_common_language)),
-                value:
-                    Text(MyLocalization.translate(LocalizationKeys.language)),
-                trailing: const Icon(Icons.keyboard_double_arrow_right),
-                onPressed: (context) async {
-                  // String? language =
-                  //     await _showLanguageDialog(globalSettingProvider);
-                  // if (language != null) {
-                  //   await _handleChangeLocalized(
-                  //       globalSettingProvider, language);
-                  //   setState(() {});
-                  // }
-                },
+                title: Text(
+                    LocalizationKeys.settingscreen_section_common_language.tr),
+                value: Text(LocalizationKeys.currentLanguages.tr),
+                trailing: PopupMenuButton<String>(
+                  icon: const Icon(Icons.language),
+                  onSelected: (String result) {
+                    debugPrint(result);
+                    MyLocalization.changeLocale(result);
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: "en",
+                      child: IconWithTitleTile(
+                        icon: Image.asset(
+                          AssetsManager.vnIcon,
+                          height: 20,
+                          width: 20,
+                        ),
+                        title: Text(LocalizationKeys.englishLocales.tr,
+                            style: context.bodySmall),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'vi',
+                      child: IconWithTitleTile(
+                        icon: Image.asset(
+                          AssetsManager.enIcon,
+                          height: 20,
+                          width: 20,
+                        ),
+                        title: Text(LocalizationKeys.vietnamLocales.tr,
+                            style: context.bodySmall),
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: (context) async {},
               ),
               SettingsTile.switchTile(
                 onToggle: (value) async {
-                  // await globalSettingProvider.toggleTheme(value);
-                  // setState(() {});
+                  await controller.appStateController.changeTheme(value);
                 },
-                initialValue: false,
+                initialValue: controller.appStateController.appSettings.isDark,
                 leading: const Icon(Icons.format_paint),
-                title: Text(MyLocalization.translate(
-                    LocalizationKeys.settingscreen_section_common_theme)),
+                title: Text(
+                    LocalizationKeys.settingscreen_section_common_theme.tr),
               ),
             ],
           ),
           SettingsSection(
-            title: Text(MyLocalization.translate(
-                LocalizationKeys.settingscreen_section_gpt)),
+            title: Text(LocalizationKeys.settingscreen_section_gpt.tr),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
-                title: Text(MyLocalization.translate(
-                    LocalizationKeys.settingscreen_section_gpt_key)),
+                title: Text(LocalizationKeys.settingscreen_section_gpt_key.tr),
                 trailing: const Icon(Icons.edit),
                 onPressed: (context) async {
                   // String? initKey = await GlobalSettingProvider.getAPIKey();
@@ -79,10 +103,10 @@ class SettingsView extends GetView<SettingsController> {
               // ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.history),
-                title: Text(MyLocalization.translate(
-                    LocalizationKeys.settingscreen_section_chatlog)),
-                value: Text(MyLocalization.translate(
-                    LocalizationKeys.settingscreen_section_gpt_delete)),
+                title: Text(LocalizationKeys.settingscreen_section_chatlog.tr),
+                value: Text(
+                  (LocalizationKeys.settingscreen_section_gpt_delete.tr),
+                ),
                 trailing: const Icon(Icons.delete),
                 onPressed: (context) async {
                   // bool? confirm = await showYesNoDialog(

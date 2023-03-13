@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:let_tutor_mobile/core/values/enum.dart';
+
 final regExpPhoneNumber = RegExp(r"^(?:\+88||01)?(?:\d{10}|\d{13})$");
 
 final regExpEmail = RegExp(
@@ -16,5 +19,11 @@ extension StringValidation on String {
 
   bool get isEmail {
     return regExpEmail.hasMatch(this);
+  }
+}
+
+extension LocalLizaTionTr on LocalizationKeys {
+  String get tr {
+    return name.tr;
   }
 }

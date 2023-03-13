@@ -10,7 +10,10 @@ enum TokenType {
 
 // screen - content1 - object
 enum LocalizationKeys {
-  language,
+  currentLanguages,
+  englishLocales,
+  vietnamLocales,
+
   login1TitleText,
   login1SubTitleText,
   login2UserUserNameText,
@@ -40,9 +43,9 @@ enum LocalizationKeys {
 @HiveType(typeId: 0)
 enum LocalizationCode {
   @HiveField(0)
-  vietnam("vi-VN"),
+  vietnam("vi"),
   @HiveField(1)
-  english("en-US");
+  english("en");
 
   final String codename;
 

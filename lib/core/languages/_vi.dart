@@ -1,7 +1,9 @@
 import 'package:let_tutor_mobile/core/values/enum.dart';
 
 const Map<LocalizationKeys, String> vi = {
-  LocalizationKeys.language: "Tiếng việt",
+  LocalizationKeys.currentLanguages: "Tiếng Việt",
+  LocalizationKeys.vietnamLocales: "Tiếng Việt",
+  LocalizationKeys.englishLocales: "Tiếng Anh",
   // LOGIN SCREEN
   LocalizationKeys.login1TitleText: "Đăng nhập",
   LocalizationKeys.login1SubTitleText:

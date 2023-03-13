@@ -158,16 +158,3 @@ class LoginView extends GetView<LoginController> {
         ));
   }
 }
-
-final List<Map<String, String>> iconButtonLocalize = [
-  {
-    'Localize': 'Tiếng Việt',
-    'image': 'assets/icons/lettutor_icon.png',
-  },
-  {'Localize': 'Tiếng Việt', 'image': 'assets/icons/lettutor_icon.png'}
-];
-
-const List<String> dropdownListString = [
-  "Tiếng Việt",
-  "Tiếng Anh",
-];

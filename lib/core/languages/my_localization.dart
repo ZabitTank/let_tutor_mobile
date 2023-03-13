@@ -1,21 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/core/languages/_en.dart';
 import 'package:let_tutor_mobile/core/languages/_vi.dart';
-import 'package:let_tutor_mobile/core/values/enum.dart';
 
-class MyLocalization {
-  static LocalizationCode defaultLanguage = LocalizationCode.english;
+class MyLocalization extends Translations {
+  // locale sẽ được get mỗi khi mới mở app (có thể cache lại locale mà người dùng đã setting và set nó ở đây)
+  static final locale = _getLocaleFromLanguage();
 
-  static const Map<LocalizationCode, Map<LocalizationKeys, String>>
-      _localizedValues = {
-    LocalizationCode.english: en,
-    LocalizationCode.vietnam: vi,
-  };
+  static const fallbackLocale = Locale('en', 'US');
 
-  static set language(LocalizationCode? lang) {
-    defaultLanguage = lang ?? LocalizationCode.english;
+  static void changeLocale(String langCode) {
+    final locale = _getLocaleFromLanguage(langCode: langCode);
+    Get.updateLocale(locale ?? fallbackLocale);
   }
 
-  static String translate(LocalizationKeys key) {
-    return _localizedValues[defaultLanguage]?[key] ?? "undefined";
+  static Locale? _getLocaleFromLanguage({String? langCode}) {
+    var lang = langCode;
+    for (int i = 0; i < supportedlangCodes.length; i++) {
+      if (lang == supportedlangCodes[i]) return locales[i];
+    }
+    return Get.locale;
   }
+
+  // support langsCode
+  static const supportedlangCodes = [
+    'en',
+    'vi',
+  ];
+
+  // support locales
+  static const locales = [
+    Locale('en', 'US'),
+    Locale('vi', 'VN'),
+  ];
+
+  @override
+  Map<String, Map<String, String>> get keys => {
+        'en_US': en.map((key, value) => MapEntry(key.name, value)),
+        'vi_VN': vi.map((key, value) => MapEntry(key.name, value)),
+      };
 }

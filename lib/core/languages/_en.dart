@@ -1,8 +1,11 @@
 import 'package:let_tutor_mobile/core/values/enum.dart';
 
 const Map<LocalizationKeys, String> en = {
+  LocalizationKeys.currentLanguages: "English",
+  LocalizationKeys.vietnamLocales: "Vietnamse",
+  LocalizationKeys.englishLocales: "English",
+
   // LOGIN SCREEN
-  LocalizationKeys.language: "English",
   LocalizationKeys.login1TitleText: "Say hello to your English tutors",
   LocalizationKeys.login1SubTitleText:
       "Become fluent faster through one on one video chat lessons tailored to your goals.",
