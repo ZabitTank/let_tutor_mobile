@@ -16,8 +16,11 @@ class AppStateController extends GetxController {
     database = await Hive.openBox<GlobalSetting>("settings");
 
     appSettings = database.get("setting") ?? GlobalSetting();
-
     await _setLocalization(appSettings.localizationCode);
+
+    Get.changeThemeMode(
+      appSettings.isDark ? ThemeMode.dark : ThemeMode.light,
+    );
   }
 
   Future<void> changeTheme(bool isDark) async {
@@ -38,8 +41,6 @@ class AppStateController extends GetxController {
     await _setLocalization(localization);
 
     await database.put("setting", appSettings);
-
-    update();
     await EasyLoading.dismiss();
   }
 

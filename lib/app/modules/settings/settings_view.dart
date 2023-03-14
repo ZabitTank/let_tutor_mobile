@@ -42,7 +42,7 @@ class SettingsView extends GetView<SettingsController> {
                       value: "en",
                       child: IconWithTitleTile(
                         icon: Image.asset(
-                          AssetsManager.vnIcon,
+                          AssetsManager.enIcon,
                           height: 20,
                           width: 20,
                         ),
@@ -54,7 +54,7 @@ class SettingsView extends GetView<SettingsController> {
                       value: 'vi',
                       child: IconWithTitleTile(
                         icon: Image.asset(
-                          AssetsManager.enIcon,
+                          AssetsManager.vnIcon,
                           height: 20,
                           width: 20,
                         ),

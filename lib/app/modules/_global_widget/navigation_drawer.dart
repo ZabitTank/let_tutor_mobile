@@ -66,7 +66,7 @@ class NavigationDrawer extends StatelessWidget {
             text: "Chat",
             icon: Icons.chat,
             textIconColor: Theme.of(context).primaryColor,
-            tileColor: currentPage == Routes.home && currentIndex == 4
+            tileColor: currentPage == Routes.home && currentIndex == 3
                 ? hightlightColor
                 : primaryColor,
             onTap: () {

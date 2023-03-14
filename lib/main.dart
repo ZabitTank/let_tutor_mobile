@@ -13,6 +13,7 @@ import 'package:let_tutor_mobile/routes/app_pages.dart';
 import 'app/data/models/database/global_setting_hive.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await _setup();
   runApp(const MyApp());
 }
@@ -64,6 +65,4 @@ Future<void> _setup() async {
   AppStateController appStateController =
       Get.put(AppStateController(), permanent: true);
   await appStateController.initialize();
-
-  WidgetsFlutterBinding.ensureInitialized();
 }
