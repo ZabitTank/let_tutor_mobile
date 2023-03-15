@@ -20,6 +20,7 @@ dependencies:
   ## feature
   dio: ^5.1.1
   flutter_secure_storage: ^8.0.0
+  intl: ^0.17.0
 
   ## UI
   multiselect: ^0.1.0

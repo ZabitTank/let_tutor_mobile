@@ -18,6 +18,27 @@ const Map<LocalizationKeys, String> en = {
   LocalizationKeys.login3OtherSignupHightLightText: "Sign Up",
   LocalizationKeys.login3OtherSignupText: "Not a member yet?",
 
+  // TUTOR SCREEN
+  LocalizationKeys.tutorscreen_incoming_course_textfield: "Upcoming lesson",
+  LocalizationKeys.tutorscreen_start_course_section: "Enter lesson room",
+  LocalizationKeys.tutorscreen_total_hours_leared_textfield:
+      "Total lesson time is",
+  LocalizationKeys.tutorscreen_find_tutors_textfield: "Find a tutor",
+  LocalizationKeys.tutorscreen_find_tutors_filter_name_hint:
+      "Enter tutor name...",
+  LocalizationKeys.tutorscreen_find_tutors_filter_nation_hint:
+      "Select tutor nationality",
+
+  LocalizationKeys.tutorscreen_find_datime_section_textfield:
+      "Select available tutoring time:",
+  LocalizationKeys.tutorscreen_find_date__textfield: "Select a day",
+  LocalizationKeys.tutorscreen_find_time_start_filter_hint: "Start time",
+  LocalizationKeys.tutorscreen_find_time_end_filter_hint: "End time",
+  LocalizationKeys.tutorscreen_reset_filter_textfield: "Reset Filters",
+  LocalizationKeys.tutorscreen_recommended_tutor_textfield:
+      "Recommended Tutors",
+  LocalizationKeys.tutorscreen_booked_button: "Book",
+
   //SETTING SCREEN
   LocalizationKeys.settingscreen_appbar: "Setting",
   LocalizationKeys.settingscreen_section_common: "Common",

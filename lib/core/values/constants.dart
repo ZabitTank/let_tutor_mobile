@@ -15,6 +15,26 @@ class AssetsManager {
   static const String openAILogo = "$imagePath/openai_logo.jpg";
 }
 
+const List<String> specifiers = [
+  "All",
+  "english-for-kids",
+  "business-english",
+  "conversational-english",
+  "starters",
+  "movers",
+  "flyers",
+  "ket",
+  "pet",
+  "ielts",
+  "toefl",
+  "toeic"
+];
+
+const Map<String, List<String>> tutorsNationFilter = {
+  "en": <String>["Foreign Tutor", "Vietnamese Tutor", "Native English Tutor"],
+  "vi": <String>["Gia sư nước ngoài", "Gia sư Việt Nam", "Gia sư bản sứ"],
+};
+
 class CommonString {
   const CommonString();
   static const String errorContactowner =

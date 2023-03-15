@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Helper {
   static double getSize(BuildContext context, double percent,
@@ -7,5 +8,31 @@ class Helper {
         ? MediaQuery.of(context).size.height
         : MediaQuery.of(context).size.width;
     return size * percent / 100.0;
+  }
+
+  static const _utcPlus7 = Duration(hours: 7);
+  static final formatter = DateFormat('MM-dd-yyyy HH:mm');
+  static final dmyhmFormatter = DateFormat('dd/MM/yyyy HH:mm');
+  static final dmyFormatter = DateFormat('dd/MM/yyyy');
+  static final hsFormatter = DateFormat("HH:mm");
+
+  static String get currentDateTime {
+    final DateTime now = DateTime.now().toLocal();
+    return formatter.format(now);
+  }
+
+  static String dateTimeFullTime(DateTime? time) {
+    // return time == null ? "" : dmyhmFormatter.format(time.toLocal());
+    return time == null ? "" : dmyhmFormatter.format(time.add(_utcPlus7));
+  }
+
+  static String dateTimeToDate(DateTime? time) {
+    // return time == null ? "" : dmyFormatter.format(time.toLocal());
+    return time == null ? "" : dmyFormatter.format(time.add(_utcPlus7));
+  }
+
+  static String dateTimeToTime(DateTime? time) {
+    // return time == null ? "" : hsFormatter.format(time.toLocal());
+    return time == null ? "" : hsFormatter.format(time.add(_utcPlus7));
   }
 }

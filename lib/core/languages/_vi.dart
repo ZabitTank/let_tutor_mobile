@@ -17,6 +17,27 @@ const Map<LocalizationKeys, String> vi = {
   LocalizationKeys.login3OtherSignupHightLightText: "Đăng ký",
   LocalizationKeys.login3OtherSignupText: "Hoặc tiếp tục với?",
 
+  // tutors screen
+  LocalizationKeys.tutorscreen_incoming_course_textfield: "Buổi học sắp tới",
+  LocalizationKeys.tutorscreen_start_course_section: "Vào phòng học",
+  LocalizationKeys.tutorscreen_total_hours_leared_textfield:
+      "Tổng thời gian học là",
+  LocalizationKeys.tutorscreen_find_tutors_textfield: "Tìm gia sư",
+  LocalizationKeys.tutorscreen_find_tutors_filter_name_hint:
+      "Nhập tên gia sư...",
+  LocalizationKeys.tutorscreen_find_tutors_filter_nation_hint:
+      "Chọn quốc tịch gia sư",
+
+  LocalizationKeys.tutorscreen_find_datime_section_textfield:
+      "Chọn thời gian dạy kèm có lịch trống:",
+  LocalizationKeys.tutorscreen_find_date__textfield: "Chọn ngày",
+  LocalizationKeys.tutorscreen_find_time_start_filter_hint: "Giờ bắt đầu",
+  LocalizationKeys.tutorscreen_find_time_end_filter_hint: "Giờ kết thúc",
+  LocalizationKeys.tutorscreen_reset_filter_textfield: "Đặt lại bộ lọc",
+  LocalizationKeys.tutorscreen_recommended_tutor_textfield:
+      "Gia sư được đề xuất",
+  LocalizationKeys.tutorscreen_booked_button: "Đặt lịch",
+
   // SETTING SCREEN
   LocalizationKeys.settingscreen_appbar: "Cài đặt",
   LocalizationKeys.settingscreen_section_common: "Chung",

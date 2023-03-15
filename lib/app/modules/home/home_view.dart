@@ -9,6 +9,7 @@ import 'package:let_tutor_mobile/app/modules/courses_list/courses_view.dart';
 import 'package:let_tutor_mobile/app/modules/home/home_controller.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/schedules_view.dart';
 import 'package:let_tutor_mobile/app/modules/tutors/tutors_view.dart';
+import 'package:let_tutor_mobile/app/modules/tutors/widgets/filter_drawer.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
+      endDrawer: const FilterDrawer(),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           onTap: controller.changeTabIndex,

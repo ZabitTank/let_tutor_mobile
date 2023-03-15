@@ -26,6 +26,27 @@ enum LocalizationKeys {
 
   login3OtherSignupHightLightText,
 
+  //tutors screen
+  tutorscreen_incoming_course_textfield,
+  tutorscreen_start_course_section,
+  tutorscreen_total_hours_leared_textfield,
+
+  tutorscreen_find_tutors_textfield,
+  tutorscreen_find_tutors_filter_name_hint,
+  tutorscreen_find_tutors_filter_nation_hint,
+
+  tutorscreen_find_datime_section_textfield,
+  tutorscreen_find_date__textfield,
+  tutorscreen_find_time_start_filter_hint,
+  tutorscreen_find_time_end_filter_hint,
+
+  tutorscreen_reset_filter_textfield,
+
+  tutorscreen_recommended_tutor_textfield,
+
+  tutorscreen_booked_button,
+
+  // seting screen
   settingscreen_appbar,
   settingscreen_section_common,
   settingscreen_section_common_language,

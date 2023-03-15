@@ -34,9 +34,12 @@ class MyLocalization extends Translations {
     Locale('vi', 'VN'),
   ];
 
+  static final enMap = en.map((key, value) => MapEntry(key.name, value));
+  static final viMap = vi.map((key, value) => MapEntry(key.name, value));
+
   @override
   Map<String, Map<String, String>> get keys => {
-        'en_US': en.map((key, value) => MapEntry(key.name, value)),
-        'vi_VN': vi.map((key, value) => MapEntry(key.name, value)),
+        'en_US': enMap,
+        'vi_VN': viMap,
       };
 }
