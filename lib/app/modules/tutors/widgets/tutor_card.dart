@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
+import 'package:let_tutor_mobile/routes/app_routes.dart';
 
 class TutorCard extends StatelessWidget {
   const TutorCard({
@@ -13,7 +15,9 @@ class TutorCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(Routes.teacherDetail);
+        },
         child: Card(
           elevation: 5,
           child: Padding(
@@ -45,14 +49,13 @@ class TutorCard extends StatelessWidget {
                                 ],
                               ),
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.favorite, color: Colors.red),
                                   sw_10,
                                   Text("2"),
                                   Icon(
                                     Icons.star_outlined,
-                                    color:
-                                        const Color.fromARGB(255, 255, 183, 0),
+                                    color: Color.fromARGB(255, 255, 183, 0),
                                     size: 16,
                                   )
                                 ],
@@ -71,7 +74,9 @@ class TutorCard extends StatelessWidget {
                                   child: Center(
                                       child: Container(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
+                                      vertical: 5,
+                                      horizontal: 10,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 140, 157, 172),

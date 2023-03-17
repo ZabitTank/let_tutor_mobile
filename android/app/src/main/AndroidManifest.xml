@@ -17,7 +17,7 @@
 
 
    <application
-        android:label="let_tutor_mobile"
+        android:label="Lettutor"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class DropdownSortFilter extends StatefulWidget {
   const DropdownSortFilter(

@@ -145,7 +145,7 @@ class SecheduleCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          Divider(
+                          const Divider(
                             height: 3,
                           ),
                           Text(

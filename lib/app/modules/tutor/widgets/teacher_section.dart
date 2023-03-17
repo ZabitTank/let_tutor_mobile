@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:let_tutor_mobile/app/data/models/teacher.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/tutor/tutor_controller.dart';
+import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class TeacherSection extends StatefulWidget {
   const TeacherSection(
@@ -41,7 +43,9 @@ class _TeacherSectionState extends State<TeacherSection> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -50,38 +54,36 @@ class _TeacherSectionState extends State<TeacherSection> {
               radius: 45,
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.teacher.user?.name ?? "",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                const SizedBox(height: 5),
-                Text("English Teacher"),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    SvgPicture.network(
-                      json["flag"] ?? "https://flagcdn.com/vn.svg",
-                      height: 15,
-                      width: 30,
-                    ),
-                    const SizedBox(width: 10),
-                    SizedBox(
-                      width: 200,
-                      child: Text(
-                        "${json["name"] ?? "none"}",
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.teacher.user?.name ?? "",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  const SizedBox(height: 5),
+                  Text("English Teacher"),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      SvgPicture.network(
+                        json["flag"] ?? "https://flagcdn.com/vn.svg",
+                        height: 15,
+                        width: 30,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "${json["name"] ?? "Dong Lao"}",
                         style: const TextStyle(fontSize: 16),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: List.generate(
                 5,
                 (index) => Container(
@@ -100,24 +102,43 @@ class _TeacherSectionState extends State<TeacherSection> {
             ),
           ],
         ),
+        sh_20,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
               children: [
-                Icon(Icons.favorite),
-                Text("Favorite"),
+                Icon(
+                  Icons.favorite,
+                  color: themeData.highlightColor,
+                ),
+                Text(
+                  "Favorite",
+                  style: BaseTextStyle.label2(color: themeData.highlightColor),
+                ),
               ],
             ),
             Column(
               children: [
-                Icon(Icons.warning),
-                Text("Report"),
+                Icon(
+                  Icons.warning,
+                  color: themeData.primaryColor,
+                ),
+                Text(
+                  "Report",
+                  style: BaseTextStyle.label2(color: themeData.primaryColor),
+                ),
               ],
             ),
           ],
         ),
-        Text(widget.teacher.bio ?? "")
+        sh_20,
+        Text(widget.teacher.bio ?? ""),
+        sh_20,
+        Text(
+          "Languages",
+          style: themeData.textTheme.headlineSmall,
+        ),
       ],
     );
   }

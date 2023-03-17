@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/schedules_controller.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/widgets/schedule_card.dart';
-import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
-import 'package:let_tutor_mobile/core/values/enum.dart';
 
 class SchedulesView extends GetView<SchedulesController> {
   const SchedulesView({super.key});
@@ -23,7 +21,7 @@ class SchedulesView extends GetView<SchedulesController> {
         children: [
           Text(
             "Schedule",
-            style: BaseTextStyle.heading2(),
+            style: themeData.textTheme.headlineMedium,
           ),
           Text(
             maxLines: 4,
@@ -32,20 +30,6 @@ class SchedulesView extends GetView<SchedulesController> {
           ),
         ],
       ),
-    );
-
-    var filterSection = Row(
-      children: [
-        Text(
-          LocalizationKeys.tutorscreen_recommended_tutor_textfield.tr,
-          style: themeData.textTheme.headlineMedium,
-        ),
-        IconButton(
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
-            icon: const Icon(Icons.filter_alt_sharp))
-      ],
     );
 
     return SafeArea(
@@ -58,7 +42,6 @@ class SchedulesView extends GetView<SchedulesController> {
             children: [
               tutorsViewIntro,
               sh_20,
-              filterSection,
               2 != 0
                   ? Column(
                       children: List.generate(
