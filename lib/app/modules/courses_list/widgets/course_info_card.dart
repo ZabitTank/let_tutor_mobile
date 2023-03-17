@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({
     super.key,
-    required this.sh_10,
-    required this.sh_20,
   });
-
-  final SizedBox sh_10;
-  final SizedBox sh_20;
 
   @override
   Widget build(BuildContext context) {

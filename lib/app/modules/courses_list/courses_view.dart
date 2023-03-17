@@ -121,13 +121,13 @@ class CoursesView extends GetView<CoursesController> {
                     sh_20,
                     Column(
                       children: const [
-                        CourseCard(sh_10: sh_10, sh_20: sh_20),
+                        CourseCard(),
                         sh_10,
-                        CourseCard(sh_10: sh_10, sh_20: sh_20),
+                        CourseCard(),
                         sh_10,
-                        CourseCard(sh_10: sh_10, sh_20: sh_20),
+                        CourseCard(),
                         sh_10,
-                        CourseCard(sh_10: sh_10, sh_20: sh_20),
+                        CourseCard(),
                       ],
                     ),
                     sh_10,

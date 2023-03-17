@@ -14,6 +14,54 @@ class TutorsView extends GetView<TutorsController> {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
+
+    var tutorsViewIntro = Container(
+      decoration: BoxDecoration(
+        color: themeData.primaryColor,
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Text(
+              "Incoming Course",
+              style: BaseTextStyle.heading2(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Wed, 17 May 23 12:30 - 12:55",
+                  style: BaseTextStyle.body2(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.start),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            Text(
+              LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr,
+              style: BaseTextStyle.body1(),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    var filterSection = Row(
+      children: [
+        Text(
+          LocalizationKeys.tutorscreen_recommended_tutor_textfield.tr,
+          style: themeData.textTheme.headlineMedium,
+        ),
+        IconButton(
+            onPressed: () {
+              Scaffold.of(context).openEndDrawer();
+            },
+            icon: const Icon(Icons.filter_alt_sharp))
+      ],
+    );
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -22,53 +70,9 @@ class TutorsView extends GetView<TutorsController> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: themeData.primaryColor,
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Incoming Course",
-                        style: BaseTextStyle.heading2(),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Wed, 17 May 23 12:30 - 12:55",
-                            style: BaseTextStyle.body2(),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.start),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      Text(
-                        LocalizationKeys
-                            .tutorscreen_total_hours_leared_textfield.tr,
-                        style: BaseTextStyle.body1(),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              tutorsViewIntro,
               sh_20,
-              Row(
-                children: [
-                  Text(
-                    LocalizationKeys.tutorscreen_recommended_tutor_textfield.tr,
-                    style: themeData.textTheme.headlineMedium,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: const Icon(Icons.filter_alt_sharp))
-                ],
-              ),
+              filterSection,
               2 != 0
                   ? Column(
                       children: List.generate(
@@ -84,7 +88,7 @@ class TutorsView extends GetView<TutorsController> {
                       height: 500,
                       child: Center(
                           child: Icon(
-                        Icons.find_replace_outlined,
+                        Icons.replay_outlined,
                         size: 50,
                       )),
                     )

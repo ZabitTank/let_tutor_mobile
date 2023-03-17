@@ -6,7 +6,7 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: BaseColor.blue,
   highlightColor: BaseColor.red,
   scaffoldBackgroundColor: BaseColor.white,
-  cardColor: BaseColor.lCardColor,
+  cardColor: const Color.fromARGB(255, 254, 254, 254),
   textTheme: TextTheme(
     headlineLarge:
         BaseTextStyle.heading1(color: const Color.fromARGB(255, 6, 65, 136)),
