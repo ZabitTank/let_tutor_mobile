@@ -24,63 +24,65 @@ class CourseDetail extends GetView<CourseDetailController> {
         onPressed: () {},
         child: const Icon(Icons.chat_bubble_outline_rounded),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(18),
-          child: Column(
-            children: [
-              const CourseCardExplore(),
-              addVerticalSpace(20),
-              const CourseDescriptionHeader(description: "Overview"),
-              const CourseAttribute(
-                title: "Why take this course",
-                description: lorem,
-                icon: questionMaskIcon,
-              ),
-              addVerticalSpace(20),
-              const CourseDescriptionHeader(description: "Experience Level"),
-              const CourseAttribute(
-                title: "Beginner",
-                description: "This course for noob",
-                icon: peopleIcon,
-              ),
-              addVerticalSpace(20),
-              const CourseDescriptionHeader(description: "Course Length"),
-              const CourseAttribute(
-                title: "6 Topic",
-                description: "Sleep now",
-                icon: docIcon,
-              ),
-              addVerticalSpace(20),
-              const CourseDescriptionHeader(description: "List Topics"),
-              addVerticalSpace(10),
-              ...topics
-                  .asMap()
-                  .entries
-                  .map((entry) => Card(
-                        elevation: 2,
-                        child: Container(
-                          height: 100,
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${entry.key}.",
-                                style: context.bodyMedium,
-                              ),
-                              Text(
-                                "${entry.value}.",
-                                style: context.bodyMedium,
-                              ),
-                            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              children: [
+                const CourseCardExplore(),
+                addVerticalSpace(20),
+                const CourseDescriptionHeader(description: "Overview"),
+                const CourseAttribute(
+                  title: "Why take this course",
+                  description: lorem,
+                  icon: questionMaskIcon,
+                ),
+                addVerticalSpace(20),
+                const CourseDescriptionHeader(description: "Experience Level"),
+                const CourseAttribute(
+                  title: "Beginner",
+                  description: "This course for noob",
+                  icon: peopleIcon,
+                ),
+                addVerticalSpace(20),
+                const CourseDescriptionHeader(description: "Course Length"),
+                const CourseAttribute(
+                  title: "6 Topic",
+                  description: "Sleep now",
+                  icon: docIcon,
+                ),
+                addVerticalSpace(20),
+                const CourseDescriptionHeader(description: "List Topics"),
+                addVerticalSpace(10),
+                ...topics
+                    .asMap()
+                    .entries
+                    .map((entry) => Card(
+                          elevation: 2,
+                          child: Container(
+                            height: 100,
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${entry.key}.",
+                                  style: context.bodyMedium,
+                                ),
+                                Text(
+                                  "${entry.value}.",
+                                  style: context.bodyMedium,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ))
-                  .toList()
-            ],
+                        ))
+                    .toList()
+              ],
+            ),
           ),
         ),
       ),

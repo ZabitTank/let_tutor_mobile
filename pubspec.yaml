@@ -49,6 +49,10 @@ dependencies:
   flutter_tts: ^3.6.3
   speech_to_text: ^6.1.1
   flutter_easyloading: ^3.0.5
+  flick_video_player: ^0.5.0
+  video_player: ^2.6.1
+  flutter_svg: ^2.0.5
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
