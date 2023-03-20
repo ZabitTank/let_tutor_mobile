@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:let_tutor_mobile/app/data/models/teacher.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/model/small.dart';
 
 class TutorController extends GetxController {
-  late TeacherInfo teacherInfo;
+  late TutorInfo teacherInfo;
 
   @override
   void onInit() {
     super.onInit();
-    teacherInfo = TeacherInfo.teacherInfo;
+    teacherInfo = TutorInfo.test;
   }
 }

@@ -13,7 +13,7 @@ class IBussinessException implements Exception {
 
   @override
   String toString() {
-    debugPrint('Frontend-API-Failed/$context/$debugMessage');
+    debugPrint('Frontend/$context/$debugMessage');
     return message;
   }
 }
@@ -25,4 +25,12 @@ class AccountNotActiveException extends IBussinessException {
             message: message,
             debugMessage: "This $accountId not active",
             context: context);
+}
+
+class UnauthorizeException extends IBussinessException {
+  const UnauthorizeException(
+      {String message = "Permission Deny!",
+      String? context,
+      String? debugMessage})
+      : super(message: message, debugMessage: debugMessage, context: context);
 }

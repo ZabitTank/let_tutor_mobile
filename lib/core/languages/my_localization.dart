@@ -27,7 +27,6 @@ class MyLocalization extends Translations {
     'en',
     'vi',
   ];
-
   // support locales
   static const locales = [
     Locale('en', 'US'),

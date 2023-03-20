@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:let_tutor_mobile/app/data/models/database/chat_history_hive.dart';
-import 'package:let_tutor_mobile/app/data/models/database/chat_model.dart';
+import 'package:let_tutor_mobile/app/data/models/databases/chat_history_hive.dart';
+import 'package:let_tutor_mobile/app/data/models/databases/global_setting_hive.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 import 'package:let_tutor_mobile/core/languages/my_localization.dart';
 import 'package:let_tutor_mobile/core/theme/base_theme.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
 import 'package:let_tutor_mobile/routes/app_pages.dart';
-
-import 'app/data/models/database/global_setting_hive.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

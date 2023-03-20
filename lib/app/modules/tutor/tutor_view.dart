@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:let_tutor_mobile/app/data/models/teacher.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/navigation_drawer.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';

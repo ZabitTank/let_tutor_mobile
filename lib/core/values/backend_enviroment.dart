@@ -10,11 +10,3 @@ class BackendEnviroment {
     }());
   }
 }
-
-class LettutorAPIPath {
-  const LettutorAPIPath();
-  static const String openAiHost = "https://api.openai.com/v1";
-
-  static const String getModel = "/models";
-  static const String getMessage = "/chat/completions";
-}

@@ -36,3 +36,11 @@ class PasrseException extends UnexpectedException {
     String? debugMessage = "Error occur when mapping response body to object",
   }) : super(debugMessage: debugMessage, context: "frontend/service");
 }
+
+class BackendException extends UnexpectedException {
+  const BackendException(
+      {String? debugMessage =
+          "Error occur when mapping response body to object",
+      required String endpoint})
+      : super(debugMessage: debugMessage, context: "Backend/$endpoint");
+}

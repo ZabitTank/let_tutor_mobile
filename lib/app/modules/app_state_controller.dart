@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:let_tutor_mobile/app/data/models/database/global_setting_hive.dart';
-import 'package:let_tutor_mobile/app/data/services/chat_gpt_service/tts_service.dart';
+import 'package:let_tutor_mobile/app/data/models/databases/global_setting_hive.dart';
+import 'package:let_tutor_mobile/app/data/services/voice_gpt/tts_service.dart';
 import 'package:let_tutor_mobile/core/languages/my_localization.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
 
@@ -16,7 +16,7 @@ class AppStateController extends GetxController {
     database = await Hive.openBox<GlobalSetting>("settings");
 
     appSettings = database.get("setting") ?? GlobalSetting();
-    await _setLocalization(appSettings.localizationCode);
+    await _setLocalization(appSettings.localization);
 
     Get.changeThemeMode(
       appSettings.isDark ? ThemeMode.dark : ThemeMode.light,
@@ -54,8 +54,8 @@ class AppStateController extends GetxController {
   }
 
   Future<void> _setLocalization(LocalizationCode localization) async {
-    appSettings.localizationCode = localization;
+    appSettings.localization = localization;
     MyLocalization.changeLocale(localization.codename);
-    await TTSService.changeLocalization(appSettings.localizationCode);
+    TTSService.changeLocalization();
   }
 }
