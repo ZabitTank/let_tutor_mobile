@@ -10,7 +10,7 @@ TutorInfo _$TutorInfoFromJson(Map<String, dynamic> json) => TutorInfo(
       userId: json['userId'] as String?,
       User: json['User'] == null
           ? null
-          : UserInfo.fromJson(json['User'] as Map<String, dynamic>),
+          : MyUserInfo.fromJson(json['User'] as Map<String, dynamic>),
       id: json['id'] as String?,
       video: json['video'] as String?,
       bio: json['bio'] as String?,

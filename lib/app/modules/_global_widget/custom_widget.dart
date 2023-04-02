@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CustomWidgets {
   static Widget buttonRectWithIcon(title, color, icon, {Function? onTap}) {
@@ -100,6 +102,82 @@ class ChipInfo extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(info, style: themeData.textTheme.bodyMedium),
+    );
+  }
+}
+
+Widget titleAndText(
+    {required String title,
+    required String hint,
+    required TextTheme textTheme,
+    TextEditingController? controller,
+    bool? enable,
+    String? Function(String?)? validator}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: BaseTextStyle.heading1(fontSize: 14),
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      TextFormField(
+        controller: controller,
+        validator: (value) => validator != null ? validator(value) : null,
+        onSaved: (value) {},
+        inputFormatters: const [],
+        enabled: enable ?? true,
+        decoration: InputDecoration(hintText: hint),
+      ),
+    ],
+  );
+}
+
+class SingleChoiceTextField extends StatefulWidget {
+  const SingleChoiceTextField(
+      {super.key,
+      required this.selectedOption,
+      required this.options,
+      required this.title});
+  final RxString selectedOption;
+  final String title;
+  final List<String> options;
+
+  @override
+  SingleChoiceTextFieldState createState() => SingleChoiceTextFieldState();
+}
+
+class SingleChoiceTextFieldState extends State<SingleChoiceTextField> {
+  String? _selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.title),
+        DropdownButtonFormField<String>(
+          value: _selectedOption,
+          onChanged: (value) {
+            setState(() {
+              _selectedOption = value;
+              widget.selectedOption.value = value!;
+            });
+          },
+          items: widget.options.map((option) {
+            return DropdownMenuItem<String>(
+              value: option,
+              child: Text(option),
+            );
+          }).toList(),
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            isDense: true,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ValidInputField extends StatefulWidget {
+class ValidInputField extends StatelessWidget {
   const ValidInputField(
       {super.key,
       required this.validator,
@@ -16,20 +16,14 @@ class ValidInputField extends StatefulWidget {
   final String? Function(String value) validator;
 
   @override
-  State<ValidInputField> createState() => _ValidInputFieldState();
-}
-
-class _ValidInputFieldState extends State<ValidInputField> {
-  String error = '';
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: widget.textInputType ?? TextInputType.text,
-      obscureText: widget.isHide ?? false,
-      controller: widget.controller,
-      validator: (value) => widget.validator.call(value!),
+      keyboardType: textInputType ?? TextInputType.text,
+      obscureText: isHide ?? false,
+      controller: controller,
+      validator: (value) => validator.call(value!),
       onSaved: (value) {},
-      decoration: widget.inputDecoration,
+      decoration: inputDecoration,
     );
   }
 }

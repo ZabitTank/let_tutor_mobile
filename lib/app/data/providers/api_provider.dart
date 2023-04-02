@@ -27,28 +27,31 @@ class RestAPIProvider {
     required HttpMethod method,
     var body,
     bool useToken = false,
+    bool useTokenId = false,
     Map<String, dynamic>? query,
   }) async {
     try {
-      Response response =
-          await _handleCallRequest(method, endpoint, body, query, useToken);
+      Response response = await _handleCallRequest(
+          method, endpoint, body, query, useToken, useTokenId);
 
       return await _handleProcessResponse(
           response, method, endpoint, body, query,
-          autoRecall: true);
+          isUseTokenId: useTokenId, autoRecall: true);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Response> _handleCallRequest(HttpMethod method, String endpoint,
-      var body, Map<String, dynamic>? query, bool useToken,
-      {bool useRefreshToken = false}) async {
-    final requestBody = json.encode(body);
-
+  Future<Response> _handleCallRequest(
+      HttpMethod method,
+      String endpoint,
+      var body,
+      Map<String, dynamic>? query,
+      bool useToken,
+      bool useIdToken) async {
+    var requestBody = body == null ? body : json.encode(body);
     final option = Options(
-      headers: await _buildHeader(
-          useToken: useToken, useRefereshToken: useRefreshToken),
+      headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
     );
 
     try {
@@ -56,7 +59,7 @@ class RestAPIProvider {
         case HttpMethod.GET:
           return await client.get(
             endpoint,
-            data: requestBody,
+            data: null,
             queryParameters: query,
             options: option,
           );
@@ -79,7 +82,7 @@ class RestAPIProvider {
     } catch (e) {
       return Future.error(
         UnexpectedException(
-          context: method.name,
+          context: "BaseRequest/${method.name}",
           debugMessage: e.toString(),
         ),
       );
@@ -92,6 +95,7 @@ class RestAPIProvider {
     String endpoint,
     body,
     Map<String, dynamic>? query, {
+    required bool isUseTokenId,
     bool autoRecall = false,
   }) async {
     // Unauthorize -> refreshToken
@@ -99,11 +103,11 @@ class RestAPIProvider {
       if (autoRecall) {
         refreshToken();
 
-        Response response =
-            await _handleCallRequest(method, endpoint, body, query, true);
+        Response response = await _handleCallRequest(
+            method, endpoint, body, query, true, isUseTokenId);
         return await _handleProcessResponse(
             response, method, endpoint, body, query,
-            autoRecall: false);
+            isUseTokenId: true, autoRecall: false);
       } else {
         Future.error(
           UnauthorizeException(
@@ -262,7 +266,7 @@ class RestAPIProvider {
 
   Future<Map<String, String>> _buildHeader({
     bool useToken = false,
-    bool useRefereshToken = false,
+    bool useIdToken = false,
   }) async {
     var baseHeader = {
       HttpHeaders.dateHeader: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -273,9 +277,9 @@ class RestAPIProvider {
     baseHeader["X-Api-Key"] = "ApplicationKey";
 
     if (useToken) {
-      String? token = !useRefereshToken
+      String? token = !useIdToken
           ? await SecureStorage.getAccessToken()
-          : await SecureStorage.getRefreshToken();
+          : await SecureStorage.getIdentity();
       if (token != null && token != "") {
         baseHeader["Authorization"] = "Bearer $token";
       }

@@ -24,7 +24,7 @@ class TutorInfoDetail {
   final bool? isFavorite;
   final int? avgRating;
   final int? totalFeedback;
-  final UserInfo? User;
+  final MyUserInfo? User;
 
   TutorInfoDetail({
     this.resume,

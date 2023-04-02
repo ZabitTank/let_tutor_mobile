@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/login_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tokens.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
 import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
@@ -13,7 +15,7 @@ class AuthenAPIService {
 
   AuthenAPIService(this.authDomain, this.verifyDomain);
 
-  Future<void> loginByGoogle() async {
+  Future<LoginResponse> loginByGoogle() async {
     try {
       await GoogleSignIn().signOut();
     } catch (_) {}
@@ -37,21 +39,22 @@ class AuthenAPIService {
           accessToken: gAuth.accessToken, idToken: gAuth.idToken);
 
       final body = {
-        "loginToken": credential.accessToken,
-        "role": "Driver",
+        "access_token": credential.accessToken,
       };
 
-      var response = await RestAPIProvider.instance.request(
+      final response = await RestAPIProvider.instance.request(
           method: HttpMethod.POST,
           endpoint: authDomain + AuthenAPIPaths.loginByGoogle,
           body: body);
 
-      final tokens = Tokens.fromJson(response.data['data']);
+      final responseBody = LoginResponse.fromJson(response.data);
 
       await SecureStorage.storeAllIdentity(
-        accesstoken: tokens.access.token,
-        refreshToken: tokens.refresh.token,
+        accesstoken: responseBody.tokens.access.token,
+        refreshToken: responseBody.tokens.refresh.token,
       );
+
+      return responseBody;
     } on PlatformException catch (e) {
       return Future.error(UnexpectedException(
           context: "Google Login", debugMessage: e.toString()));

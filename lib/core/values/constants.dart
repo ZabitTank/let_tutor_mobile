@@ -30,6 +30,17 @@ const List<String> specifiers = [
   "toeic"
 ];
 
+const List<String> testPrepareations = [
+  "toeic",
+  "ielts",
+  "toefl",
+  "pet",
+  "ket",
+  "flyers",
+  "movers",
+  "starters"
+];
+
 const Map<String, List<String>> tutorsNationFilter = {
   "en": <String>["Foreign Tutor", "Vietnamese Tutor", "Native English Tutor"],
   "vi": <String>["Gia sư nước ngoài", "Gia sư Việt Nam", "Gia sư bản sứ"],

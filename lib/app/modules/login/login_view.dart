@@ -11,7 +11,7 @@ import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
-import 'package:let_tutor_mobile/routes/app_routes.dart';
+import 'package:let_tutor_mobile/core/values/constants.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -26,7 +26,8 @@ class LoginView extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TestWidget.emptySquareContainer(size: 300, color: Colors.red),
+                Image.asset(AssetsManager.lettutorLoginBanner,
+                    height: 300, width: 300),
                 const SizedBox(height: 15),
                 Text(
                   "Say hello to your English tutors",
@@ -97,8 +98,9 @@ class LoginView extends GetView<LoginController> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: TextButton(
-                    onPressed: () {
-                      Get.offNamed(Routes.home);
+                    onPressed: () async {
+                      // Get.offNamed(Routes.home);
+                      await controller.login();
                     },
                     style: TextButton.styleFrom(
                       minimumSize: const Size(double.infinity, 20),
@@ -130,7 +132,9 @@ class LoginView extends GetView<LoginController> {
                           iconColor: Colors.blue, onTap: () {}),
                       CustomWidgets.iconButtonCircle(
                           Colors.red, FontAwesomeIcons.googlePlusG,
-                          iconColor: Colors.white, onTap: () {}),
+                          iconColor: Colors.white, onTap: () async {
+                        await controller.signInWithGoogle();
+                      }),
                       CustomWidgets.iconButtonCircle(
                           Colors.green, FontAwesomeIcons.android,
                           iconColor: Colors.black, onTap: () {}),

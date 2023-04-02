@@ -12,7 +12,7 @@ TutorInfoDetail _$TutorInfoDetailFromJson(Map<String, dynamic> json) =>
       isActivated: json['isActivated'] as bool?,
       User: json['User'] == null
           ? null
-          : UserInfo.fromJson(json['User'] as Map<String, dynamic>),
+          : MyUserInfo.fromJson(json['User'] as Map<String, dynamic>),
       video: json['video'] as String?,
       bio: json['bio'] as String?,
       education: json['education'] as String?,

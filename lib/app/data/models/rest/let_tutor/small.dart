@@ -23,7 +23,7 @@ class TutorInfo {
   final double? rating;
   final bool? isActivated;
   final bool? isNative;
-  final UserInfo? User;
+  final MyUserInfo? User;
 
   TutorInfo({
     this.userId,
@@ -63,7 +63,7 @@ class TutorInfo {
     resume: null,
     rating: 3.75,
     isActivated: true,
-    User: UserInfo(
+    User: MyUserInfo(
         country: "TW",
         name: "Keagen",
         avatar:
