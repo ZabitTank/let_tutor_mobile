@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:let_tutor_mobile/core/values/constants.dart';
 
 class Helper {
+  static String getLanguageName(String languageCode) {
+    if (isoLangs.containsKey(languageCode)) {
+      return isoLangs[languageCode]!["name"] ?? "";
+    } else {
+      return languageCode;
+    }
+  }
+
   static double getSize(BuildContext context, double percent,
       {bool isHeight = false}) {
     final size = isHeight

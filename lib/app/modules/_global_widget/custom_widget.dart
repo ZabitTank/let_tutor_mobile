@@ -76,3 +76,30 @@ class IconWithTitleTile extends StatelessWidget {
     );
   }
 }
+
+class ChipInfo extends StatelessWidget {
+  const ChipInfo({
+    super.key,
+    required this.themeData,
+    required this.info,
+  });
+
+  final ThemeData themeData;
+  final String info;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 5.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 10,
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 140, 157, 172),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(info, style: themeData.textTheme.bodyMedium),
+    );
+  }
+}

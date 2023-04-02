@@ -3,6 +3,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   static const FlutterSecureStorage storage = FlutterSecureStorage();
 
+  static Future<void> storeAllIdentity(
+      {required String accesstoken, required String refreshToken}) async {
+    await storeAccessToken(accesstoken);
+    await storeRefreshToken(refreshToken);
+  }
+
   static Future<String?> getAccessToken() async {
     return await storage.read(key: "accessToken");
   }

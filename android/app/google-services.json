@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "116994020586",
+    "project_id": "let-tuttor",
+    "storage_bucket": "let-tuttor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116994020586:android:d478198ca3925d58d33393",
+        "android_client_info": {
+          "package_name": "vn.zabittank.let_tutor_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116994020586-jd9do7gfrcs1aufg0dpbnhoj5qdieiu4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.zabittank.let_tutor_mobile",
+            "certificate_hash": "c697d0e901a0667ea2ba26eab4ff557e821e8224"
+          }
+        },
+        {
+          "client_id": "116994020586-co8t1tv8jt0pgs4egesaj3laammjirlb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrt3LEu-ExloSvuZOPycQiiXMr1uY_kE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116994020586-7p7vbif9mioiea4a4f0fsi228pt5goa4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116994020586-oj383ob2vc7fd57vaii8lnb3h60nk0ai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.zabittank.letTutorMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -34,3 +34,9 @@ class UnauthorizeException extends IBussinessException {
       String? debugMessage})
       : super(message: message, debugMessage: debugMessage, context: context);
 }
+
+class CancelActionException extends IBussinessException {
+  const CancelActionException(
+      {String message = "Cancel action", String? debugMessage, String? context})
+      : super(message: message, debugMessage: debugMessage, context: context);
+}

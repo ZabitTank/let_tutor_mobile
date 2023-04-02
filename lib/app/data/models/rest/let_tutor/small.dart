@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/model/user_info.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 
 part 'small.g.dart';
 
@@ -58,13 +58,26 @@ class TutorInfo {
     accent: null,
     targetStudent: "Beginner",
     interests: "English, Japansese",
-    languages: "en",
+    languages: "en,ja",
     specialties: "business-english,english-for-kids,toefl,toeic",
     resume: null,
-    rating: null,
+    rating: 3.75,
     isActivated: true,
+    User: UserInfo(
+        country: "TW",
+        name: "Keagen",
+        avatar:
+            "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00"),
     isNative: null,
   );
+
+  List<String> toListLanguges() {
+    return languages?.split(',') ?? [];
+  }
+
+  List<String> toListspecialties() {
+    return specialties?.split(',') ?? [];
+  }
 
   factory TutorInfo.fromJson(Map<String, dynamic> json) =>
       _$TutorInfoFromJson(json);

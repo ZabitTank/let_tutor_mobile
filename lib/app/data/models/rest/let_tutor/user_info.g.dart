@@ -42,6 +42,9 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       studentGroup: json['studentGroup'],
       studentInfo: json['studentInfo'],
       avgRating: (json['avgRating'] as num?)?.toDouble(),
+      feedbacks: (json['feedbacks'] as List<dynamic>?)
+          ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
@@ -69,4 +72,5 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'studentGroup': instance.studentGroup,
       'studentInfo': instance.studentInfo,
       'avgRating': instance.avgRating,
+      'feedbacks': instance.feedbacks,
     };

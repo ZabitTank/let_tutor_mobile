@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/model/user_info.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 
 part 'tutor_info_detail.g.dart';
 

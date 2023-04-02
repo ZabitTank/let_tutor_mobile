@@ -34,6 +34,7 @@ class HomeView extends GetView<HomeController> {
         () => BottomNavigationBar(
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex.value,
+          unselectedItemColor: Colors.blueGrey,
           items: [
             BottomNavigationBarItem(
               icon: Icon(

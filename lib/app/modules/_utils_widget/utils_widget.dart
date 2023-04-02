@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+void showSnackBar(String title, String message, {int second = 3}) {
+  Get.snackbar(
+    title,
+    message,
+    isDismissible: true,
+    duration: Duration(seconds: second),
+  );
+}
 
 Widget addVerticalSpace(double height) {
   return SizedBox(

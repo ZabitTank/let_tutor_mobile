@@ -9,7 +9,7 @@ class Feedback {
   // first info is info the one who feed back
   final String? firstId;
   final String? secondId;
-  final int? rating;
+  final int rating;
   final String? content;
   final DateTime? createdAt;
   final DateTime? updatedAt;

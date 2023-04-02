@@ -53,6 +53,10 @@ dependencies:
   video_player: ^2.6.1
   flutter_svg: ^2.0.5
   http: ^0.13.6
+  google_sign_in: ^6.1.0
+  firebase_core: ^2.13.0
+  firebase_auth: ^4.6.1
+  advance_pdf_viewer: ^2.0.1
 
 dev_dependencies:
   flutter_test:

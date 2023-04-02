@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/model/referral.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/model/small.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/feedback.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/referral.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/small.dart';
 
 part 'user_info.g.dart';
 
@@ -30,6 +31,7 @@ class UserInfo {
   final dynamic studentGroup;
   final dynamic studentInfo;
   final double? avgRating;
+  final List<Feedback>? feedbacks;
 
   UserInfo({
     this.id,
@@ -56,7 +58,19 @@ class UserInfo {
     this.studentGroup,
     this.studentInfo,
     this.avgRating,
+    this.feedbacks,
   });
+
+  double? getRating() {
+    if (avgRating != null) return avgRating!;
+
+    if (feedbacks != null && feedbacks!.isNotEmpty) {
+      var result = feedbacks!.map((m) => m.rating).reduce((a, b) => a + b) /
+          feedbacks!.length;
+      return result;
+    }
+    return null;
+  }
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);

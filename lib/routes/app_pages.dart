@@ -5,13 +5,14 @@ import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_binding
 import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_view.dart';
 import 'package:let_tutor_mobile/app/modules/course_history/course_history_binding.dart';
 import 'package:let_tutor_mobile/app/modules/course_history/course_history_view.dart';
-import 'package:let_tutor_mobile/app/modules/course_learn_topic/course_learn_topic_view.dart';
+import 'package:let_tutor_mobile/app/modules/pdf/pdf_binding.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/courses_binding.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/courses_view.dart';
 import 'package:let_tutor_mobile/app/modules/home/home_binding.dart';
 import 'package:let_tutor_mobile/app/modules/home/home_view.dart';
 import 'package:let_tutor_mobile/app/modules/login/login_binding.dart';
 import 'package:let_tutor_mobile/app/modules/login/login_view.dart';
+import 'package:let_tutor_mobile/app/modules/pdf/pdf_view.dart';
 import 'package:let_tutor_mobile/app/modules/profile/profile_binding.dart';
 import 'package:let_tutor_mobile/app/modules/profile/profile_view.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/schedules_binding.dart';
@@ -67,9 +68,9 @@ class AppPages {
       binding: CourseDetailBinding(),
     ),
     GetPage(
-      name: Paths.courseLearnTopic,
-      page: () => const CourseLearnTopicView(),
-      binding: CourseHistoryBinding(),
+      name: Paths.coursePdf,
+      page: () => const CoursePdfView(),
+      binding: CoursePdfBinding(),
     ),
     GetPage(
       name: Paths.coursesHistory,

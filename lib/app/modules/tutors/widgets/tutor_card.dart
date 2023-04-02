@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
 import 'package:let_tutor_mobile/routes/app_routes.dart';
@@ -72,19 +73,10 @@ class TutorCard extends StatelessWidget {
                                 (index) => Padding(
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Center(
-                                      child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 5,
-                                      horizontal: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 140, 157, 172),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(specifiers[index],
-                                        style: themeData.textTheme.bodyMedium),
-                                  )),
+                                    child: ChipInfo(
+                                        info: specifiers[index],
+                                        themeData: themeData),
+                                  ),
                                 ),
                               ),
                             ),
