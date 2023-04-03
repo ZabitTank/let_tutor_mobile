@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
@@ -14,9 +16,12 @@ class LoginController extends GetxController {
   final isLoading = false.obs;
   final errorMessage = ''.obs;
   final isUsingPhone = false.obs;
+  final isSignup = false.obs;
 
   late final TextEditingController emailController;
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final tempEmailController = TextEditingController();
 
   @override
   void onInit() {
@@ -27,19 +32,41 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     emailController.dispose();
+    phoneController.dispose();
     passwordController.dispose();
+    tempEmailController.dispose();
+
     isLoading.close();
     errorMessage.close();
     isUsingPhone.close();
+    isSignup.close();
     super.onClose();
   }
 
-  Future<void> login() async {
+  Future<void> mainButtonAction() async {
     if (!await FieldValidator.validateField(formKey)) {
       return;
     }
+    try {
+      isLoading.value = true;
+      if (isSignup.value) {
+        await LetTutorAPIService.authenAPIService.register(
+            email: emailController.text,
+            password: passwordController.text,
+            isUsingPhone: isUsingPhone.value,
+            phone: phoneController.text);
+      } else {
+        final result = await LetTutorAPIService.authenAPIService.login(
+            email: emailController.text,
+            password: passwordController.text,
+            isUsingPhone: isUsingPhone.value,
+            phone: phoneController.text);
+        appstate.setUser = result.user;
+      }
+      showSnackBar("Sucess", "Login Sucess");
 
-    try {} on IBussinessException catch (e) {
+      Get.offNamed(Routes.home);
+    } on IBussinessException catch (e) {
       showSnackBar("Failed", e.toString());
     } catch (e) {
       showSnackBar("Error", e.toString());
@@ -66,5 +93,19 @@ class LoginController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> forgotPassword() async {
+    String? email = await openEmailInputFormBottomSheet(tempEmailController);
+    if (email != null) {}
+  }
+
+  void toggleUsingPhone() {
+    isUsingPhone.value = !isUsingPhone.value;
+  }
+
+  void toggleSignup() {
+    debugPrint("Change Mode");
+    isSignup.value = !isSignup.value;
   }
 }

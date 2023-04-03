@@ -61,6 +61,20 @@ Map<String, dynamic> _$LearnTopicToJson(LearnTopic instance) =>
       'name': instance.name,
     };
 
+TestPreparation _$TestPreparationFromJson(Map<String, dynamic> json) =>
+    TestPreparation(
+      id: json['id'] as int?,
+      key: json['key'] as String?,
+      name: json['name'] as String?,
+    );
+
+Map<String, dynamic> _$TestPreparationToJson(TestPreparation instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'key': instance.key,
+      'name': instance.name,
+    };
+
 WalletInfo _$WalletInfoFromJson(Map<String, dynamic> json) => WalletInfo(
       amount: json['amount'] as String?,
       isBlocked: json['isBlocked'] as bool?,

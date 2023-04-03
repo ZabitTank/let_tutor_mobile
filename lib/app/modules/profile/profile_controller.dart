@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,9 @@ class ProfileController extends GetxController {
   final ImagePicker _picker = ImagePicker();
   XFile? uploadImage;
 
+  // dispose ???
+  late Rxn<MyUserInfo> user;
+
   // dipose
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var isLoading = false.obs;
@@ -17,6 +21,15 @@ class ProfileController extends GetxController {
   final TextEditingController birthDate = TextEditingController();
   final selectedOption = RxString("");
   var selectLevelOptionList = <String?>[];
+
+  @override
+  void onInit() {
+    super.onInit();
+    user = appState.rxUser;
+    nameController.text = user.value?.name ?? "";
+    countryConller.text = user.value?.country ?? "";
+    birthDate.text = user.value?.birthday ?? "";
+  }
 
   @override
   void onClose() {

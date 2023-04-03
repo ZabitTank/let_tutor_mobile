@@ -63,10 +63,10 @@ class ProfileView extends GetView<ProfileController> {
                                     fit: BoxFit.cover,
                                   ),
                                 )
-                              : const AvatarCircle(
+                              : AvatarCircle(
                                   width: 200,
                                   height: 200,
-                                  source: "assets/icons/profile_icon.png"),
+                                  source: controller.appState.user.avatar),
                         ),
                       ),
                       Positioned(
@@ -106,12 +106,16 @@ class ProfileView extends GetView<ProfileController> {
                   style: BaseTextStyle.heading2(fontSize: 16),
                 ),
                 sh_20,
-                titleAndText(
-                    title: "Name",
-                    hint: "e.g. Adit Brahmana",
-                    textTheme: themeData.textTheme,
-                    controller: controller.nameController,
-                    validator: (value) => FieldValidator.nameValidator(value!)),
+                Obx(
+                  () => titleAndText(
+                      title: "Name",
+                      hint: "e.g. Adit Brahmana",
+                      initialValue: controller.user.value?.name ?? "",
+                      textTheme: themeData.textTheme,
+                      controller: controller.nameController,
+                      validator: (value) =>
+                          FieldValidator.nameValidator(value!)),
+                ),
                 sh_20,
                 titleAndText(
                   title: "Email Address",
@@ -129,15 +133,16 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 CountryTextFormField(
                   controller: controller.countryConller,
-                  user: controller.appState.user,
                 ),
                 sh_20,
-                titleAndText(
-                  title: "Phone Number",
-                  initialValue: controller.appState.user.phone,
-                  hint: "Enter your Identity number",
-                  textTheme: themeData.textTheme,
-                  enable: false,
+                Obx(
+                  () => titleAndText(
+                    title: "Phone Number",
+                    initialValue: controller.user.value?.phone,
+                    hint: "Enter your Identity number",
+                    textTheme: themeData.textTheme,
+                    enable: false,
+                  ),
                 ),
                 sh_20,
                 Text(
@@ -148,10 +153,6 @@ class ProfileView extends GetView<ProfileController> {
                   textEditingController: controller.birthDate,
                 ),
                 sh_20,
-                Text(
-                  "My Level",
-                  style: BaseTextStyle.heading1(fontSize: 14),
-                ),
                 SingleChoiceTextField(
                   options: const ["bal bal", "basdasa"],
                   selectedOption: controller.selectedOption,
@@ -160,16 +161,18 @@ class ProfileView extends GetView<ProfileController> {
                 sh_20,
                 Text(
                   "Want to learn",
-                  style: BaseTextStyle.heading1(fontSize: 14),
+                  style: BaseTextStyle.heading1(fontSize: 16),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    multiFilterLearns,
-                    multiFilterLearns,
-                  ],
+                multiFilterLearns,
+                sh_20,
+                Text(
+                  "Want to learn",
+                  style: BaseTextStyle.heading1(fontSize: 16),
                 ),
+                multiFilterLearns,
+                sh_20,
                 titleAndText(
+                  maxline: 5,
                   title: "Study Schedule",
                   textTheme: themeData.textTheme,
                   hint: 'type whatever',
@@ -208,19 +211,21 @@ class ProfileView extends GetView<ProfileController> {
       TextEditingController? controller,
       bool? enable,
       String? initialValue,
-      String? Function(String?)? validator}) {
+      String? Function(String?)? validator,
+      int? maxline}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: BaseTextStyle.heading1(fontSize: 14),
+          style: BaseTextStyle.heading1(fontSize: 16),
         ),
         const SizedBox(
           height: 10,
         ),
         TextFormField(
           initialValue: initialValue,
+          maxLines: maxline,
           controller: controller,
           validator: (value) => validator != null ? validator(value) : null,
           onSaved: (value) {},

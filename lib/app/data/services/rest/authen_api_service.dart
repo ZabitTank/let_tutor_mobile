@@ -1,9 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/login_response.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tokens.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
 import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/bussiness_exception.dart';
@@ -14,6 +13,37 @@ class AuthenAPIService {
   final String verifyDomain;
 
   AuthenAPIService(this.authDomain, this.verifyDomain);
+
+  Future<LoginResponse> login(
+      {required String email,
+      required String password,
+      String? phone,
+      bool isUsingPhone = false}) async {
+    try {
+      var requestBody = {"email": email, "password": password};
+
+      if (isUsingPhone) {
+        requestBody = {"phone": email, "password": password};
+      }
+
+      final response = await RestAPIProvider.instance.request(
+          body: requestBody,
+          endpoint: authDomain +
+              (!isUsingPhone
+                  ? AuthenAPIPaths.login
+                  : AuthenAPIPaths.loginByPhone),
+          method: HttpMethod.POST);
+
+      return await _handleLoginResponse(response);
+    } on IBussinessException catch (_) {
+      rethrow;
+    } on UnexpectedException catch (_) {
+      rethrow;
+    } catch (e) {
+      return Future.error(ServiceLogicException(
+          context: "Auth/login", debugMessage: e.toString()));
+    }
+  }
 
   Future<LoginResponse> loginByGoogle() async {
     try {
@@ -47,20 +77,23 @@ class AuthenAPIService {
           endpoint: authDomain + AuthenAPIPaths.loginByGoogle,
           body: body);
 
-      final responseBody = LoginResponse.fromJson(response.data);
-
-      await SecureStorage.storeAllIdentity(
-        accesstoken: responseBody.tokens.access.token,
-        refreshToken: responseBody.tokens.refresh.token,
-      );
-
-      return responseBody;
+      return await _handleLoginResponse(response);
     } on PlatformException catch (e) {
       return Future.error(UnexpectedException(
-          context: "Google Login", debugMessage: e.toString()));
+          context: "Auth/Google Login", debugMessage: e.toString()));
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<LoginResponse> _handleLoginResponse(Response response) async {
+    final responseBody = LoginResponse.fromJson(response.data);
+    await SecureStorage.storeAllIdentity(
+      accesstoken: responseBody.tokens.access.token,
+      refreshToken: responseBody.tokens.refresh.token,
+    );
+
+    return responseBody;
   }
 
   Future<void> googleSignout() async {
@@ -68,13 +101,48 @@ class AuthenAPIService {
       await GoogleSignIn().signOut();
     } catch (e) {
       return Future.error(UnexpectedException(
-          context: "Logout-google", debugMessage: e.toString()));
+          context: "Auth/Logout-google", debugMessage: e.toString()));
+    }
+  }
+
+  Future<void> register(
+      {required String email,
+      required String password,
+      String? phone,
+      bool isUsingPhone = false}) async {
+    try {
+      var requestBody = {
+        "email": email,
+        "password": password,
+      };
+
+      if (isUsingPhone) {
+        requestBody = {
+          "phone": email,
+          "password": password,
+        };
+      }
+      await RestAPIProvider.instance.request(
+          body: requestBody,
+          endpoint: authDomain +
+              (!isUsingPhone
+                  ? AuthenAPIPaths.register
+                  : AuthenAPIPaths.registerByPhone),
+          method: HttpMethod.POST);
+    } on IBussinessException catch (_) {
+      rethrow;
+    } on UnexpectedException catch (_) {
+      rethrow;
+    } catch (e) {
+      return Future.error(ServiceLogicException(
+          context: "Auth/loginByEmail", debugMessage: e.toString()));
     }
   }
 }
 
 class AuthenAPIPaths {
   static const String login = "/login";
+  static const String loginByPhone = "/phone-login";
   static const String loginByGoogle = "/google";
 
   static const String register = "/register";

@@ -1,10 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
-import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/login/login_controller.dart';
+import 'package:let_tutor_mobile/app/modules/login/widgets/clickable_textspan.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
@@ -49,30 +48,61 @@ class LoginView extends GetView<LoginController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Email",
-                          style: context.bodyMedium,
-                        ),
+                        Obx(() => !controller.isUsingPhone.value
+                            ? Text(
+                                "Email",
+                                style: context.bodyMedium,
+                              )
+                            : Text(
+                                "Phone",
+                                style: context.bodyMedium,
+                              )),
                         const SizedBox(height: 10),
-                        ValidInputField(
-                          textInputType: TextInputType.emailAddress,
-                          controller: controller.emailController,
-                          validator: FieldValidator.emailValidator,
-                          inputDecoration: const InputDecoration(
-                            hintText: 'Someemail@Email.com',
-                            errorText: null,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(112, 180, 178, 178),
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blueAccent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
+                        Obx(
+                          () => !controller.isUsingPhone.value
+                              ? ValidInputField(
+                                  textInputType: TextInputType.emailAddress,
+                                  controller: controller.emailController,
+                                  validator: FieldValidator.emailValidator,
+                                  inputDecoration: const InputDecoration(
+                                    hintText: 'Someemail@Email.com',
+                                    errorText: null,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              112, 180, 178, 178),
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blueAccent,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : ValidInputField(
+                                  textInputType: TextInputType.phone,
+                                  controller: controller.phoneController,
+                                  validator:
+                                      FieldValidator.phoneNumberValidator,
+                                  inputDecoration: const InputDecoration(
+                                    hintText: '090808xxxxx',
+                                    errorText: null,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              112, 180, 178, 178),
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.blueAccent,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         ),
                         const SizedBox(height: 15),
                         Text(
@@ -85,11 +115,13 @@ class LoginView extends GetView<LoginController> {
                         const SizedBox(height: 15),
                         GestureDetector(
                           child: Text(
-                            'Fotgot Password?',
+                            'Forgot Password?',
                             style: BaseTextStyle.subtitle3(
                                 color: Theme.of(context).primaryColor),
                           ),
-                          onTap: () {},
+                          onTap: () async {
+                            await controller.forgotPassword();
+                          },
                         ),
                       ],
                     ),
@@ -100,15 +132,26 @@ class LoginView extends GetView<LoginController> {
                   child: TextButton(
                     onPressed: () async {
                       // Get.offNamed(Routes.home);
-                      await controller.login();
+                      await controller.mainButtonAction();
                     },
                     style: TextButton.styleFrom(
                       minimumSize: const Size(double.infinity, 20),
                       backgroundColor: Colors.blue,
                     ),
-                    child: Text(
-                      "Login",
-                      style: context.labelLarge,
+                    child: Obx(
+                      () => controller.isLoading.value
+                          ? CircularProgressIndicator(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            )
+                          : !controller.isSignup.value
+                              ? Text(
+                                  "Login",
+                                  style: context.labelLarge,
+                                )
+                              : Text(
+                                  "Signup",
+                                  style: context.labelLarge,
+                                ),
                     ),
                   ),
                 ),
@@ -135,25 +178,39 @@ class LoginView extends GetView<LoginController> {
                           iconColor: Colors.white, onTap: () async {
                         await controller.signInWithGoogle();
                       }),
-                      CustomWidgets.iconButtonCircle(
-                          Colors.green, FontAwesomeIcons.android,
-                          iconColor: Colors.black, onTap: () {}),
+                      Obx(
+                        () => !controller.isUsingPhone.value
+                            ? CustomWidgets.iconButtonCircle(
+                                Colors.white, FontAwesomeIcons.phone,
+                                iconColor: Colors.black, onTap: () {
+                                controller.toggleUsingPhone();
+                              })
+                            : CustomWidgets.iconButtonCircle(
+                                Colors.white, Icons.mail,
+                                iconColor: Colors.black, onTap: () {
+                                controller.toggleUsingPhone();
+                              }),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 25),
-                RichText(
-                  text: TextSpan(
-                    text: "Don't Have Account? ",
-                    style: context.bodyMedium,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Register Now',
-                        style: BaseTextStyle.body2(
-                            color: Theme.of(context).primaryColor),
-                        recognizer: TapGestureRecognizer()..onTap = () {},
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    controller.toggleSignup();
+                  },
+                  child: Obx(
+                    () => !controller.isSignup.value
+                        ? ClickableTextSpan(
+                            text: "Don't Have Account? ",
+                            highlightText: "Register now",
+                            callback: controller.toggleSignup,
+                          )
+                        : ClickableTextSpan(
+                            text: "Already Have Account? ",
+                            highlightText: "Signin now",
+                            callback: controller.toggleSignup,
+                          ),
                   ),
                 )
               ],

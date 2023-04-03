@@ -18,10 +18,11 @@ class AppStateController extends GetxController {
 
   MyUserInfo get user => _user;
 
-  get rxUser => _rxUser;
+  Rxn<MyUserInfo> get rxUser => _rxUser;
 
   set setUser(MyUserInfo user) {
     _user.updateValues(user);
+    _rxUser.value = user;
   }
 
   late Box<GlobalSetting> database;

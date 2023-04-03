@@ -30,7 +30,7 @@ MyUserInfo _$MyUserInfoFromJson(Map<String, dynamic> json) => MyUserInfo(
           ?.map((e) => LearnTopic.fromJson(e as Map<String, dynamic>))
           .toList(),
       testPreparations: (json['testPreparations'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => TestPreparation.fromJson(e as Map<String, dynamic>))
           .toList(),
       isPhoneActivated: json['isPhoneActivated'] as bool?,
       timezone: json['timezone'] as int?,
@@ -39,8 +39,6 @@ MyUserInfo _$MyUserInfoFromJson(Map<String, dynamic> json) => MyUserInfo(
           : ReferralInfo.fromJson(json['referralInfo'] as Map<String, dynamic>),
       studySchedule: json['studySchedule'] as String?,
       canSendMessage: json['canSendMessage'] as bool?,
-      studentGroup: json['studentGroup'],
-      studentInfo: json['studentInfo'],
       avgRating: (json['avgRating'] as num?)?.toDouble(),
       feedbacks: (json['feedbacks'] as List<dynamic>?)
           ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
@@ -73,8 +71,6 @@ Map<String, dynamic> _$MyUserInfoToJson(MyUserInfo instance) =>
       'referralInfo': instance.referralInfo,
       'studySchedule': instance.studySchedule,
       'canSendMessage': instance.canSendMessage,
-      'studentGroup': instance.studentGroup,
-      'studentInfo': instance.studentInfo,
       'avgRating': instance.avgRating,
       'feedbacks': instance.feedbacks,
       'courses': instance.courses,

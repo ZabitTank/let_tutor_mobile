@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/chat_completion_response.dart';
 part 'chat_completion_request.g.dart';

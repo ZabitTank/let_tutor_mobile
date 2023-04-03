@@ -102,6 +102,23 @@ class LearnTopic {
 }
 
 @JsonSerializable()
+class TestPreparation {
+  final int? id;
+  final String? key;
+  final String? name;
+
+  TestPreparation({
+    this.id,
+    this.key,
+    this.name,
+  });
+
+  factory TestPreparation.fromJson(Map<String, dynamic> json) =>
+      _$TestPreparationFromJson(json);
+  Map<String, dynamic> toJson() => _$TestPreparationToJson(this);
+}
+
+@JsonSerializable()
 class WalletInfo {
   final String? amount;
   final bool? isBlocked;

@@ -1,14 +1,11 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 
 class CountryTextFormField extends StatelessWidget {
   const CountryTextFormField({
     Key? key,
-    required this.user,
     required this.controller,
   }) : super(key: key);
-  final MyUserInfo user;
   final TextEditingController controller;
 
   @override

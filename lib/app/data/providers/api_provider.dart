@@ -49,17 +49,17 @@ class RestAPIProvider {
       Map<String, dynamic>? query,
       bool useToken,
       bool useIdToken) async {
-    var requestBody = body == null ? body : json.encode(body);
-    final option = Options(
-      headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
-    );
-
     try {
+      var requestBody = (body == null ? null : json.encode(body));
+
+      final option = Options(
+        headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
+      );
       switch (method) {
         case HttpMethod.GET:
           return await client.get(
             endpoint,
-            data: null,
+            data: requestBody,
             queryParameters: query,
             options: option,
           );
@@ -119,7 +119,7 @@ class RestAPIProvider {
     }
 
     // handle other error
-    if (response.statusCode == 200) {
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return response;
     } else {
       if (response.statusCode == 500) {

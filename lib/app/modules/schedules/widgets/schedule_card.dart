@@ -8,7 +8,6 @@ class SecheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    var sectionLength = 3;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(

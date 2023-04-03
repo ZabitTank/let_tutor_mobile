@@ -34,7 +34,7 @@ class TutorsView extends GetView<TutorsController> {
                   style: BaseTextStyle.body2(),
                 ),
                 IconButton(
-                  icon: Icon(Icons.start),
+                  icon: const Icon(Icons.start),
                   onPressed: () {},
                 ),
               ],

@@ -23,14 +23,13 @@ class MyUserInfo {
   String? requireNote;
   String? level;
   List<LearnTopic>? learnTopics;
-  List<String>? testPreparations;
+  List<TestPreparation>? testPreparations;
   bool? isPhoneActivated;
   int? timezone;
   ReferralInfo? referralInfo;
   String? studySchedule;
   bool? canSendMessage;
-  dynamic studentGroup;
-  dynamic studentInfo;
+
   double? avgRating;
   List<Feedback>? feedbacks;
   List<Course>? courses;
@@ -57,8 +56,6 @@ class MyUserInfo {
     this.referralInfo,
     this.studySchedule,
     this.canSendMessage,
-    this.studentGroup,
-    this.studentInfo,
     this.avgRating,
     this.feedbacks,
     this.courses,
@@ -143,12 +140,7 @@ class MyUserInfo {
     if (other.canSendMessage != null && canSendMessage == null) {
       canSendMessage = other.canSendMessage;
     }
-    if (other.studentGroup != null && studentGroup == null) {
-      studentGroup = other.studentGroup;
-    }
-    if (other.studentInfo != null && studentInfo == null) {
-      studentInfo = other.studentInfo;
-    }
+
     if (other.avgRating != null && avgRating == null) {
       avgRating = other.avgRating;
     }
