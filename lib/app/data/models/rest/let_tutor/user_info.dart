@@ -77,77 +77,77 @@ class MyUserInfo {
   Map<String, dynamic> toJson() => _$MyUserInfoToJson(this);
 
   void updateValues(MyUserInfo other) {
-    if (other.id != null && id == null) {
+    if (other.id != null || id == null) {
       id = other.id;
     }
-    if (other.email != null && email == null) {
+    if (other.email != null || email == null) {
       email = other.email;
     }
-    if (other.name != null && name == null) {
+    if (other.name != null || name == null) {
       name = other.name;
     }
-    if (other.avatar != null && avatar == null) {
+    if (other.avatar != null || avatar == null) {
       avatar = other.avatar;
     }
-    if (other.country != null && country == null) {
+    if (other.country != null || country == null) {
       country = other.country;
     }
-    if (other.phone != null && phone == null) {
+    if (other.phone != null || phone == null) {
       phone = other.phone;
     }
-    if (other.roles != null && roles == null) {
+    if (other.roles != null || roles == null) {
       roles = other.roles;
     }
-    if (other.language != null && language == null) {
+    if (other.language != null || language == null) {
       language = other.language;
     }
-    if (other.birthday != null && birthday == null) {
+    if (other.birthday != null || birthday == null) {
       birthday = other.birthday;
     }
-    if (other.isActivated != null && isActivated == null) {
+    if (other.isActivated != null || isActivated == null) {
       isActivated = other.isActivated;
     }
-    if (other.tutorInfo != null && tutorInfo == null) {
+    if (other.tutorInfo != null || tutorInfo == null) {
       tutorInfo = other.tutorInfo;
     }
-    if (other.walletInfo != null && walletInfo == null) {
+    if (other.walletInfo != null || walletInfo == null) {
       walletInfo = other.walletInfo;
     }
-    if (other.requireNote != null && requireNote == null) {
+    if (other.requireNote != null || requireNote == null) {
       requireNote = other.requireNote;
     }
-    if (other.level != null && level == null) {
+    if (other.level != null || level == null) {
       level = other.level;
     }
-    if (other.learnTopics != null && learnTopics == null) {
+    if (other.learnTopics != null || learnTopics == null) {
       learnTopics = other.learnTopics;
     }
-    if (other.testPreparations != null && testPreparations == null) {
+    if (other.testPreparations != null || testPreparations == null) {
       testPreparations = other.testPreparations;
     }
-    if (other.isPhoneActivated != null && isPhoneActivated == null) {
+    if (other.isPhoneActivated != null || isPhoneActivated == null) {
       isPhoneActivated = other.isPhoneActivated;
     }
-    if (other.timezone != null && timezone == null) {
+    if (other.timezone != null || timezone == null) {
       timezone = other.timezone;
     }
-    if (other.referralInfo != null && referralInfo == null) {
+    if (other.referralInfo != null || referralInfo == null) {
       referralInfo = other.referralInfo;
     }
-    if (other.studySchedule != null && studySchedule == null) {
+    if (other.studySchedule != null || studySchedule == null) {
       studySchedule = other.studySchedule;
     }
-    if (other.canSendMessage != null && canSendMessage == null) {
+    if (other.canSendMessage != null || canSendMessage == null) {
       canSendMessage = other.canSendMessage;
     }
 
-    if (other.avgRating != null && avgRating == null) {
+    if (other.avgRating != null || avgRating == null) {
       avgRating = other.avgRating;
     }
-    if (other.feedbacks != null && feedbacks == null) {
+    if (other.feedbacks != null || feedbacks == null) {
       feedbacks = other.feedbacks;
     }
-    if (other.courses != null && courses == null) {
+    if (other.courses != null || courses == null) {
       courses = other.courses;
     }
   }

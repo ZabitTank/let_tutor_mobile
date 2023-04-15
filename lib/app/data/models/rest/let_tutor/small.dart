@@ -119,6 +119,23 @@ class TestPreparation {
 }
 
 @JsonSerializable()
+class ContentCategory {
+  final int? id;
+  final String? key;
+  final String? title;
+
+  ContentCategory({
+    this.id,
+    this.key,
+    this.title,
+  });
+
+  factory ContentCategory.fromJson(Map<String, dynamic> json) =>
+      _$ContentCategoryFromJson(json);
+  Map<String, dynamic> toJson() => _$ContentCategoryToJson(this);
+}
+
+@JsonSerializable()
 class WalletInfo {
   final String? amount;
   final bool? isBlocked;

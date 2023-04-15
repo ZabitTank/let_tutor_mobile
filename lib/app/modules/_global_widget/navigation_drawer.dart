@@ -84,6 +84,7 @@ class NavigationDrawer extends StatelessWidget {
                 ? hightlightColor
                 : primaryColor,
             onTap: () {
+              Get.back(closeOverlays: true);
               Get.toNamed(Routes.profile);
             },
           ),
@@ -95,6 +96,7 @@ class NavigationDrawer extends StatelessWidget {
                 ? hightlightColor
                 : primaryColor,
             onTap: () {
+              Get.back(closeOverlays: true);
               Get.toNamed(Routes.settings);
             },
           ),
@@ -114,14 +116,18 @@ class NavigationDrawer extends StatelessWidget {
 
   Widget buildDrawerHeader(
       String accountName, String accountEmail, String? url) {
+    print(url);
+
     return UserAccountsDrawerHeader(
       accountName: Text(accountName),
       accountEmail: Text(accountEmail),
-      currentAccountPicture: url == null
-          ? const CircleAvatar(
-              backgroundImage: AssetImage(AssetsManager.userImage),
-            )
-          : Image.network(url),
+      currentAccountPicture:
+          url == "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png" ||
+                  url == null
+              ? const CircleAvatar(
+                  backgroundImage: AssetImage(AssetsManager.userImage),
+                )
+              : Image.network(url),
       currentAccountPictureSize: const Size.square(72),
     );
   }

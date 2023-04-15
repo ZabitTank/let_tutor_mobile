@@ -1,11 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
+import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/bussiness_exception.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/unexpected_exception.dart';
 
 class UserAPIService {
   final String domain;
+  UserAPIService(this.domain);
 
   Future<MyUserInfo> getMe() async {
     try {
@@ -21,11 +25,37 @@ class UserAPIService {
       rethrow;
     } catch (e) {
       return Future.error(ServiceLogicException(
-          context: "Auth/getMe/", debugMessage: e.toString()));
+          context: "User/getMe/", debugMessage: e.toString()));
     }
   }
 
-  UserAPIService(this.domain);
+  Future<MyUserInfo> uploadAvatar(XFile avatar) async {
+    try {
+      FormData formData = FormData();
+      formData.files.add(MapEntry(
+        'avatar',
+        await MultipartFile.fromFile(
+          avatar.path,
+        ),
+      ));
+      Response response = await RestAPIProvider.client.post(
+          'https://sandbox.api.lettutor.com/user/uploadAvatar',
+          data: formData,
+          options: Options(headers: {
+            "Authorization": "Bearer ${await SecureStorage.getAccessToken()}"
+          }));
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return MyUserInfo.fromJson(response.data);
+      } else {
+        return Future.error(const ServiceLogicException(
+            context: "implement", debugMessage: ""));
+      }
+    } catch (e) {
+      return Future.error(ServiceLogicException(
+          context: "Auth/uploadAvatar/", debugMessage: e.toString()));
+    }
+  }
 }
 
 class UserAPIPath {

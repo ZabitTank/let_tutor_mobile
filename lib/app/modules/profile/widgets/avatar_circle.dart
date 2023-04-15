@@ -14,11 +14,12 @@ class AvatarCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_source);
     return Container(
       width: _width,
       height: _height,
-      decoration: _source == null
+      decoration: _source ==
+                  "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png" ||
+              _source == null
           ? const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/person.png"),

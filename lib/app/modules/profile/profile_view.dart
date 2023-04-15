@@ -52,21 +52,23 @@ class ProfileView extends GetView<ProfileController> {
                         margin: const EdgeInsets.only(bottom: 10),
                         height: 90,
                         width: 90,
-                        child: CircleAvatar(
-                          child: controller.uploadImage != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(1000),
-                                  child: Image.file(
-                                    controller.uploadImage as File,
+                        child: Obx(
+                          () => CircleAvatar(
+                            child: controller.user?.value?.avatar == null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(1000),
+                                    child: Image.file(
+                                      controller.uploadImage as File,
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : AvatarCircle(
                                     width: 200,
                                     height: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : AvatarCircle(
-                                  width: 200,
-                                  height: 200,
-                                  source: controller.appState.user.avatar),
+                                    source: controller.appState.user.avatar),
+                          ),
                         ),
                       ),
                       Positioned(
@@ -76,13 +78,13 @@ class ProfileView extends GetView<ProfileController> {
                           onTap: () {
                             CustomModalSheet.buildChoosePhotoBottom(
                               context: context,
-                              onTappedCamera: () {
-                                controller.takePhoto(ImageSource.camera);
-                                Navigator.of(context).pop();
+                              onTappedCamera: () async {
+                                await controller.takePhoto(ImageSource.camera);
+                                Get.back(canPop: true);
                               },
-                              onTappedGallery: () {
-                                controller.takePhoto(ImageSource.gallery);
-                                Navigator.of(context).pop();
+                              onTappedGallery: () async {
+                                await controller.takePhoto(ImageSource.gallery);
+                                Get.back(canPop: true);
                               },
                             );
                           },
@@ -106,21 +108,16 @@ class ProfileView extends GetView<ProfileController> {
                   style: BaseTextStyle.heading2(fontSize: 16),
                 ),
                 sh_20,
-                Obx(
-                  () => titleAndText(
-                      title: "Name",
-                      hint: "e.g. Adit Brahmana",
-                      initialValue: controller.user.value?.name ?? "",
-                      textTheme: themeData.textTheme,
-                      controller: controller.nameController,
-                      validator: (value) =>
-                          FieldValidator.nameValidator(value!)),
-                ),
+                titleAndText(
+                    title: "Name",
+                    hint: "e.g. Adit Brahmana",
+                    textTheme: themeData.textTheme,
+                    controller: controller.nameController,
+                    validator: (value) => FieldValidator.nameValidator(value!)),
                 sh_20,
                 titleAndText(
                   title: "Email Address",
                   initialValue: controller.appState.user.email,
-
                   // Nếu không cho sửa phone thì thay hint value thành driver.phone và thêm thuộc tính enable = false
                   hint: "Enter your Identity number",
                   textTheme: themeData.textTheme,
@@ -135,14 +132,12 @@ class ProfileView extends GetView<ProfileController> {
                   controller: controller.countryConller,
                 ),
                 sh_20,
-                Obx(
-                  () => titleAndText(
-                    title: "Phone Number",
-                    initialValue: controller.user.value?.phone,
-                    hint: "Enter your Identity number",
-                    textTheme: themeData.textTheme,
-                    enable: false,
-                  ),
+                titleAndText(
+                  title: "Phone Number",
+                  initialValue: controller.appState.user.phone,
+                  hint: "Enter your Identity number",
+                  textTheme: themeData.textTheme,
+                  enable: false,
                 ),
                 sh_20,
                 Text(

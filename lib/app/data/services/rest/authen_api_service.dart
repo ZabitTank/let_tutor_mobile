@@ -23,7 +23,7 @@ class AuthenAPIService {
       var requestBody = {"email": email, "password": password};
 
       if (isUsingPhone) {
-        requestBody = {"phone": email, "password": password};
+        requestBody = {"phone": phone!, "password": password};
       }
 
       final response = await RestAPIProvider.instance.request(
@@ -118,7 +118,7 @@ class AuthenAPIService {
 
       if (isUsingPhone) {
         requestBody = {
-          "phone": email,
+          "phone": phone!,
           "password": password,
         };
       }
@@ -135,7 +135,7 @@ class AuthenAPIService {
       rethrow;
     } catch (e) {
       return Future.error(ServiceLogicException(
-          context: "Auth/loginByEmail", debugMessage: e.toString()));
+          context: "Auth/register", debugMessage: e.toString()));
     }
   }
 }

@@ -75,6 +75,20 @@ Map<String, dynamic> _$TestPreparationToJson(TestPreparation instance) =>
       'name': instance.name,
     };
 
+ContentCategory _$ContentCategoryFromJson(Map<String, dynamic> json) =>
+    ContentCategory(
+      id: json['id'] as int?,
+      key: json['key'] as String?,
+      title: json['title'] as String?,
+    );
+
+Map<String, dynamic> _$ContentCategoryToJson(ContentCategory instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'key': instance.key,
+      'title': instance.title,
+    };
+
 WalletInfo _$WalletInfoFromJson(Map<String, dynamic> json) => WalletInfo(
       amount: json['amount'] as String?,
       isBlocked: json['isBlocked'] as bool?,

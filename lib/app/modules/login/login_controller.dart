@@ -55,6 +55,8 @@ class LoginController extends GetxController {
             password: passwordController.text,
             isUsingPhone: isUsingPhone.value,
             phone: phoneController.text);
+        showSnackBar("Register",
+            "Register Sucess, check your email or phone to get OTP");
       } else {
         final result = await LetTutorAPIService.authenAPIService.login(
             email: emailController.text,
@@ -62,10 +64,9 @@ class LoginController extends GetxController {
             isUsingPhone: isUsingPhone.value,
             phone: phoneController.text);
         appstate.setUser = result.user;
+        showSnackBar("Login", "Login Sucess");
+        Get.offNamed(Routes.home);
       }
-      showSnackBar("Sucess", "Login Sucess");
-
-      Get.offNamed(Routes.home);
     } on IBussinessException catch (e) {
       showSnackBar("Failed", e.toString());
     } catch (e) {

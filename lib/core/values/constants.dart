@@ -15,6 +15,28 @@ class AssetsManager {
   static const String openAILogo = "$imagePath/openai_logo.jpg";
 }
 
+const Map<String, String> userLevels = {
+  "BEGINNER": "Pre A1 (Beginner)",
+  "HIGHER_BEGINNER": "A1",
+  "PRE_INTERMEDIATE": "A2",
+  "INTERMEDIATE": "B1",
+  "UPPER_INTERMEDIATE": "B2",
+  "ADVANCED": "C1",
+  "PROFICIENCY": "C2",
+};
+
+const Map<int, String> levelsFilter = {
+  0: "Any level",
+  1: "Beginner",
+  2: "Upper-Beginner",
+  3: "Pre-Intermediate",
+  5: "Intermediate",
+  6: "Upper-Intermediate",
+  7: "Pre-Advanced",
+  8: "Advanced",
+  9: "Very-Advanced",
+};
+
 const List<String> specifiers = [
   "All",
   "english-for-kids",

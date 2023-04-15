@@ -32,7 +32,7 @@ class CustomModalSheet {
                       padding: const EdgeInsets.only(top: 16, bottom: 12),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icons/icon_camera.png',
+                          SvgPicture.asset('assets/icons/ic_camera.svg',
                               width: 24, height: 24),
                           const SizedBox(width: 12),
                           Text("Open Camera",
