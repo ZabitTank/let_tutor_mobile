@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/change_password/change_password_binding.dart';
+import 'package:let_tutor_mobile/app/modules/change_password/change_password_view.dart.dart';
 import 'package:let_tutor_mobile/app/modules/chat/chat_binding.dart';
 import 'package:let_tutor_mobile/app/modules/chat/chat_view.dart';
 import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_binding.dart';
@@ -101,6 +103,11 @@ class AppPages {
       name: Paths.profile,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Paths.changePassword,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
     ),
   ];
 }

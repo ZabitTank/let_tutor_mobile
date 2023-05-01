@@ -138,6 +138,19 @@ class AuthenAPIService {
           context: "Auth/register", debugMessage: e.toString()));
     }
   }
+
+  Future<void> changePassword(
+      {required String newPassword, required String oldPassword}) async {
+    try {
+      var body = {"password": oldPassword, "newPassword": newPassword};
+      await RestAPIProvider.instance.request(
+          endpoint: authDomain + AuthenAPIPaths.changePassword,
+          method: HttpMethod.POST,
+          body: body);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 class AuthenAPIPaths {

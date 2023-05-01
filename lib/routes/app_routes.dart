@@ -14,6 +14,7 @@ abstract class Routes {
   static const chat = Paths.chat;
   static const profile = Paths.profile;
   static const settings = Paths.settings;
+  static const changePassword = Paths.changePassword;
 }
 
 abstract class Paths {
@@ -33,4 +34,5 @@ abstract class Paths {
   static const chat = '/chat';
   static const profile = '/profile';
   static const settings = '/settings';
+  static const changePassword = '/change-password';
 }

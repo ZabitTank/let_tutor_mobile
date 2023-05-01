@@ -89,6 +89,18 @@ class NavigationDrawer extends StatelessWidget {
             },
           ),
           buildDrawerItem(
+            text: "Change Password",
+            icon: Icons.password,
+            textIconColor: Theme.of(context).primaryColor,
+            tileColor: Get.currentRoute == Routes.changePassword
+                ? hightlightColor
+                : primaryColor,
+            onTap: () {
+              Get.back(closeOverlays: true);
+              Get.toNamed(Routes.changePassword);
+            },
+          ),
+          buildDrawerItem(
             text: "Settings",
             icon: Icons.settings,
             textIconColor: Theme.of(context).primaryColor,
