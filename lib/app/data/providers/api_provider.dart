@@ -53,6 +53,9 @@ class RestAPIProvider {
       var requestBody = (body == null ? null : json.encode(body));
 
       final option = Options(
+        validateStatus: (status) {
+          return status! < 600;
+        },
         headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
       );
       switch (method) {
