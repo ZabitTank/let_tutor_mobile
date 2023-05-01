@@ -4,7 +4,7 @@ import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 
 class ValueAPIService {
   const ValueAPIService();
-  static Future<List<LearnTopic>> getLearnTopics() async {
+  Future<List<LearnTopic>> getLearnTopics() async {
     try {
       final response = await RestAPIProvider.instance.request(
           endpoint: "${BackendEnviroment.letTutorUrl}/learn-topic",
@@ -20,7 +20,7 @@ class ValueAPIService {
     }
   }
 
-  static Future<List<TestPreparation>> getTestPreparation() async {
+  Future<List<TestPreparation>> getTestPreparation() async {
     try {
       final response = await RestAPIProvider.instance.request(
           endpoint: "${BackendEnviroment.letTutorUrl}/test-preparation",
@@ -36,7 +36,7 @@ class ValueAPIService {
     }
   }
 
-  static Future<List<ContentCategory>> getContentCategory() async {
+  Future<List<ContentCategory>> getContentCategory() async {
     try {
       final response = await RestAPIProvider.instance.request(
           endpoint: "${BackendEnviroment.letTutorUrl}/content-category",

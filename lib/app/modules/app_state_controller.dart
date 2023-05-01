@@ -13,16 +13,11 @@ import 'package:let_tutor_mobile/routes/app_routes.dart';
 
 class AppStateController extends GetxController {
   final MyUserInfo _user = MyUserInfo();
-  // born because of special problem from user page -> edit profile
-  final _rxUser = Rxn<MyUserInfo>();
 
   MyUserInfo get user => _user;
 
-  Rxn<MyUserInfo> get rxUser => _rxUser;
-
   set setUser(MyUserInfo user) {
     _user.updateValues(user);
-    _rxUser.value = user;
   }
 
   late Box<GlobalSetting> database;
@@ -92,11 +87,5 @@ class AppStateController extends GetxController {
   Future<void> _resetState() async {
     // await database.delete("setting");
     await SecureStorage.deleteToken();
-  }
-
-  @override
-  void onClose() {
-    _rxUser.close();
-    super.onClose();
   }
 }

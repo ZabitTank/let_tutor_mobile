@@ -1,12 +1,15 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CountryTextFormField extends StatelessWidget {
   const CountryTextFormField({
     Key? key,
     required this.controller,
+    required this.stringRef,
   }) : super(key: key);
   final TextEditingController controller;
+  final Rx<String?> stringRef;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +35,12 @@ class CountryTextFormField extends StatelessWidget {
           onTap: () {
             showCountryPicker(
               context: context,
-              //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-              exclude: <String>['KN', 'MF'],
+
               //Optional. Shows phone code before the country name.
               showPhoneCode: false,
               onSelect: (Country country) {
                 controller.text = country.name;
+                stringRef.value = country.countryCode.toUpperCase();
               },
               // Optional. Sets the theme for the country list picker.
               countryListTheme: CountryListThemeData(

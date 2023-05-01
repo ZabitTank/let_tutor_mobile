@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CustomWidgets {
@@ -153,6 +154,13 @@ class SingleChoiceTextFieldState extends State<SingleChoiceTextField> {
   String? _selectedOption;
 
   @override
+  void initState() {
+    _selectedOption = widget.selectedOption.value;
+    super.initState();
+    _selectedOption = widget.selectedOption.value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,13 +177,9 @@ class SingleChoiceTextFieldState extends State<SingleChoiceTextField> {
           items: widget.options.map((option) {
             return DropdownMenuItem<String>(
               value: option,
-              child: Text(option),
+              child: Text(option, style: context.labelSmall),
             );
           }).toList(),
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            isDense: true,
-          ),
         ),
       ],
     );

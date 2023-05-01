@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/small.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/navigation_drawer.dart';
@@ -25,163 +24,175 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
 
-    var multiFilterLearns = MultiSelectDialogField(
-      selectedItemsTextStyle: themeData.textTheme.labelMedium,
-      items: testPrepareations.map((e) => MultiSelectItem(e, e)).toList(),
-      onConfirm: (values) async {
-        controller.selectLevelOptionList = values;
-      },
-    );
-
     return Scaffold(
       appBar: LetTutorAppBar.mainAppBarWithTitleAndBackButton(
           context: context, title: "Profile"),
       drawer: createNavigationDrawer(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
-          child: Form(
-            key: controller.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        height: 90,
-                        width: 90,
-                        child: Obx(
-                          () => CircleAvatar(
-                            child: controller.user?.value?.avatar == null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    child: Image.file(
-                                      controller.uploadImage as File,
-                                      width: 200,
-                                      height: 200,
-                                      fit: BoxFit.cover,
+        child: Obx(
+          () => controller.isLoading.value
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 20),
+                  child: Form(
+                    key: controller.formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Stack(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                height: 90,
+                                width: 90,
+                                child: Obx(() {
+                                  return CircleAvatar(
+                                    child: AvatarCircle(
+                                        width: 200,
+                                        height: 200,
+                                        source: controller.user.value?.avatar),
+                                  );
+                                }),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    CustomModalSheet.buildChoosePhotoBottom(
+                                      context: context,
+                                      onTappedCamera: () async {
+                                        await controller
+                                            .uploadAvatar(ImageSource.camera);
+                                        Get.back(canPop: true);
+                                      },
+                                      onTappedGallery: () async {
+                                        await controller
+                                            .uploadAvatar(ImageSource.gallery);
+                                        Get.back(canPop: true);
+                                      },
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.grey[300],
+                                    radius: 15,
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ic_camera.svg",
+                                      colorFilter: ColorFilter.mode(
+                                          Colors.grey[700]!, BlendMode.srcIn),
                                     ),
-                                  )
-                                : AvatarCircle(
-                                    width: 200,
-                                    height: 200,
-                                    source: controller.appState.user.avatar),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        right: 0,
-                        child: GestureDetector(
-                          onTap: () {
-                            CustomModalSheet.buildChoosePhotoBottom(
-                              context: context,
-                              onTappedCamera: () async {
-                                await controller.takePhoto(ImageSource.camera);
-                                Get.back(canPop: true);
-                              },
-                              onTappedGallery: () async {
-                                await controller.takePhoto(ImageSource.gallery);
-                                Get.back(canPop: true);
-                              },
-                            );
+                        const SizedBox(height: 24),
+                        Text(
+                          "Account Info",
+                          style: BaseTextStyle.heading2(fontSize: 16),
+                        ),
+                        sh_20,
+                        titleAndText(
+                            title: "Name",
+                            hint: "e.g. Adit Brahmana",
+                            textTheme: themeData.textTheme,
+                            controller: controller.nameController,
+                            validator: (value) =>
+                                FieldValidator.nameValidator(value!)),
+                        sh_20,
+                        titleAndText(
+                          title: "Email Address",
+                          initialValue: controller.appState.user.email,
+                          // Nếu không cho sửa phone thì thay hint value thành driver.phone và thêm thuộc tính enable = false
+                          hint: "Enter your Identity number",
+                          textTheme: themeData.textTheme,
+                          enable: false,
+                        ),
+                        sh_20,
+                        Text(
+                          "Country",
+                          style: BaseTextStyle.heading1(fontSize: 14),
+                        ),
+                        CountryTextFormField(
+                          controller: controller.countryConller,
+                          stringRef: controller.countryCode,
+                        ),
+                        sh_20,
+                        titleAndText(
+                          title: "Phone Number",
+                          initialValue: controller.appState.user.phone,
+                          hint: "Enter your Identity number",
+                          textTheme: themeData.textTheme,
+                          enable: false,
+                        ),
+                        sh_20,
+                        BirthdatePickerTextField(
+                          textEditingController: controller.birthDate,
+                        ),
+                        sh_20,
+                        SingleChoiceTextField(
+                          options: userLevels.keys.toList(),
+                          selectedOption: controller.selectedOption,
+                          title: "My Level",
+                        ),
+                        sh_20,
+                        Text(
+                          "Learns Topic",
+                          style: BaseTextStyle.heading1(fontSize: 16),
+                        ),
+                        MultiSelectDialogField(
+                          initialValue: controller.appState.user.learnTopics ??
+                              <LearnTopic>[],
+                          selectedItemsTextStyle:
+                              themeData.textTheme.labelMedium,
+                          items: controller.learnsTopic
+                              .map((e) => MultiSelectItem(e, e.name!))
+                              .toList(),
+                          onConfirm: (values) async {
+                            controller.selectLearnTopicListId =
+                                values.map((e) => e.id!).toList();
                           },
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey[300],
-                            radius: 15,
-                            child: SvgPicture.asset(
-                              "assets/icons/ic_camera.svg",
-                              colorFilter: ColorFilter.mode(
-                                  Colors.grey[700]!, BlendMode.srcIn),
-                            ),
-                          ),
                         ),
-                      )
-                    ],
+                        sh_20,
+                        Text(
+                          "Test Preparetation",
+                          style: BaseTextStyle.heading1(fontSize: 16),
+                        ),
+                        MultiSelectDialogField(
+                          initialValue:
+                              controller.user.value?.testPreparations ??
+                                  <TestPreparation>[],
+                          selectedItemsTextStyle:
+                              themeData.textTheme.labelMedium,
+                          items: controller.testPrepareations
+                              .map((e) => MultiSelectItem(e, e.name!))
+                              .toList(),
+                          onConfirm: (values) async {
+                            controller.selectTestPreparetationOptionList =
+                                values.map((e) => e.id!).toList();
+                          },
+                        ),
+                        sh_20,
+                        titleAndText(
+                          maxline: 5,
+                          title: "Study Schedule",
+                          textTheme: themeData.textTheme,
+                          hint: 'type whatever',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  "Account Info",
-                  style: BaseTextStyle.heading2(fontSize: 16),
-                ),
-                sh_20,
-                titleAndText(
-                    title: "Name",
-                    hint: "e.g. Adit Brahmana",
-                    textTheme: themeData.textTheme,
-                    controller: controller.nameController,
-                    validator: (value) => FieldValidator.nameValidator(value!)),
-                sh_20,
-                titleAndText(
-                  title: "Email Address",
-                  initialValue: controller.appState.user.email,
-                  // Nếu không cho sửa phone thì thay hint value thành driver.phone và thêm thuộc tính enable = false
-                  hint: "Enter your Identity number",
-                  textTheme: themeData.textTheme,
-                  enable: false,
-                ),
-                sh_20,
-                Text(
-                  "Country",
-                  style: BaseTextStyle.heading1(fontSize: 14),
-                ),
-                CountryTextFormField(
-                  controller: controller.countryConller,
-                ),
-                sh_20,
-                titleAndText(
-                  title: "Phone Number",
-                  initialValue: controller.appState.user.phone,
-                  hint: "Enter your Identity number",
-                  textTheme: themeData.textTheme,
-                  enable: false,
-                ),
-                sh_20,
-                Text(
-                  "Birthdate",
-                  style: BaseTextStyle.heading1(fontSize: 14),
-                ),
-                BirthdatePickerTextField(
-                  textEditingController: controller.birthDate,
-                ),
-                sh_20,
-                SingleChoiceTextField(
-                  options: const ["bal bal", "basdasa"],
-                  selectedOption: controller.selectedOption,
-                  title: "My Level",
-                ),
-                sh_20,
-                Text(
-                  "Want to learn",
-                  style: BaseTextStyle.heading1(fontSize: 16),
-                ),
-                multiFilterLearns,
-                sh_20,
-                Text(
-                  "Want to learn",
-                  style: BaseTextStyle.heading1(fontSize: 16),
-                ),
-                multiFilterLearns,
-                sh_20,
-                titleAndText(
-                  maxline: 5,
-                  title: "Study Schedule",
-                  textTheme: themeData.textTheme,
-                  hint: 'type whatever',
-                ),
-              ],
-            ),
-          ),
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: ElevatedButton(
           onPressed: () async {
-            await controller.validateAndSave();
+            await controller.updateInfo();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,

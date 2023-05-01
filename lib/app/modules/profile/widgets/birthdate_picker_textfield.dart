@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 
 class BirthdatePickerTextField extends StatefulWidget {
   const BirthdatePickerTextField(
@@ -43,9 +44,10 @@ class BirthdatePickerTextFieldState extends State<BirthdatePickerTextField> {
       onTap: () {
         _selectDate(context);
       },
-      decoration: const InputDecoration(
-        labelText: 'Birthdate',
-      ),
+      decoration: InputDecoration(
+          labelText: 'Birthdate',
+          icon: const Icon(Icons.date_range),
+          labelStyle: context.labelMedium),
     );
   }
 }

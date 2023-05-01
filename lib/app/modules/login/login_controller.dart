@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
@@ -98,7 +96,17 @@ class LoginController extends GetxController {
 
   Future<void> forgotPassword() async {
     String? email = await openEmailInputFormBottomSheet(tempEmailController);
-    if (email != null) {}
+    if (email != null) {
+      try {
+        isLoading.value = true;
+        await LetTutorAPIService.userAPIService.forgotPasswod(email: email);
+        showSnackBar("Success", "Check your Emal");
+      } catch (e) {
+        showSnackBar("Error", e.toString());
+      } finally {
+        isLoading.value = false;
+      }
+    }
   }
 
   void toggleUsingPhone() {

@@ -116,8 +116,6 @@ class NavigationDrawer extends StatelessWidget {
 
   Widget buildDrawerHeader(
       String accountName, String accountEmail, String? url) {
-    print(url);
-
     return UserAccountsDrawerHeader(
       accountName: Text(accountName),
       accountEmail: Text(accountEmail),

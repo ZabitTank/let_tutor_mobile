@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
@@ -11,14 +10,13 @@ class UserAPIService {
   final String domain;
   UserAPIService(this.domain);
 
-  Future<MyUserInfo> getMe() async {
+  Future<void> forgotPasswod({required String email}) async {
     try {
-      final response = await RestAPIProvider.instance.request(
-          endpoint: domain + UserAPIPath.info,
-          method: HttpMethod.GET,
+      await RestAPIProvider.instance.request(
+          body: {"email": email},
+          endpoint: domain + UserAPIPath.forgotPassword,
+          method: HttpMethod.POST,
           useToken: true);
-
-      return MyUserInfo.fromJson(response.data);
     } on IBussinessException catch (_) {
       rethrow;
     } on UnexpectedException catch (_) {
@@ -26,6 +24,59 @@ class UserAPIService {
     } catch (e) {
       return Future.error(ServiceLogicException(
           context: "User/getMe/", debugMessage: e.toString()));
+    }
+  }
+
+  Future<MyUserInfo> getMe() async {
+    try {
+      final response = await RestAPIProvider.instance.request(
+          endpoint: domain + UserAPIPath.info,
+          method: HttpMethod.GET,
+          useToken: true);
+
+      return MyUserInfo.fromJson(response.data['user']);
+    } on IBussinessException catch (_) {
+      rethrow;
+    } on UnexpectedException catch (_) {
+      rethrow;
+    } catch (e) {
+      return Future.error(ServiceLogicException(
+          context: "User/getMe/", debugMessage: e.toString()));
+    }
+  }
+
+  Future<MyUserInfo> updateInfo({
+    required String name,
+    required String level,
+    String? country,
+    String? birthday,
+    List<int>? learnTopics,
+    List<int>? testPreparations,
+  }) async {
+    try {
+      var body = {
+        "name": name,
+        "level": level,
+        "country": country,
+        "birthday": birthday,
+        "learnTopics": learnTopics,
+        "testPreparations": testPreparations,
+      };
+
+      final response = await RestAPIProvider.instance.request(
+          endpoint: domain + UserAPIPath.info,
+          body: body,
+          method: HttpMethod.PUT,
+          useToken: true);
+
+      return MyUserInfo.fromJson(response.data['user']);
+    } on IBussinessException catch (_) {
+      rethrow;
+    } on UnexpectedException catch (_) {
+      rethrow;
+    } catch (e) {
+      return Future.error(ServiceLogicException(
+          context: "User/updateInfo/", debugMessage: e.toString()));
     }
   }
 
@@ -60,7 +111,7 @@ class UserAPIService {
 
 class UserAPIPath {
   static const String info = "/info"; // get
-  static const String getList = "/forgotPassword";
+  static const String forgotPassword = "/forgotPassword";
   static const String search = "/search";
   static const String feedbackTutor = "/feedbackTutor";
   static const String favorite = "/manageFavoriteTutor";
