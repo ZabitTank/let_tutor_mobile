@@ -120,7 +120,7 @@ class TestPreparation {
 
 @JsonSerializable()
 class ContentCategory {
-  final int? id;
+  final String? id;
   final String? key;
   final String? title;
 

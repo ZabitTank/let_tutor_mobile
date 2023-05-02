@@ -77,7 +77,7 @@ Map<String, dynamic> _$TestPreparationToJson(TestPreparation instance) =>
 
 ContentCategory _$ContentCategoryFromJson(Map<String, dynamic> json) =>
     ContentCategory(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       key: json['key'] as String?,
       title: json['title'] as String?,
     );

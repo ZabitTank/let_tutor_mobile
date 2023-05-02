@@ -1,7 +1,9 @@
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/course.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/courses_response.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
+import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/unexpected_exception.dart';
+import 'package:dio/dio.dart' as dio;
 
 class CourseAPIService {
   final String courseDomain;
@@ -15,26 +17,33 @@ class CourseAPIService {
     List<String>? categoryId,
     List<int>? level,
     String? orderBy = "ASC", // DESC
-    String? order = "level",
   }) async {
     try {
-      final queryParams = {
+      final queryParams = <String, dynamic>{
         "page": page,
         "size": size,
-        "order": order,
-        "orderBy": orderBy,
-        "level": level,
-        "categoryId": categoryId,
         "q": search,
+        "order[]": "level",
+        "orderBy[]": orderBy,
+        "level[]": level,
+        "categoryId[]": categoryId,
       };
+
+      // if (categoryId != null && categoryId.isNotEmpty) {
+      //   queryParams["categoryId[]"] = categoryId;
+      // }
+
+      // if (level != null && level.isNotEmpty) {
+      //   queryParams["level[]"] = level;
+      // }
 
       final response = await RestAPIProvider.instance.request(
           endpoint: courseDomain,
           method: HttpMethod.GET,
-          query: queryParams,
-          useToken: true);
+          useToken: true,
+          query: queryParams);
 
-      return GetCoursesResponse.fromJson(response.data);
+      return GetCoursesResponse.fromJson(response.data['data']);
     } on UnexpectedException catch (_) {
       rethrow;
     } catch (e) {

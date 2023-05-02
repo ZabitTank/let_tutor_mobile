@@ -25,6 +25,13 @@ const Map<String, String> userLevels = {
   "PROFICIENCY": "C2",
 };
 
+const sadSort = ["ASC", "DESC"];
+
+const sorts = {
+  "en": {"ASC": "Level ascending", "DESC": "Level descending"},
+  "vi": {"ASC": "Độ khó tăng dần", "DESC": "Độ khó giảm dần"},
+};
+
 const Map<int, String> levelsFilter = {
   0: "Any level",
   1: "Beginner",

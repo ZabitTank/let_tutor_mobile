@@ -31,11 +31,9 @@ class _DropdownSortFilterState extends State<DropdownSortFilter> {
                     child: Text(value, style: context.labelMedium),
                   ))
               .toList(),
-          onChanged: (value) async {
-            setState(() {
-              widget.selectedItem.value = value!;
-              widget.onSelect?.call();
-            });
+          onChanged: (value) {
+            widget.selectedItem.value = value!;
+            widget.onSelect?.call();
           },
         ),
       ],

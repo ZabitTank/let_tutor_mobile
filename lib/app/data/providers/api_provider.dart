@@ -21,6 +21,31 @@ class RestAPIProvider {
     client = Dio();
   }
 
+  static String buildQueryString(
+      {Map<String, dynamic>? queryParams, String? path}) {
+    final encodedQueryParams = <String, dynamic>{};
+
+    queryParams?.forEach((key, value) {
+      if (value != null) {
+        if (value is List) {
+          encodedQueryParams[key] =
+              List<String>.from(value.map((item) => "$key[]=$item"));
+        } else {
+          encodedQueryParams[key] = value.toString();
+        }
+      }
+    });
+
+    final uri = Uri(
+      scheme: 'https',
+      host: 'sandbox.api.lettutor.com',
+      path: path,
+      queryParameters: encodedQueryParams,
+    );
+
+    return uri.toString();
+  }
+
   // new
   Future<Response> request({
     required String endpoint,
