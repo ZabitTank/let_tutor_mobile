@@ -12,8 +12,7 @@ class LetTutorAPIService {
       "${BackendEnviroment.letTutorUrl}/verify");
 
   static final courAPIService = CourseAPIService(
-      "${BackendEnviroment.letTutorUrl}${BackendEnviroment.letTutorUrl}/course",
-      "${BackendEnviroment.letTutorUrl}/content-category");
+      "${BackendEnviroment.letTutorUrl}${BackendEnviroment.letTutorUrl}/course");
 
   static final scheDuleAPIService = ScheduleAPIService(
       "${BackendEnviroment.letTutorUrl}/booking",
