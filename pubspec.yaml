@@ -56,7 +56,10 @@ dependencies:
   google_sign_in: ^6.1.0
   firebase_core: ^2.13.0
   firebase_auth: ^4.6.1
-  advance_pdf_viewer: ^2.0.1
+  advance_pdf_viewer:
+    git:
+      url: https://github.com/lohanidamodar/pdf_viewer.git
+      ref: 4e5d96be29de515f1081c0b6897741b8dca84722
   image_picker: ^0.8.7+5
   country_picker: ^2.0.20
 

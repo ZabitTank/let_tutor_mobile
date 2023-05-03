@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/course.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
+import 'package:let_tutor_mobile/routes/app_routes.dart';
 
 class CourseCard extends StatelessWidget {
   const CourseCard({
@@ -18,7 +20,9 @@ class CourseCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(0.0),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(Routes.courseDetail, arguments: course);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

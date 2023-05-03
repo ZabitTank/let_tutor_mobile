@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_pagination.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/filter_widget.dart';
@@ -32,7 +33,11 @@ class CoursesView extends GetView<CoursesController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          TestWidget.emptyCircleContainer(size: 80),
+                          SvgPicture.network(
+                            "https://sandbox.app.lettutor.com/static/media/course.0bf1bb71.svg",
+                            width: 80,
+                            height: 80,
+                          ),
                           sw_20,
                           Expanded(
                             child: Column(
@@ -160,4 +165,4 @@ class CoursesView extends GetView<CoursesController> {
 }
 
 const lorem =
-    'Lorem ipsum dolor sit amet, dunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ';
+    'LiveTutor has built the most quality, methodical and scientific courses in the fields of life for those who are in need of improving their knowledge of the fields.';

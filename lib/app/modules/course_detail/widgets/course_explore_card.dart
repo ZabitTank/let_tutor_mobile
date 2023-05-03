@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/course.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class CourseCardExplore extends StatelessWidget {
-  const CourseCardExplore({
-    super.key,
-  });
-
+  const CourseCardExplore({super.key, required this.course});
+  final Course? course;
   @override
   Widget build(BuildContext context) {
     const SizedBox sh_10 = SizedBox(
@@ -34,12 +33,13 @@ class CourseCardExplore extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "What a title",
+                    course?.name ?? "What a title",
                     style: context.headlineSmall,
                   ),
                   sh_10,
                   Text(
-                    "For teenager who have an excellent sleep chetah lorem pnacik",
+                    course?.description ??
+                        "For teenager who have an excellent sleep chetah lorem pnacik",
                     style: context.bodySmall,
                   ),
                   sh_20,
