@@ -13,6 +13,11 @@ class AssetsManager {
   static const String userImage = "$imagePath/person.png";
   static const String chatImage = "$imagePath/chat_logo.png";
   static const String openAILogo = "$imagePath/openai_logo.jpg";
+
+  static final Map<String, String> mapMyLocalizeToMessageAddon = {
+    "vi": ", Please answer by english",
+    "en": ", Trả lời bằng tiếng việt",
+  };
 }
 
 const Map<String, String> userLevels = {

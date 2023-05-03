@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/gpt_model_info.dart';
+
+import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/dropdown.dart';
+import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
+import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/message_widget.dart';
+
+class ChatScreenUltils {
+  static Future<void> showModalSheet(BuildContext context) async {
+    await showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusDirectional.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  child: MessageContentWidget(
+                      label: "Choose Model", textStyle: context.bodyLarge!),
+                ),
+                const Flexible(
+                  child: ModelDropdownWidget(),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  static List<DropdownMenuItem<String>> getModelsAsDropdownMenuItem(
+      BuildContext context, List<GPTModelInfo>? models) {
+    List<DropdownMenuItem<String>>? modelsItems =
+        List<DropdownMenuItem<String>>.generate(
+      models?.length ?? 0,
+      (index) => DropdownMenuItem(
+        value: models?[index].id,
+        child: MessageContentWidget(
+          label: models?[index].id ?? "Not Found anymodel",
+          textStyle: context.bodyMedium!,
+        ),
+      ),
+    );
+
+    return modelsItems;
+  }
+
+  static void showError(BuildContext context, String error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(error, style: context.bodyMedium),
+        backgroundColor: Colors.redAccent,
+      ),
+    );
+  }
+}

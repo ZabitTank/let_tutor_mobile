@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -59,6 +60,8 @@ Future<void> _setup() async {
   Hive.registerAdapter(ChatModelAdapter());
   Hive.registerAdapter(GlobalSettingAdapter());
   Hive.registerAdapter(ChatHistoryAdapter());
+
+  await dotenv.load(fileName: ".env");
 
   AppStateController appStateController =
       Get.put(AppStateController(), permanent: true);

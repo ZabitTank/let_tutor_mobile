@@ -15,7 +15,8 @@ class CoursePdfView extends GetView<CoursePdfController> {
           : Scaffold(
               appBar: LetTutorAppBar.mainAppBarWithTitleAndBackButton(
                 context: context,
-                title: "Course Detail",
+                title:
+                    "${controller.topic.orderCourse ?? 0}. ${controller.topic.name ?? "Topic name"}",
               ),
               body: Center(
                 child: PDFViewer(

@@ -1,51 +1,54 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/feedback.dart';
 
 part 'tutor_info_detail.g.dart';
 
 @JsonSerializable()
 class TutorInfoDetail {
-  final String? video;
-  final String? bio;
-  final String? education;
-  final String? experience;
-  final String? profession;
-  final String? accent;
-  final String? targetStudent;
-  final String? interests;
-  final String? languages;
-  final String? resume;
-  final double? rating;
-  final String? specialties;
-  final bool? isActivated;
-  final bool? isNative;
-  final bool? isFavorite;
-  final int? avgRating;
-  final int? totalFeedback;
-  final MyUserInfo? User;
+  String? level;
+  String? email;
+  String? avatar;
+  String? name;
+  String? country;
+  String? phone;
+  dynamic language;
+  String? birthday;
+  bool? requestPassword;
+  bool? isActivated;
+  bool? isPhoneActivated;
+  dynamic requireNote;
+  int? timezone;
+  dynamic phoneAuth;
+  bool? isPhoneAuthActivated;
+  dynamic studySchedule;
+  bool? canSendMessage;
+  bool? isPublicRecord;
+  dynamic caredByStaffId;
+  String? createdAt;
+  String? updatedAt;
+  dynamic deletedAt;
+  dynamic studentGroupId;
+  String? id;
+  String? userId;
+  String? video;
+  String? bio;
+  String? education;
+  String? experience;
+  String? profession;
+  dynamic accent;
+  String? targetStudent;
+  String? interests;
+  String? languages;
+  String? specialties;
+  dynamic resume;
+  double? rating;
+  dynamic isNative;
+  String? schedulestimes;
+  bool? isfavoritetutor;
+  int? price;
+  List<Feedback>? feedbacks;
 
-  TutorInfoDetail({
-    this.resume,
-    this.isActivated,
-    this.User,
-    this.video,
-    this.bio,
-    this.education,
-    this.experience,
-    this.profession,
-    this.accent,
-    this.targetStudent,
-    this.interests,
-    this.languages,
-    this.specialties,
-    this.rating,
-    this.isNative,
-    this.isFavorite,
-    this.avgRating,
-    this.totalFeedback,
-  });
+  TutorInfoDetail();
 
   factory TutorInfoDetail.fromJson(Map<String, dynamic> json) =>
       _$TutorInfoDetailFromJson(json);

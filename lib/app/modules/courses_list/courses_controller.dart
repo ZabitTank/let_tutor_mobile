@@ -86,8 +86,7 @@ class CoursesController extends GetxController
       isLoading.value = true;
       categoryList =
           await LetTutorAPIService.valueAPIService.getContentCategory();
-      result = await LetTutorAPIService.courAPIService
-          .getCourses(size: size, page: page);
+      filter();
     } catch (e) {
       showSnackBar("Error", e.toString());
     } finally {

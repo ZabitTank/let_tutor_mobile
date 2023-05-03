@@ -27,6 +27,7 @@ dependencies:
   multi_select_flutter: ^4.1.3
 
   # from chat gpt dependency
+  provider: ^6.0.5
 
   ##generate json
   json_annotation: ^4.8.1
