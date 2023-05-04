@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_voice_gpt/app/data/models/locals/chat_history_hive.dart';
-import 'package:flutter_voice_gpt/app/data/models/locals/chat_model_info.dart';
-import 'package:flutter_voice_gpt/app/data/models/rest/chat_completion_request.dart';
-import 'package:flutter_voice_gpt/app/data/models/rest/chat_completion_response.dart';
-import 'package:flutter_voice_gpt/app/data/services/gpt_api_service.dart';
-import 'package:flutter_voice_gpt/core/values/constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:let_tutor_mobile/app/data/models/databases/chat_history_hive.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/chat_completion_request.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/chat_completion_response.dart';
+import 'package:let_tutor_mobile/core/languages/my_localization.dart';
+import 'package:let_tutor_mobile/core/values/constants.dart';
+
+import '../../data/services/voice_gpt/gpt_api_service.dart';
 
 class ChatProvider with ChangeNotifier {
   List<ChatCompletionMessage> _chatcompletionLog = [];
@@ -18,9 +19,12 @@ class ChatProvider with ChangeNotifier {
     return history.chatHistory;
   }
 
-  Future<void> addUserMessage(
-      {required String msg, String locale = "english"}) async {
-    _chatcompletionLog.add(ChatCompletionMessage(role: "user", content: msg));
+  Future<void> addUserMessage({required String msg}) async {
+    final editMessage = _shamelessTrickModifyMessage(
+        msg, MyLocalization.locale?.languageCode ?? "en");
+    _chatcompletionLog.add(
+      ChatCompletionMessage(role: "user", content: editMessage),
+    );
 
     history.chatHistory.add(ChatModel(msg: msg, chatIndex: 0));
     await database.put("chat", history);
@@ -63,9 +67,9 @@ class ChatProvider with ChangeNotifier {
     _chatcompletionLog = ChatModel.modelsFromSnapshot(history.chatHistory);
   }
 
-  String _shamelessTrickModifyMessage(String message, String locale) {
+  String _shamelessTrickModifyMessage(String message, String langCode) {
     String addonString =
-        AssetsManager.mapMyLocalizeToMessageAddon[locale] ?? "";
+        AssetsManager.mapMyLocalizeToMessageAddon[langCode] ?? "";
     return "$message$addonString}";
   }
 }

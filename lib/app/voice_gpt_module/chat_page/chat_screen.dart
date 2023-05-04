@@ -2,22 +2,22 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:let_tutor_mobile/app/data/services/voice_gpt/tts_service.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/chat_ultils.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_chat_provider.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_model_provider.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
+import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
-import 'package:let_tutor_mobile/gpt_app/chat_page/chat_ultils.dart';
-import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/chat_widget.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/chat_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
-import 'package:let_tutor_mobile/gpt_app/providers/global_setting_provider.dart';
-import 'package:let_tutor_mobile/gpt_app/providers/gpt_chat_provider.dart';
-import 'package:let_tutor_mobile/gpt_app/providers/gpt_model_provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
-
+  const ChatScreen({super.key, required this.appState});
+  final AppStateController appState;
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -26,10 +26,8 @@ class _ChatScreenState extends State<ChatScreen> {
   SpeechToText speechToText = SpeechToText();
   late bool _isTyping;
   late bool _isListening;
-
   late TextEditingController textEditingController;
   late bool isWaitingResponse;
-
   late FocusNode focusNode;
   late ScrollController scrollController;
 
@@ -56,8 +54,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<ModelsProvider>(context);
     final chatProvider = Provider.of<ChatProvider>(context);
-    final globalSettingProvider = context.read<GlobalSettingProvider>();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -65,22 +61,30 @@ class _ChatScreenState extends State<ChatScreen> {
           padding: const EdgeInsets.all(8),
           child: Image.asset(AssetsManager.openAILogo),
         ),
-        title: const Text("Voice GPT"),
         actions: [
           IconButton(
             onPressed: () async {
-              await ChatScreenUltils.showModalSheet(context);
+              await ChatScreenUltils.showModalSheet(context, modelsProvider);
             },
             icon: const Icon(
-              Icons.assistant,
-              color: Colors.white,
+              Icons.model_training,
+              color: Colors.amber,
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
+            onPressed: () async {
+              bool? confirm = await showYesNoDialog(
+                (LocalizationKeys.settingscreen_section_gpt_delete.tr),
+                (LocalizationKeys.settingscreen_section_gpt_delete_confirm.tr),
+              );
+
+              if (confirm != null && confirm == true) {
+                await chatProvider.clearChatlog();
+              } else {}
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Theme.of(context).iconTheme.color,
             ),
           ),
         ],
@@ -125,7 +129,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   onPressed: () async {
                     await handleSendMessage(
                         chatProvider: chatProvider,
-                        globalSettingProvider: globalSettingProvider,
                         modelsProvider: modelsProvider);
                   },
                   icon: const Icon(Icons.send,
@@ -180,7 +183,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> handleSendMessage(
       {required ModelsProvider modelsProvider,
-      required GlobalSettingProvider globalSettingProvider,
       required ChatProvider chatProvider}) async {
     try {
       if (textEditingController.text.isEmpty) {
@@ -200,7 +202,7 @@ class _ChatScreenState extends State<ChatScreen> {
           msg: textEditingController.text,
           chosenModelId: modelsProvider.currentModel);
 
-      if (globalSettingProvider.appSettings.isAutoRead) {
+      if (widget.appState.appSettings.isAutoRead) {
         TTSService.speak(generatedText);
       }
     } catch (e) {

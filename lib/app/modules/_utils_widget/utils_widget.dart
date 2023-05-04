@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
+import 'package:let_tutor_mobile/core/values/enum.dart';
 
 void showSnackBar(String title, String message, {int second = 3}) {
   Get.snackbar(
@@ -156,4 +158,60 @@ Future<String?> openEmailInputFormBottomSheet(
     ),
   );
   return email;
+}
+
+Future<bool?> showYesNoDialog(String title, String message) async {
+  return showDialog<bool?>(
+    context: Get.context!,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text((LocalizationKeys.no.tr)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text((LocalizationKeys.yes.tr)),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<String?> showKeyDialog(
+    {String? apikey, required TextEditingController controller}) {
+  return showDialog<String?>(
+    context: Get.context!,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text((LocalizationKeys.enter_apikey_info.tr)),
+        content: TextField(
+            controller: controller,
+            obscureText: true,
+            onChanged: (value) {
+              apikey = value; // update the API key as the user types
+            },
+            decoration: const InputDecoration(hintText: 'Enter your API key')),
+        actions: <Widget>[
+          TextButton(
+            child: Text((LocalizationKeys.no.tr)),
+            onPressed: () {
+              Navigator.pop(context); // close the dialog without saving the key
+            },
+          ),
+          TextButton(
+            child: Text((LocalizationKeys.yes.tr)),
+            onPressed: () {
+              Navigator.pop(context,
+                  apikey); // close the dialog and return the entered key
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

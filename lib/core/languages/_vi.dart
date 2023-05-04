@@ -54,4 +54,17 @@ const Map<LocalizationKeys, String> vi = {
   LocalizationKeys.settingscreen_section_chatlog: "Lịch sử Chat",
   LocalizationKeys.settingscreen_section_gpt_delete_confirm:
       "Bạn có chắc chắn muốn xóa lịch sử chat không",
+
+  // CHAT SCRTEEN
+  LocalizationKeys.chatscreen_hint_textfield: "Làm thế nào tôi có thể giúp bạn",
+  LocalizationKeys.chatscreen_error_empty_textfield: "Vui lòng nhập tin nhắn",
+  LocalizationKeys.chatscreen_modal_select_modal: "Chọn mô hình",
+
+  LocalizationKeys.language: "Tiếng Việt",
+  LocalizationKeys.select_localization: "Chọn ngôn ngữ",
+  LocalizationKeys.enter_apikey: "Nhập key của bạn",
+  LocalizationKeys.enter_apikey_info:
+      "Sử dựng key của bạn hoặc để trống để sử dụng key hệ thống",
+  LocalizationKeys.yes: "Có",
+  LocalizationKeys.no: "Không",
 };

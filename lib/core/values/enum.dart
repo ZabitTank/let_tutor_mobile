@@ -1,7 +1,5 @@
 import 'package:hive/hive.dart';
 
-part 'enum.g.dart';
-
 enum TokenType {
   accessToken,
   refreshToken,
@@ -71,7 +69,6 @@ enum LocalizationKeys {
   no,
 }
 
-@HiveType(typeId: 0)
 enum LocalizationCode {
   @HiveField(0)
   vietnam("vi"),

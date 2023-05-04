@@ -16,7 +16,7 @@ class TTSService {
   }
 
   static Future<void> changeLocalization() async {
-    debugPrint(MyLocalization.fallbackLocale.toLanguageTag());
+    debugPrint(MyLocalization.locale?.toLanguageTag());
     await _flutterTts.setLanguage(MyLocalization.locale?.toLanguageTag() ??
         MyLocalization.fallbackLocale.toLanguageTag());
   }

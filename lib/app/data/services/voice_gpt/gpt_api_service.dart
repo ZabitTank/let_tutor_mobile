@@ -16,10 +16,12 @@ class GptApiService {
   static Future<List<GPTModelInfo>> getModels() async {
     try {
       var response = await RestAPIProvider.instance.get(
-          endpoint: BackendEnviroment.letTutorUrl + GptAPIPaths.getModel,
+          endpoint: BackendEnviroment.openaiUrl + GptAPIPaths.getModel,
+          useIdToken: true,
           useToken: true);
 
       if (response.data['error'] != null) {
+        print(response.data['error']["message"]);
         return Future.error(response.data['error']['message']);
       }
 
@@ -30,6 +32,7 @@ class GptApiService {
 
       return GPTModelInfo.modelsFromSnapshot(modelSnapshot);
     } catch (e) {
+      print(e.toString());
       return Future.error("App Error");
     }
   }
@@ -40,6 +43,7 @@ class GptApiService {
       var response = await RestAPIProvider.instance.post(
           body: requestBody,
           endpoint: BackendEnviroment.openaiUrl + GptAPIPaths.getMessage,
+          useIdToken: true,
           useToken: true);
 
       if (response.data['error'] != null) {

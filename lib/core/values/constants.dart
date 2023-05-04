@@ -15,8 +15,8 @@ class AssetsManager {
   static const String openAILogo = "$imagePath/openai_logo.jpg";
 
   static final Map<String, String> mapMyLocalizeToMessageAddon = {
-    "vi": ", Please answer by english",
-    "en": ", Trả lời bằng tiếng việt",
+    "en": "(Please answer by english)",
+    "vi": ",(Please answer by vietnamse)",
   };
 }
 

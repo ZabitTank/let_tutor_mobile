@@ -8,7 +8,6 @@ import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/app/data/services/voice_gpt/tts_service.dart';
 import 'package:let_tutor_mobile/core/languages/my_localization.dart';
 import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
-import 'package:let_tutor_mobile/core/values/enum.dart';
 import 'package:let_tutor_mobile/routes/app_routes.dart';
 
 class AppStateController extends GetxController {
@@ -22,13 +21,12 @@ class AppStateController extends GetxController {
 
   late Box<GlobalSetting> database;
   late GlobalSetting appSettings;
-  MyLocalization localizationGenerator = MyLocalization();
 
   Future<void> initialize() async {
     database = await Hive.openBox<GlobalSetting>("settings");
 
     appSettings = database.get("setting") ?? GlobalSetting();
-    await _setLocalization(appSettings.localization);
+    await _setLocalization(appSettings.langCode);
 
     Get.changeThemeMode(
       appSettings.isDark ? ThemeMode.dark : ThemeMode.light,
@@ -47,12 +45,9 @@ class AppStateController extends GetxController {
     await EasyLoading.dismiss();
   }
 
-  Future<void> toggleLocalization(LocalizationCode localization) async {
+  Future<void> toggleLocalization(String langCode) async {
     await EasyLoading.show();
-
-    await _setLocalization(localization);
-
-    await database.put("setting", appSettings);
+    await _setLocalization(langCode);
     await EasyLoading.dismiss();
   }
 
@@ -65,10 +60,21 @@ class AppStateController extends GetxController {
     return appSettings.isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
-  Future<void> _setLocalization(LocalizationCode localization) async {
-    appSettings.localization = localization;
-    MyLocalization.changeLocale(localization.codename);
+  Future<void> _setLocalization(String langCode) async {
+    MyLocalization.changeLocale(langCode);
+
+    appSettings.langCode = langCode;
+    await database.put("setting", appSettings);
+
     TTSService.changeLocalization();
+  }
+
+  Future<void> handleUseAPIKey(String? apiKey) async {
+    if (apiKey != null && apiKey.isNotEmpty) {
+      await SecureStorage.storeIdentity(apiKey);
+    } else {
+      await SecureStorage.deleteIdToken();
+    }
   }
 
   Future<void> logout() async {

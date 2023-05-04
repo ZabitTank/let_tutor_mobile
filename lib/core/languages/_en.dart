@@ -55,4 +55,17 @@ const Map<LocalizationKeys, String> en = {
   LocalizationKeys.settingscreen_section_chatlog: "Chat's History",
   LocalizationKeys.settingscreen_section_gpt_delete_confirm:
       "Are you sure to delete chat history",
+
+  // CHAT SCREEN
+  LocalizationKeys.chatscreen_hint_textfield: "How can I assist you",
+  LocalizationKeys.chatscreen_error_empty_textfield: "Please enter a message",
+  LocalizationKeys.chatscreen_modal_select_modal: "Select model",
+
+  LocalizationKeys.language: "English",
+  LocalizationKeys.select_localization: "Select language",
+  LocalizationKeys.enter_apikey: "Enter your API key",
+  LocalizationKeys.enter_apikey_info:
+      "Use your own API key or leave it blank to use the system key",
+  LocalizationKeys.yes: "Yes",
+  LocalizationKeys.no: "No",
 };

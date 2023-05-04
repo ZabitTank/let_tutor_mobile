@@ -56,7 +56,6 @@ class MyApp extends StatelessWidget {
 
 Future<void> _setup() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(LocalizationCodeAdapter());
   Hive.registerAdapter(ChatModelAdapter());
   Hive.registerAdapter(GlobalSettingAdapter());
   Hive.registerAdapter(ChatHistoryAdapter());

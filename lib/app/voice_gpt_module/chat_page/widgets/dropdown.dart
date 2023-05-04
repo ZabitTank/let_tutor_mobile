@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/gpt_model_info.dart';
-import 'package:let_tutor_mobile/gpt_app/chat_page/chat_ultils.dart';
-import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/message_widget.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/chat_ultils.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/message_widget.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_model_provider.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
-import 'package:let_tutor_mobile/gpt_app/providers/gpt_model_provider.dart';
 import 'package:provider/provider.dart';
 
 class ModelDropdownWidget extends StatefulWidget {
-  const ModelDropdownWidget({super.key});
-
+  const ModelDropdownWidget({super.key, required this.provider});
+  final ModelsProvider provider;
   @override
   State<ModelDropdownWidget> createState() => _ModelDropdownWidgetState();
 }
@@ -17,10 +17,9 @@ class _ModelDropdownWidgetState extends State<ModelDropdownWidget> {
   String currentModels = "gpt-3.5-turbo";
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
-    currentModels = modelsProvider.getCurrentModel;
+    currentModels = widget.provider.getCurrentModel;
     return FutureBuilder<List<GPTModelInfo>>(
-        future: modelsProvider.getAllModels(),
+        future: widget.provider.getAllModels(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -41,7 +40,7 @@ class _ModelDropdownWidgetState extends State<ModelDropdownWidget> {
                       value: currentModels,
                       onChanged: (value) {
                         setState(() {
-                          modelsProvider.setCurrentModel(value.toString());
+                          widget.provider.setCurrentModel(value.toString());
                         });
                       },
                     ),

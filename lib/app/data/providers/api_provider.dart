@@ -191,19 +191,16 @@ class RestAPIProvider {
     required String endpoint,
     var body,
     bool useToken = false,
+    bool useIdToken = false,
     Map<String, dynamic>? query,
   }) async {
     Response response = await client.post(endpoint,
         data: json.encode(body),
         queryParameters: query,
-        options: Options(headers: await _buildHeader(useToken: useToken)));
-
-    if (response.statusCode == 401) {
-      if (useToken) {
-        return await _handleRefreshToken(
-            HttpMethod.POST, endpoint, body, query, useToken);
-      }
-    }
+        options: Options(
+          headers: await _buildHeader(useToken: useToken, useIdToken: true),
+          validateStatus: (status) => status! < 500,
+        ));
 
     return response;
   }
@@ -212,24 +209,20 @@ class RestAPIProvider {
     required String endpoint,
     dynamic body,
     bool useToken = false,
+    bool useIdToken = false,
     Map<String, dynamic>? query,
   }) async {
+    var requestBody = (body == null ? null : json.encode(body));
+
     Response response = await client.get(
       endpoint,
       queryParameters: query,
-      data: jsonEncode(body),
+      data: requestBody,
       options: Options(
-        headers: await _buildHeader(useToken: useToken),
+        headers: await _buildHeader(useToken: useToken, useIdToken: useToken),
+        validateStatus: (status) => status! < 500,
       ),
     );
-
-    if (response.statusCode == 401) {
-      if (useToken) {
-        return await _handleRefreshToken(
-            HttpMethod.GET, endpoint, body, query, useToken);
-      }
-    }
-
     return response;
   }
 
@@ -237,6 +230,7 @@ class RestAPIProvider {
     required String endpoint,
     body,
     bool useToken = false,
+    bool useIdToken = false,
     Map<String, dynamic>? query,
   }) async {
     Response response = await client.put(
@@ -244,16 +238,10 @@ class RestAPIProvider {
       queryParameters: query,
       data: json.encode(body),
       options: Options(
-        headers: await _buildHeader(useToken: useToken),
+        headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
+        validateStatus: (status) => status! < 500,
       ),
     );
-
-    if (response.statusCode == 401) {
-      if (useToken) {
-        return await _handleRefreshToken(
-            HttpMethod.PUT, endpoint, body, query, useToken);
-      }
-    }
 
     return response;
   }
@@ -307,7 +295,7 @@ class RestAPIProvider {
     if (useToken) {
       String? token = !useIdToken
           ? await SecureStorage.getAccessToken()
-          : await SecureStorage.getIdentity();
+          : await SecureStorage.getIdToken();
       if (token != null && token != "") {
         baseHeader["Authorization"] = "Bearer $token";
       }

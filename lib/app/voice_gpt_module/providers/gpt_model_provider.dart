@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/gpt_model_info.dart';
 import 'package:let_tutor_mobile/app/data/services/voice_gpt/gpt_api_service.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 
 class ModelsProvider with ChangeNotifier {
   String currentModel = "gpt-3.5-turbo-0301";
@@ -21,9 +22,14 @@ class ModelsProvider with ChangeNotifier {
   }
 
   Future<List<GPTModelInfo>> getAllModels() async {
-    await EasyLoading.show();
-    modelsList = await GptApiService.getModels();
-    await EasyLoading.dismiss();
+    try {
+      await EasyLoading.show();
+      modelsList = await GptApiService.getModels();
+    } catch (_) {
+      showSnackBar("Errors", "Failed to get AI Model");
+    } finally {
+      await EasyLoading.dismiss();
+    }
 
     return modelsList;
   }

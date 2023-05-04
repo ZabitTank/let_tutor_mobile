@@ -5,12 +5,12 @@ import 'package:let_tutor_mobile/core/languages/_vi.dart';
 
 class MyLocalization extends Translations {
   // locale sẽ được get mỗi khi mới mở app (có thể cache lại locale mà người dùng đã setting và set nó ở đây)
-  static final locale = _getLocaleFromLanguage();
+  static var locale = _getLocaleFromLanguage();
 
   static const fallbackLocale = Locale('en', 'US');
 
   static void changeLocale(String langCode) {
-    final locale = _getLocaleFromLanguage(langCode: langCode);
+    locale = _getLocaleFromLanguage(langCode: langCode);
     Get.updateLocale(locale ?? fallbackLocale);
   }
 

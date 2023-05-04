@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/gpt_model_info.dart';
-
-import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/dropdown.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/dropdown.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/message_widget.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_model_provider.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
-import 'package:let_tutor_mobile/gpt_app/chat_page/widgets/message_widget.dart';
 
 class ChatScreenUltils {
-  static Future<void> showModalSheet(BuildContext context) async {
+  static Future<void> showModalSheet(
+      BuildContext context, ModelsProvider modelsProvider) async {
     await showModalBottomSheet(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.vertical(
@@ -25,8 +26,8 @@ class ChatScreenUltils {
                   child: MessageContentWidget(
                       label: "Choose Model", textStyle: context.bodyLarge!),
                 ),
-                const Flexible(
-                  child: ModelDropdownWidget(),
+                Flexible(
+                  child: ModelDropdownWidget(provider: modelsProvider),
                 ),
               ],
             ),

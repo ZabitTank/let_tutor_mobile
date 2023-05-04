@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:let_tutor_mobile/core/values/enum.dart';
 
 part 'global_setting_hive.g.dart';
 
@@ -12,11 +11,11 @@ class GlobalSetting {
   bool isAutoRead;
 
   @HiveField(2)
-  LocalizationCode localization;
+  String langCode;
 
   GlobalSetting({
     this.isDark = false,
     this.isAutoRead = false,
-    this.localization = LocalizationCode.english,
+    this.langCode = "en",
   });
 }

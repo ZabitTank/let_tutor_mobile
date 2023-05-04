@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {
@@ -22,15 +23,19 @@ class SecureStorage {
   }
 
   static Future<void> storeRefreshToken(String token) async {
-    await storage.write(key: "token", value: token);
+    await storage.write(key: "refreshToken", value: token);
   }
 
   static Future<void> storeIdentity(String id) async {
-    await storage.write(key: "id", value: id);
+    await storage.write(key: "idToken", value: id);
   }
 
-  static Future<String?> getIdentity() async {
-    return await storage.read(key: "id");
+  static Future<String?> getIdToken() async {
+    return await storage.read(key: "idToken") ?? dotenv.env['OPEN_API_KEY'];
+  }
+
+  static Future<void> deleteIdToken() async {
+    return await storage.delete(key: "idToken");
   }
 
   static Future<void> deleteToken() async {

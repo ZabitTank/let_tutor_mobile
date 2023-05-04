@@ -19,7 +19,7 @@ class GlobalSettingAdapter extends TypeAdapter<GlobalSetting> {
     return GlobalSetting(
       isDark: fields[0] == null ? false : fields[0] as bool,
       isAutoRead: fields[1] == null ? false : fields[1] as bool,
-      localization: fields[2] as LocalizationCode,
+      langCode: fields[2] as String,
     );
   }
 
@@ -32,7 +32,7 @@ class GlobalSettingAdapter extends TypeAdapter<GlobalSetting> {
       ..writeByte(1)
       ..write(obj.isAutoRead)
       ..writeByte(2)
-      ..write(obj.localization);
+      ..write(obj.langCode);
   }
 
   @override

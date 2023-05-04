@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/services/voice_gpt/tts_service.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
-import 'package:let_tutor_mobile/app/modules/chat_page/widgets/message_widget.dart';
+import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/message_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
 
