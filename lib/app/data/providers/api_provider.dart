@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
 import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/bussiness_exception.dart';
@@ -62,7 +63,8 @@ class RestAPIProvider {
       return await _handleProcessResponse(
           response, method, endpoint, body, query,
           isUseTokenId: useTokenId, autoRecall: true);
-    } catch (e) {
+    } catch (e, stack) {
+      await FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;
     }
   }
