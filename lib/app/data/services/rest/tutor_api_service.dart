@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
-import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
 
 class TutorAPIService {
@@ -41,23 +40,25 @@ class TutorAPIService {
 
     try {
       List<TutorInfoDetail> favoriteTutors = [];
-      if (page == 1) {
-        final smartResponse = await RestAPIProvider.instance.request(
-            endpoint: "$domain${TutorAPIPath.getList}?perPage=${1}&page=${1}",
-            method: HttpMethod.GET,
-            useToken: true);
+      try {
+        if (page == 1) {
+          final smartResponse = await RestAPIProvider.instance.request(
+              endpoint: "$domain${TutorAPIPath.getList}?perPage=${1}&page=${1}",
+              method: HttpMethod.GET,
+              useToken: true);
 
-        final notFavoriteTutors = smartResponse.data['favoriteTutor'];
+          final notFavoriteTutors = smartResponse.data['favoriteTutor'];
 
-        for (var notFavoriteTutor in notFavoriteTutors) {
-          final tutor = TutorInfoDetail.fromJson(
-              notFavoriteTutor['secondInfo']['tutorInfo']);
-          tutor.isFavorite = true;
-          tutor.name = notFavoriteTutor['secondInfo']['name'];
-          tutor.avatar = notFavoriteTutor['secondInfo']['avatar'];
-          favoriteTutors.add(tutor);
+          for (var notFavoriteTutor in notFavoriteTutors) {
+            final tutor = TutorInfoDetail.fromJson(
+                notFavoriteTutor['secondInfo']['tutorInfo']);
+            tutor.isFavorite = true;
+            tutor.name = notFavoriteTutor['secondInfo']['name'];
+            tutor.avatar = notFavoriteTutor['secondInfo']['avatar'];
+            favoriteTutors.add(tutor);
+          }
         }
-      }
+      } catch (_) {}
 
       final response = await RestAPIProvider.instance.request(
           endpoint: domain + TutorAPIPath.search,

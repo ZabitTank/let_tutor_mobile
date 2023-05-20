@@ -67,6 +67,8 @@ enum LocalizationKeys {
   enter_apikey_info,
   yes,
   no,
+  hour,
+  minutes,
 }
 
 enum LocalizationCode {

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/booking.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 class SecheduleCard extends StatelessWidget {
-  const SecheduleCard({super.key});
+  const SecheduleCard(
+      {super.key, required this.booking, required this.editRequest});
+
+  final Booking booking;
+  final void Function() editRequest;
 
   @override
   Widget build(BuildContext context) {
+    final scheduleDetail = booking.scheduleDetailInfo?.scheduleInfo;
     ThemeData themeData = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -26,7 +32,8 @@ class SecheduleCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Wed, 17 May 23",
+                          booking.scheduleDetailInfo?.scheduleInfo?.date ??
+                              "Wed, 17 May 12",
                           style: BaseTextStyle.heading3(fontSize: 19),
                         ),
                         Text(
@@ -55,8 +62,9 @@ class SecheduleCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CircleAvatar(
-                        backgroundImage: NetworkImage(
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(booking.scheduleDetailInfo
+                                ?.scheduleInfo?.tutorInfo?.avatar ??
                             "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00"),
                         radius: 30,
                       ),
@@ -73,7 +81,9 @@ class SecheduleCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Teacher name",
+                                      booking.scheduleDetailInfo?.scheduleInfo
+                                              ?.tutorInfo?.name ??
+                                          "Teacher name",
                                       style:
                                           BaseTextStyle.heading3(fontSize: 18),
                                     ),
@@ -105,11 +115,12 @@ class SecheduleCard extends StatelessWidget {
                 sh_20,
                 Column(
                   children: List.generate(
-                    2,
+                    1,
                     (index) => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Section $index: 03:30 - 03:55"),
+                        Text(
+                            "Section $index: ${scheduleDetail?.startTime ?? ""} -  ${scheduleDetail?.endTime ?? ""}"),
                         TextButton(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -138,9 +149,14 @@ class SecheduleCard extends StatelessWidget {
                                 "Request for lesson",
                                 style: themeData.textTheme.bodyLarge,
                               ),
-                              Text(
-                                "Edit Request",
-                                style: themeData.textTheme.labelSmall,
+                              GestureDetector(
+                                onTap: () {
+                                  editRequest.call();
+                                },
+                                child: Text(
+                                  "Edit Request",
+                                  style: themeData.textTheme.labelSmall,
+                                ),
                               )
                             ],
                           ),
@@ -148,7 +164,8 @@ class SecheduleCard extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            "bla bla ball bla bla bla bla bla bla b bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla bal",
+                            booking.studentRequest ??
+                                "bla bla ball bla bla bla bla bla bla b bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla bal",
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                           ),

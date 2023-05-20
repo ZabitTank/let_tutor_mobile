@@ -22,6 +22,10 @@ const Map<LocalizationKeys, String> vi = {
   LocalizationKeys.tutorscreen_start_course_section: "Vào phòng học",
   LocalizationKeys.tutorscreen_total_hours_leared_textfield:
       "Tổng thời gian học là",
+
+  LocalizationKeys.hour: "Giờ",
+  LocalizationKeys.minutes: "phút",
+
   LocalizationKeys.tutorscreen_find_tutors_textfield: "Tìm gia sư",
   LocalizationKeys.tutorscreen_find_tutors_filter_name_hint:
       "Nhập tên gia sư...",

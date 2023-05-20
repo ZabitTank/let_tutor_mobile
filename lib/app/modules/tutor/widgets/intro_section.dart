@@ -1,9 +1,12 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/tutor/tutor_controller.dart';
+import 'package:let_tutor_mobile/app/modules/tutor/widgets/tutor_course_section.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
 
@@ -30,73 +33,8 @@ class IntroSection extends StatelessWidget {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(tutor.User?.avatar ??
-                          "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00"),
-                      radius: 45,
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tutor.User?.name ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(tutor.User?.name ?? ""),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              SvgPicture.network(
-                                "https://flagcdn.com/vn.svg" ??
-                                    controller.flag ??
-                                    "",
-                                height: 15,
-                                width: 30,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                Helper.getLanguageName(
-                                    controller.countryName ?? "Dong Lao"),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: List.generate(
-                        5,
-                        (index) => Container(
-                          padding: const EdgeInsets.only(right: 4),
-                          child: rating == null
-                              ? Icon(
-                                  Icons.star,
-                                  color: themeData.highlightColor,
-                                )
-                              : Icon(
-                                  index < (rating) - 0.5
-                                      ? Icons.star
-                                      : index -
-                                                  (tutor.User?.getRating() ??
-                                                      0) +
-                                                  0.25 >
-                                              0
-                                          ? Icons.star_border
-                                          : Icons.star_half,
-                                  color: Colors.yellow[700],
-                                  size: 20,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
+                TutorIntro(
+                  tutor: tutor,
                 ),
                 sh_20,
                 Row(
@@ -142,7 +80,37 @@ class IntroSection extends StatelessWidget {
                   ],
                 ),
                 sh_20,
-                Text(tutor.bio ?? ""),
+                Text(tutor.bio ??
+                    "bio bio bio biobiobiobiobiobiobiobiobiobiobiobiobiobio"),
+                Text(
+                  "Ratting",
+                  style: themeData.textTheme.titleLarge,
+                ),
+                Row(
+                  children: List.generate(
+                    5,
+                    (index) => Container(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: rating == null
+                          ? Icon(
+                              Icons.star,
+                              color: themeData.highlightColor,
+                            )
+                          : Icon(
+                              index < (rating) - 0.5
+                                  ? Icons.star
+                                  : index -
+                                              (tutor.User?.getRating() ?? 0) +
+                                              0.25 >
+                                          0
+                                      ? Icons.star_border
+                                      : Icons.star_half,
+                              color: Colors.yellow[700],
+                              size: 20,
+                            ),
+                    ),
+                  ),
+                ),
                 sh_20,
                 Text(
                   "Languages",

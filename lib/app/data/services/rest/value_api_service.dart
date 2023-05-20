@@ -51,4 +51,33 @@ class ValueAPIService {
       return Future.error(e);
     }
   }
+
+  Future<List<CancelReason>> getCancelReason() async {
+    try {
+      final response = await RestAPIProvider.instance.request(
+          endpoint: "${BackendEnviroment.letTutorUrl}/booking/cancel-reason",
+          method: HttpMethod.GET,
+          useToken: true);
+
+      final result = (response.data['rows'] as List<dynamic>)
+          .map((e) => CancelReason.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return result;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<int> getTotalMinutesLearning() async {
+    try {
+      final response = await RestAPIProvider.instance.request(
+          endpoint: "${BackendEnviroment.letTutorUrl}/call/total",
+          method: HttpMethod.GET,
+          useToken: true);
+
+      return response.data['total'];
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }

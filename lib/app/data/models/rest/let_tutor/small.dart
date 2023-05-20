@@ -128,6 +128,21 @@ class ContentCategory {
 }
 
 @JsonSerializable()
+class CancelReason {
+  final int? id;
+  final String? reason;
+
+  CancelReason({
+    this.id,
+    this.reason,
+  });
+
+  factory CancelReason.fromJson(Map<String, dynamic> json) =>
+      _$CancelReasonFromJson(json);
+  Map<String, dynamic> toJson() => _$CancelReasonToJson(this);
+}
+
+@JsonSerializable()
 class WalletInfo {
   final String? amount;
   final bool? isBlocked;

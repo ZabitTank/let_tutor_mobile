@@ -7,6 +7,7 @@ import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_chat_provide
 import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_model_provider.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
+import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
 import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/chat_widget.dart';
 import 'package:let_tutor_mobile/core/extensions/string.dart';
@@ -56,6 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final chatProvider = Provider.of<ChatProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        title: Text("Assistant", style: BaseTextStyle.heading2()),
         elevation: 2,
         leading: Padding(
           padding: const EdgeInsets.all(8),

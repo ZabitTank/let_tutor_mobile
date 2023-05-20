@@ -21,6 +21,9 @@ class TutorsController extends GetxController {
 
   TutorsSearchResponse? result;
 
+  int? hours;
+  int? minutes;
+
   final isLoading = true.obs;
   final paginationLoading = true.obs;
   @override
@@ -28,7 +31,13 @@ class TutorsController extends GetxController {
     super.onInit();
     try {
       isLoading.value = true;
+
       await filter();
+      int totalMinutes =
+          await LetTutorAPIService.valueAPIService.getTotalMinutesLearning();
+
+      hours = (totalMinutes / 60).ceil();
+      minutes = totalMinutes % 60;
     } catch (e) {
       showSnackBar("Error", e.toString());
     } finally {

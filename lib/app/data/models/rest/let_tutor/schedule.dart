@@ -1,94 +1,60 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 
 part 'schedule.g.dart';
 
+// currenlly not use
 @JsonSerializable()
 class Schedule {
-  final String? id;
-  final String? tutorId;
-  final String? startTime;
-  final String? endTime;
-  final int? startTimestamp;
-  final int? endTimestamp;
-  final String? createdAt;
-  final bool? isBooked;
-  final List<ScheduleDetail>? scheduleDetails;
-
-  Schedule({
-    this.id,
-    this.tutorId,
-    this.startTime,
-    this.endTime,
-    this.startTimestamp,
-    this.endTimestamp,
-    this.createdAt,
-    this.isBooked,
-    this.scheduleDetails,
-  });
-
+  String? id;
+  String? tutorId;
+  String? startTime;
+  String? endTime;
+  int? startTimestamp;
+  int? endTimestamp;
+  int? createdAtTimeStamp;
+  bool? isBooked;
+  List<ScheduleDetail>? scheduleDetails;
+  Schedule();
   factory Schedule.fromJson(Map<String, dynamic> json) =>
       _$ScheduleFromJson(json);
   Map<String, dynamic> toJson() => _$ScheduleToJson(this);
 }
 
 @JsonSerializable()
-class ScheduleDetail {
-  final int? startPeriodTimestamp;
-  final int? endPeriodTimestamp;
-  final String? id;
-  final String? scheduleId;
-  final String? startPeriod;
-  final String? endPeriod;
-  final String? createdAt;
-  final String? updatedAt;
-  final List<BookingInfo>? bookingInfo;
+class ScheduleDetailInfo {
+  String? scheduleId;
+  ScheduleDetail? scheduleInfo;
 
-  ScheduleDetail({
-    this.startPeriodTimestamp,
-    this.endPeriodTimestamp,
-    this.id,
-    this.scheduleId,
-    this.startPeriod,
-    this.endPeriod,
-    this.createdAt,
-    this.updatedAt,
-    this.bookingInfo,
-  });
+  String? endTime;
+  String? startPeriod;
+
+  int? endTimeStamp;
+  int? startPeriodTimestamp;
+
+  ScheduleDetailInfo();
+  factory ScheduleDetailInfo.fromJson(Map<String, dynamic> json) =>
+      _$ScheduleDetailInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$ScheduleDetailInfoToJson(this);
+}
+
+@JsonSerializable()
+class ScheduleDetail {
+  String? id;
+  String? date;
+
+  String? startTime;
+  String? endTime;
+
+  int? startTimestamp;
+  int? endTimeStamp;
+
+  String? tutorId;
+  TutorInfoDetail? tutorInfo;
+
+  ScheduleDetail();
 
   factory ScheduleDetail.fromJson(Map<String, dynamic> json) =>
       _$ScheduleDetailFromJson(json);
   Map<String, dynamic> toJson() => _$ScheduleDetailToJson(this);
-}
-
-@JsonSerializable()
-class BookingInfo {
-  final int? createdAtTimeStamp;
-  final int? updatedAtTimeStamp;
-  final String? id;
-  final String? userId;
-  final String? scheduleDetailId;
-  final String? tutorMeetingLink;
-  final String? studentMeetingLink;
-  final dynamic studentRequest;
-  final dynamic tutorReview;
-  final dynamic scoreByTutor;
-  final String? createdAt;
-
-  BookingInfo({
-    this.createdAtTimeStamp,
-    this.updatedAtTimeStamp,
-    this.id,
-    this.userId,
-    this.scheduleDetailId,
-    this.tutorMeetingLink,
-    this.studentMeetingLink,
-    this.studentRequest,
-    this.tutorReview,
-    this.scoreByTutor,
-    this.createdAt,
-  });
-
-  factory BookingInfo.fromJson(Map<String, dynamic> json) =>
-      _$BookingInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$BookingInfoToJson(this);
 }

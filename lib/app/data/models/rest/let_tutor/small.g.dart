@@ -89,6 +89,17 @@ Map<String, dynamic> _$ContentCategoryToJson(ContentCategory instance) =>
       'title': instance.title,
     };
 
+CancelReason _$CancelReasonFromJson(Map<String, dynamic> json) => CancelReason(
+      id: json['id'] as int?,
+      reason: json['reason'] as String?,
+    );
+
+Map<String, dynamic> _$CancelReasonToJson(CancelReason instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'reason': instance.reason,
+    };
+
 WalletInfo _$WalletInfoFromJson(Map<String, dynamic> json) => WalletInfo(
       amount: json['amount'] as String?,
       isBlocked: json['isBlocked'] as bool?,

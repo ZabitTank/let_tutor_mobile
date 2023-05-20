@@ -9,8 +9,10 @@ class ClickableTextSpan extends StatelessWidget {
     required this.callback,
     required this.text,
     required this.highlightText,
+    this.style,
   });
   final String text;
+  final TextStyle? style;
   final String highlightText;
 
   final void Function() callback;
@@ -19,11 +21,11 @@ class ClickableTextSpan extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "Don't Have Account? ",
-        style: context.bodyMedium,
+        text: text,
+        style: style ?? context.bodyMedium,
         children: <TextSpan>[
           TextSpan(
-            text: 'Register Now',
+            text: highlightText,
             style: BaseTextStyle.body2(color: Theme.of(context).primaryColor),
             recognizer: TapGestureRecognizer()
               ..onTap = () {

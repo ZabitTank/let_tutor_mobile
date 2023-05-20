@@ -18,6 +18,9 @@ const Map<LocalizationKeys, String> en = {
   LocalizationKeys.login3OtherSignupHightLightText: "Sign Up",
   LocalizationKeys.login3OtherSignupText: "Not a member yet?",
 
+  LocalizationKeys.hour: "Hours",
+  LocalizationKeys.minutes: "Minutes",
+
   // TUTOR SCREEN
   LocalizationKeys.tutorscreen_incoming_course_textfield: "Upcoming lesson",
   LocalizationKeys.tutorscreen_start_course_section: "Enter lesson room",

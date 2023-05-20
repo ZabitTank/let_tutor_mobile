@@ -6,6 +6,7 @@ import 'package:let_tutor_mobile/core/utils/secure_storage.dart';
 import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/bussiness_exception.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/unexpected_exception.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class RestAPIProvider {
   static late final Dio client;
@@ -56,6 +57,10 @@ class RestAPIProvider {
     bool useTokenId = false,
     Map<String, dynamic>? query,
   }) async {
+    await FirebaseAnalytics.instance.logEvent(name: "api_call", parameters: {
+      "endpoint": endpoint,
+      "method": method.name,
+    });
     try {
       Response response = await _handleCallRequest(
           method, endpoint, body, query, useToken, useTokenId);
@@ -248,6 +253,26 @@ class RestAPIProvider {
     return response;
   }
 
+  Future<Response> delete({
+    required String endpoint,
+    body,
+    bool useToken = false,
+    bool useIdToken = false,
+    Map<String, dynamic>? query,
+  }) async {
+    Response response = await client.delete(
+      endpoint,
+      queryParameters: query,
+      data: json.encode(body),
+      options: Options(
+        headers: await _buildHeader(useToken: useToken, useIdToken: useIdToken),
+        validateStatus: (status) => status! < 500,
+      ),
+    );
+
+    return response;
+  }
+
   Future<Response<dynamic>> _handleRefreshToken(HttpMethod method,
       String endpoint, body, Map<String, dynamic>? query, bool useToken) async {
     await refreshToken();
@@ -305,8 +330,8 @@ class RestAPIProvider {
     return baseHeader;
   }
 
-  static Uri buildUrlWithQuery(String endpoint, Map<String, dynamic> query) {
-    return query.isEmpty
+  static Uri buildUrlWithQuery(String endpoint, Map<String, dynamic>? query) {
+    return query != null
         ? Uri.parse(endpoint).replace(queryParameters: query)
         : Uri.parse(endpoint);
   }

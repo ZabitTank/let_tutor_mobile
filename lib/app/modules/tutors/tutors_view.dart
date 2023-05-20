@@ -16,39 +16,6 @@ class TutorsView extends GetView<TutorsController> {
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
 
-    var tutorsViewIntro = Container(
-      decoration: BoxDecoration(
-        color: themeData.primaryColor,
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            Text(
-              "Incoming Course",
-              style: BaseTextStyle.heading2(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Wed, 17 May 23 12:30 - 12:55",
-                  style: BaseTextStyle.body2(),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.start),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            Text(
-              LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr,
-              style: BaseTextStyle.body1(),
-            ),
-          ],
-        ),
-      ),
-    );
-
     var filterSection = Row(
       children: [
         Text(
@@ -76,7 +43,7 @@ class TutorsView extends GetView<TutorsController> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      tutorsViewIntro,
+                      HomeBanner(themeData: themeData, controller: controller),
                       sh_20,
                       filterSection,
                       Obx(
@@ -117,6 +84,73 @@ class TutorsView extends GetView<TutorsController> {
                   ),
                 ),
               ),
+      ),
+    );
+  }
+}
+
+class HomeBanner extends StatelessWidget {
+  const HomeBanner({
+    super.key,
+    required this.themeData,
+    required this.controller,
+  });
+
+  final ThemeData themeData;
+  final TutorsController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: themeData.primaryColor,
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Text(
+              "Incoming Course",
+              style: BaseTextStyle.heading2(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Wed, 17 May 23 12:30 - 12:55",
+                  style: BaseTextStyle.body2(),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.start),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "${LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr} ",
+                  style: BaseTextStyle.body1(),
+                ),
+                Text(
+                  controller.hours?.toString() ?? "x",
+                  style: BaseTextStyle.body1(),
+                ),
+                Text(
+                  " ${LocalizationKeys.hour.tr} ",
+                  style: BaseTextStyle.body1(),
+                ),
+                Text(
+                  controller.minutes?.toString() ?? "x",
+                  style: BaseTextStyle.body1(),
+                ),
+                Text(
+                  " ${LocalizationKeys.minutes.tr}",
+                  style: BaseTextStyle.body1(),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
