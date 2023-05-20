@@ -16,27 +16,33 @@ class TutorView extends GetView<TutorController> {
       appBar: LetTutorAppBar.mainAppBarWithTitleAndBackButton(
           context: context, title: "Tutor Detail"),
       drawer: createNavigationDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              children: [
-                const SizedBox(
-                  width: double.infinity,
-                  child: VideoSection(
-                    linkVideo:
-                        "https://api.app.lettutor.com/video/4d54d3d7-d2a9-42e5-97a2-5ed38af5789avideo1627913015871.mp4",
+      body: Obx(
+        () => controller.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(18),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          width: double.infinity,
+                          child: VideoSection(
+                            linkVideo:
+                                "https://api.app.lettutor.com/video/4d54d3d7-d2a9-42e5-97a2-5ed38af5789avideo1627913015871.mp4",
+                          ),
+                        ),
+                        sh_20,
+                        IntroSection(
+                          controller: controller,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                sh_20,
-                IntroSection(
-                  controller: controller,
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

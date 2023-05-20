@@ -97,12 +97,9 @@ class TutorsView extends GetView<TutorsController> {
                                       Column(
                                         children: List.generate(
                                           controller.result?.rows.length ?? 0,
-                                          (index) => GestureDetector(
-                                            onTap: () {},
-                                            child: TutorCard(
-                                                tutor: controller
-                                                    .result!.rows[index]),
-                                          ),
+                                          (index) => TutorCard(
+                                              tutor: controller
+                                                  .result!.rows[index]),
                                         ),
                                       ),
                                       PaginationSection(

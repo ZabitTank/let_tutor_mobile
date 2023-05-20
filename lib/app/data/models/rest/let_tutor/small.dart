@@ -71,14 +71,6 @@ class TutorInfo {
     isNative: null,
   );
 
-  List<String> toListLanguges() {
-    return languages?.split(',') ?? [];
-  }
-
-  List<String> toListspecialties() {
-    return specialties?.split(',') ?? [];
-  }
-
   factory TutorInfo.fromJson(Map<String, dynamic> json) =>
       _$TutorInfoFromJson(json);
   Map<String, dynamic> toJson() => _$TutorInfoToJson(this);

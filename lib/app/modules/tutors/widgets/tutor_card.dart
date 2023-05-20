@@ -21,7 +21,7 @@ class TutorCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Routes.teacherDetail);
+          Get.toNamed(Routes.teacherDetail, arguments: tutor);
         },
         child: Card(
           elevation: 5,

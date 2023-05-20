@@ -49,6 +49,9 @@ TutorInfoDetail _$TutorInfoDetailFromJson(Map<String, dynamic> json) =>
       ..schedulestimes = json['schedulestimes'] as String?
       ..isFavorite = json['isFavorite'] as bool?
       ..price = json['price'] as int?
+      ..User = json['User'] == null
+          ? null
+          : MyUserInfo.fromJson(json['User'] as Map<String, dynamic>)
       ..feedbacks = (json['feedbacks'] as List<dynamic>?)
           ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
           .toList();
@@ -96,5 +99,6 @@ Map<String, dynamic> _$TutorInfoDetailToJson(TutorInfoDetail instance) =>
       'schedulestimes': instance.schedulestimes,
       'isFavorite': instance.isFavorite,
       'price': instance.price,
+      'User': instance.User,
       'feedbacks': instance.feedbacks,
     };

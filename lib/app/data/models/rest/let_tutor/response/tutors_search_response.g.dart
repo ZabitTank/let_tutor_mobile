@@ -13,11 +13,14 @@ TutorsSearchResponse _$TutorsSearchResponseFromJson(
           .map((e) => TutorInfoDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
       count: json['count'] as int,
-    );
+    )..favorite = (json['favorite'] as List<dynamic>?)
+        ?.map((e) => TutorInfoDetail.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$TutorsSearchResponseToJson(
         TutorsSearchResponse instance) =>
     <String, dynamic>{
       'rows': instance.rows,
+      'favorite': instance.favorite,
       'count': instance.count,
     };

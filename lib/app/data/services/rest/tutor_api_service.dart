@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
+import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
 
 class TutorAPIService {
@@ -78,6 +79,18 @@ class TutorAPIService {
 
       result.rows = mergedList;
       return result;
+    } catch (e, stack) {
+      await FirebaseCrashlytics.instance.recordError(e, stack);
+      rethrow;
+    }
+  }
+
+  Future<TutorInfoDetail> getTutorById(String id) async {
+    try {
+      final response = await RestAPIProvider.instance.request(
+          endpoint: "$domain/$id", method: HttpMethod.GET, useToken: true);
+
+      return TutorInfoDetail.fromJson(response.data);
     } catch (e, stack) {
       await FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;

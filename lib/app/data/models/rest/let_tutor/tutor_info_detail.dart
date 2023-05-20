@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/feedback.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 
 part 'tutor_info_detail.g.dart';
 
@@ -46,9 +47,19 @@ class TutorInfoDetail {
   String? schedulestimes;
   bool? isFavorite;
   int? price;
+  // ignore: non_constant_identifier_names
+  MyUserInfo? User;
   List<Feedback>? feedbacks;
 
   TutorInfoDetail();
+
+  List<String> toListLanguges() {
+    return languages?.split(',') ?? [];
+  }
+
+  List<String> toListspecialties() {
+    return specialties?.split(',') ?? [];
+  }
 
   factory TutorInfoDetail.fromJson(Map<String, dynamic> json) =>
       _$TutorInfoDetailFromJson(json);
