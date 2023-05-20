@@ -11,6 +11,13 @@ class Helper {
     }
   }
 
+  static int? timeToMilliseconds(DateTime? date, TimeOfDay? time) {
+    if (time == null || date == null) return null;
+    DateTime dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    return dateTime.millisecondsSinceEpoch;
+  }
+
   static double getSize(BuildContext context, double percent,
       {bool isHeight = false}) {
     final size = isHeight

@@ -41,7 +41,7 @@ class _DropdownSortFilterState extends State<DropdownSortFilter> {
   }
 }
 
-class SearchField extends StatelessWidget {
+class SearchField extends StatefulWidget {
   const SearchField({
     super.key,
     required this.controller,
@@ -55,27 +55,33 @@ class SearchField extends StatelessWidget {
   final bool showIcon;
 
   @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: TextFormField(
-            controller: controller,
+            autofocus: false,
+            controller: widget.controller,
             decoration: InputDecoration(
               isDense: true,
               contentPadding: const EdgeInsets.all(8),
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () {
-                  controller.clear();
+                  widget.controller.clear();
                 },
               ),
-              hintText: hint ?? "",
+              hintText: widget.hint ?? "",
               border: const OutlineInputBorder(),
             ),
           ),
         ),
-        showIcon
+        widget.showIcon
             ? Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
@@ -86,7 +92,7 @@ class SearchField extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    onFilter?.call();
+                    widget.onFilter?.call();
                   },
                   icon: const Icon(Icons.search),
                 ),

@@ -47,7 +47,7 @@ TutorInfoDetail _$TutorInfoDetailFromJson(Map<String, dynamic> json) =>
       ..rating = (json['rating'] as num?)?.toDouble()
       ..isNative = json['isNative']
       ..schedulestimes = json['schedulestimes'] as String?
-      ..isfavoritetutor = json['isfavoritetutor'] as bool?
+      ..isFavorite = json['isFavorite'] as bool?
       ..price = json['price'] as int?
       ..feedbacks = (json['feedbacks'] as List<dynamic>?)
           ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
@@ -94,7 +94,7 @@ Map<String, dynamic> _$TutorInfoDetailToJson(TutorInfoDetail instance) =>
       'rating': instance.rating,
       'isNative': instance.isNative,
       'schedulestimes': instance.schedulestimes,
-      'isfavoritetutor': instance.isfavoritetutor,
+      'isFavorite': instance.isFavorite,
       'price': instance.price,
       'feedbacks': instance.feedbacks,
     };

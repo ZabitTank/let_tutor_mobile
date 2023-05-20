@@ -80,6 +80,15 @@ const Map<String, List<String>> tutorsNationFilter = {
   "vi": <String>["Gia sư nước ngoài", "Gia sư Việt Nam", "Gia sư bản sứ"],
 };
 
+const Map<String, List<Map<String, dynamic>>> killMePlease = {
+  "en": <Map<String, dynamic>>[
+    {
+      "Foreign Tutor": {"isVietNamese": false, "isNative": false},
+    }
+  ],
+  "vi": <Map<String, dynamic>>[]
+};
+
 class CommonString {
   const CommonString();
   static const String errorContactowner =

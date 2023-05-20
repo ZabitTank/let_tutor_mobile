@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/course.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/courses_response.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
@@ -29,14 +30,6 @@ class CourseAPIService {
         "categoryId[]": categoryId,
       };
 
-      // if (categoryId != null && categoryId.isNotEmpty) {
-      //   queryParams["categoryId[]"] = categoryId;
-      // }
-
-      // if (level != null && level.isNotEmpty) {
-      //   queryParams["level[]"] = level;
-      // }
-
       final response = await RestAPIProvider.instance.request(
           endpoint: courseDomain,
           method: HttpMethod.GET,
@@ -46,7 +39,9 @@ class CourseAPIService {
       return GetCoursesResponse.fromJson(response.data['data']);
     } on UnexpectedException catch (_) {
       rethrow;
-    } catch (e) {
+    } catch (e, stack) {
+      await FirebaseCrashlytics.instance.recordError(e, stack);
+
       return Future.error(
           ServiceLogicException(context: "Course", debugMessage: e.toString()));
     }

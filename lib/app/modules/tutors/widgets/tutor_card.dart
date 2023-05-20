@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
@@ -8,10 +9,13 @@ import 'package:let_tutor_mobile/routes/app_routes.dart';
 class TutorCard extends StatelessWidget {
   const TutorCard({
     Key? key,
+    required this.tutor,
   }) : super(key: key);
 
+  final TutorInfoDetail tutor;
   @override
   Widget build(BuildContext context) {
+    final skill = tutor.specialties?.split(",");
     ThemeData themeData = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -27,9 +31,12 @@ class TutorCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00"),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage((tutor.avatar == null ||
+                              tutor.avatar ==
+                                  "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png")
+                          ? "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00"
+                          : tutor.avatar!),
                       radius: 30,
                     ),
                     const SizedBox(width: 10),
@@ -44,19 +51,25 @@ class TutorCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Chetah",
+                                    tutor.name ?? "Name",
                                     style: themeData.textTheme.headlineSmall,
                                   ),
                                 ],
                               ),
                               Row(
-                                children: const [
-                                  Icon(Icons.favorite, color: Colors.red),
+                                children: [
+                                  Icon(Icons.favorite,
+                                      color: tutor.isFavorite == null
+                                          ? Colors.black
+                                          : Colors.red),
                                   sw_10,
-                                  Text("2"),
+                                  Text(tutor.rating?.ceil().toString() ?? ""),
                                   Icon(
                                     Icons.star_outlined,
-                                    color: Color.fromARGB(255, 255, 183, 0),
+                                    color: tutor.rating == null
+                                        ? Colors.grey
+                                        : const Color.fromARGB(
+                                            255, 255, 183, 0),
                                     size: 16,
                                   )
                                 ],
@@ -69,12 +82,12 @@ class TutorCard extends StatelessWidget {
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: List.generate(
-                                3,
+                                skill?.length ?? 0,
                                 (index) => Padding(
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Center(
                                     child: ChipInfo(
-                                        info: specifiers[index],
+                                        info: skill![index],
                                         themeData: themeData),
                                   ),
                                 ),
@@ -88,7 +101,8 @@ class TutorCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "bla bla bal bla bla bla bla bla bla bla bla bla bal bla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla bal",
+                  tutor.bio ??
+                      "bla bla bal bla bla bla bla bla bla bla bla bla bal bla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla balbla bla bal bla bla bla bla bla bla bla bla bla bal",
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),

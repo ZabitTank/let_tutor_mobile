@@ -85,6 +85,7 @@ class NavigationDrawer extends StatelessWidget {
                 : primaryColor,
             onTap: () {
               Get.back(closeOverlays: true);
+              Get.until((route) => Get.currentRoute == Routes.home);
               Get.toNamed(Routes.profile);
             },
           ),
@@ -97,6 +98,7 @@ class NavigationDrawer extends StatelessWidget {
                 : primaryColor,
             onTap: () {
               Get.back(closeOverlays: true);
+              Get.until((route) => Get.currentRoute == Routes.home);
               Get.toNamed(Routes.changePassword);
             },
           ),
@@ -109,6 +111,8 @@ class NavigationDrawer extends StatelessWidget {
                 : primaryColor,
             onTap: () {
               Get.back(closeOverlays: true);
+              Get.until((route) => Get.currentRoute == Routes.home);
+
               Get.toNamed(Routes.settings);
             },
           ),

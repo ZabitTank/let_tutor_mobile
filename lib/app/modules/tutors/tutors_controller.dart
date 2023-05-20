@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
+import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 
 class TutorsController extends GetxController {
@@ -12,14 +15,31 @@ class TutorsController extends GetxController {
   final selectedStartTime = Rx<TimeOfDay?>(null);
   final selectedEndTime = Rx<TimeOfDay?>(null);
 
+  final size = 4;
+  int page = 1;
+  int totalPage = 1;
+
+  TutorsSearchResponse? result;
+
+  final isLoading = true.obs;
+  final paginationLoading = true.obs;
   @override
-  void onInit() {
-    // fetch data here
+  void onInit() async {
     super.onInit();
+    try {
+      isLoading.value = true;
+      await filter();
+    } catch (e) {
+      showSnackBar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   @override
   void onClose() {
+    isLoading.close();
+    paginationLoading.close();
     selectedStartTime.close();
     selectedEndTime.close();
     specifierFilter.close();
@@ -29,7 +49,40 @@ class TutorsController extends GetxController {
     super.onClose();
   }
 
-  Future<void> filter() async {}
+  Future<void> filter({
+    bool newFilter = true,
+  }) async {
+    paginationLoading.value = true;
+    if (newFilter) {
+      page = 1;
+    }
+    try {
+      result = await LetTutorAPIService.tutorAPIService.search(
+          page: page,
+          perPage: size,
+          date: dateFilter.value,
+          search: findTutorController.text,
+          specialties: specifierFilter.value,
+          tutoringTimeAvailableFrom: selectedStartTime.value,
+          tutoringTimeAvailableTo: selectedEndTime.value);
+
+      totalPage = (result!.count / size).ceil();
+    } catch (e) {
+      showSnackBar("Error", e.toString());
+    } finally {
+      paginationLoading.value = false;
+    }
+  }
+
+  Future<void> onPageChanged(int pageNumber) async {
+    paginationLoading.value = true;
+    if (pageNumber >= totalPage || pageNumber < 0) {
+      return;
+    } else {
+      page = pageNumber;
+      await filter(newFilter: false);
+    }
+  }
 
   void resetFilter() {
     findTutorController.clear();

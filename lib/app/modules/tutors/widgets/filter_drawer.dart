@@ -42,6 +42,7 @@ class FilterDrawer extends GetView<HomeController> {
                         hint: LocalizationKeys
                             .tutorscreen_find_tutors_filter_name_hint.tr,
                         onFilter: () async {
+                          Get.back(closeOverlays: true);
                           await controller.tutorsController.filter();
                         },
                       ),
@@ -92,7 +93,9 @@ class FilterDrawer extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.tutorsController.filter();
+                            },
                             child: const Text('Accept'),
                           ),
                           const SizedBox(width: 8),

@@ -44,7 +44,7 @@ class TutorInfoDetail {
   double? rating;
   dynamic isNative;
   String? schedulestimes;
-  bool? isfavoritetutor;
+  bool? isFavorite;
   int? price;
   List<Feedback>? feedbacks;
 

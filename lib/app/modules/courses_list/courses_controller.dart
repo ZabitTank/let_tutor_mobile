@@ -61,7 +61,7 @@ class CoursesController extends GetxController
       );
       totalPage = (result!.count / size).ceil();
     } catch (e) {
-      debugPrint(e.toString());
+      showSnackBar("Error", e.toString());
     } finally {
       paginationLoading.value = false;
     }

@@ -115,18 +115,18 @@ class LetTutorAppBar {
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         );
       }),
-      actions: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Builder(builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.list),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          }),
-        ),
+      actions: const [
+        // Align(
+        //   alignment: Alignment.topCenter,
+        //   child: Builder(builder: (context) {
+        //     return IconButton(
+        //       icon: const Icon(Icons.list),
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //     );
+        //   }),
+        // ),
       ],
       title: Text(
         title,
