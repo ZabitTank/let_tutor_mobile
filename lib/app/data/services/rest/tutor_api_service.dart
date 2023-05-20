@@ -50,15 +50,21 @@ class TutorAPIService {
           final notFavoriteTutors = smartResponse.data['favoriteTutor'];
 
           for (var notFavoriteTutor in notFavoriteTutors) {
+            if (notFavoriteTutor['secondInfo'] == null) {
+              continue;
+            }
             final tutor = TutorInfoDetail.fromJson(
                 notFavoriteTutor['secondInfo']['tutorInfo']);
             tutor.isFavorite = true;
+            tutor.isfavoritetutor = "1";
             tutor.name = notFavoriteTutor['secondInfo']['name'];
             tutor.avatar = notFavoriteTutor['secondInfo']['avatar'];
             favoriteTutors.add(tutor);
           }
         }
-      } catch (_) {}
+      } catch (e, stack) {
+        await FirebaseCrashlytics.instance.recordError(e, stack);
+      }
 
       final response = await RestAPIProvider.instance.request(
           endpoint: domain + TutorAPIPath.search,

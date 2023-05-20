@@ -94,6 +94,7 @@ class FilterDrawer extends GetView<HomeController> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
+                              Get.back(closeOverlays: true);
                               controller.tutorsController.filter();
                             },
                             child: const Text('Accept'),

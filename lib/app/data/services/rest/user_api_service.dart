@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
@@ -105,6 +107,23 @@ class UserAPIService {
     } catch (e) {
       return Future.error(ServiceLogicException(
           context: "Auth/uploadAvatar/", debugMessage: e.toString()));
+    }
+  }
+
+  Future<void> addFavoriteTutor(String tutorId) async {
+    try {
+      final requestBody = {"tutorId": tutorId};
+
+      await RestAPIProvider.instance.request(
+          endpoint: "$domain${UserAPIPath.favorite}",
+          method: HttpMethod.POST,
+          body: requestBody,
+          useToken: true);
+
+      print("jaja");
+    } catch (e, stack) {
+      await FirebaseCrashlytics.instance.recordError(e, stack);
+      rethrow;
     }
   }
 }

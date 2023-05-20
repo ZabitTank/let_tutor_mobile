@@ -24,12 +24,13 @@ class _TutorIntroState extends State<TutorIntro> {
   @override
   void initState() {
     super.initState();
+    _fetchCountryAndFlag();
   }
 
   Future<void> _fetchCountryAndFlag() async {
     final response = await http.get(
       Uri.parse(
-        'https://restcountries.com/v2/alpha/${widget.tutor.User?.country ?? "vi"}',
+        'https://restcountries.com/v2/alpha/${widget.tutor.country ?? "vn"}',
       ),
     );
     if (response.statusCode == 200) {
@@ -70,7 +71,7 @@ class _TutorIntroState extends State<TutorIntro> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    Helper.getLanguageName(countryName ?? "Dong Lao"),
+                    countryName ?? "",
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

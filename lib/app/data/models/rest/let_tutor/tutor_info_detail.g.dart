@@ -48,6 +48,7 @@ TutorInfoDetail _$TutorInfoDetailFromJson(Map<String, dynamic> json) =>
       ..isNative = json['isNative']
       ..schedulestimes = json['schedulestimes'] as String?
       ..isFavorite = json['isFavorite'] as bool?
+      ..isfavoritetutor = json['isfavoritetutor'] as String?
       ..price = json['price'] as int?
       ..User = json['User'] == null
           ? null
@@ -98,6 +99,7 @@ Map<String, dynamic> _$TutorInfoDetailToJson(TutorInfoDetail instance) =>
       'isNative': instance.isNative,
       'schedulestimes': instance.schedulestimes,
       'isFavorite': instance.isFavorite,
+      'isfavoritetutor': instance.isfavoritetutor,
       'price': instance.price,
       'User': instance.User,
       'feedbacks': instance.feedbacks,

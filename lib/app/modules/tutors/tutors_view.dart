@@ -65,6 +65,10 @@ class TutorsView extends GetView<TutorsController> {
                                         children: List.generate(
                                           controller.result?.rows.length ?? 0,
                                           (index) => TutorCard(
+                                              addFavorite: (tutorId) async {
+                                                await controller
+                                                    .addFavorite(tutorId);
+                                              },
                                               tutor: controller
                                                   .result!.rows[index]),
                                         ),

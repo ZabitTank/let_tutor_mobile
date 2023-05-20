@@ -46,6 +46,7 @@ class TutorInfoDetail {
   dynamic isNative;
   String? schedulestimes;
   bool? isFavorite;
+  String? isfavoritetutor;
   int? price;
   // ignore: non_constant_identifier_names
   MyUserInfo? User;

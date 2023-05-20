@@ -42,9 +42,18 @@ class IntroSection extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Icon(
-                          Icons.favorite,
-                          color: themeData.highlightColor,
+                        Obx(
+                          () => IconButton(
+                            onPressed: () async {
+                              await controller.addFavorite();
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: controller.isFavorite.value
+                                  ? themeData.highlightColor
+                                  : Colors.black,
+                            ),
+                          ),
                         ),
                         Text(
                           "Favorite",

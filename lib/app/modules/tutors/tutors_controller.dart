@@ -45,6 +45,14 @@ class TutorsController extends GetxController {
     }
   }
 
+  Future<void> addFavorite(String tutorId) async {
+    try {
+      await LetTutorAPIService.userAPIService.addFavoriteTutor(tutorId);
+    } catch (_) {
+      showSnackBar("Failed", "Failed to add favorite");
+    }
+  }
+
   @override
   void onClose() {
     isLoading.close();
