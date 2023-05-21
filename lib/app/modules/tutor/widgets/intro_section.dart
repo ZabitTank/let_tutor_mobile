@@ -79,7 +79,7 @@ class IntroSection extends StatelessWidget {
                           color: themeData.primaryColor,
                         ),
                         Text(
-                          "Report",
+                          "Review",
                           style: BaseTextStyle.label2(
                               color: themeData.primaryColor),
                         ),

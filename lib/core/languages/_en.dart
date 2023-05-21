@@ -69,6 +69,35 @@ const Map<LocalizationKeys, String> en = {
   LocalizationKeys.enter_apikey: "Enter your API key",
   LocalizationKeys.enter_apikey_info:
       "Use your own API key or leave it blank to use the system key",
+
   LocalizationKeys.yes: "Yes",
   LocalizationKeys.no: "No",
+  // T_T
+  LocalizationKeys.empty_data: "Nothing to show",
+  LocalizationKeys.empty_upcoming: "You don't have any upcoming lesson",
+  LocalizationKeys.enter_room: "Enter room",
+  LocalizationKeys.tutor_detail: "Tutor Detail",
+  LocalizationKeys.favorite: "Favorite",
+  LocalizationKeys.report: "Report",
+  LocalizationKeys.specialties: "Specialties",
+  LocalizationKeys.interests: "Interest",
+  LocalizationKeys.teach_exp: "Teaching Experience",
+  LocalizationKeys.cancel_booking:
+      "What was the reason you cancel this booking?",
+  LocalizationKeys.choose_one_reason: "You must choose reason",
+  LocalizationKeys.profile: "Profile",
+  LocalizationKeys.account_info: "Account Info",
+  LocalizationKeys.my_level: "My Level",
+  LocalizationKeys.learm_topic: "Lears Topic",
+  LocalizationKeys.save: "Save",
+
+  LocalizationKeys.already_account: "Already Have Account? ",
+  LocalizationKeys.member_yet: "Not a member yet?",
+  LocalizationKeys.login_continue: "Or Continue With ",
+
+  LocalizationKeys.mail: "Email",
+  LocalizationKeys.phone: "Phone",
+
+  LocalizationKeys.register_now: "Register now",
+  LocalizationKeys.signup_now: "Signin now",
 };

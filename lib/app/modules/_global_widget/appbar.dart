@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
-import 'package:let_tutor_mobile/core/languages/my_localization.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
 
 class LetTutorAppBar {

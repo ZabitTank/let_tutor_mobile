@@ -62,7 +62,7 @@ class SecheduleCard extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (!canGoMeeting) return;
-                      await joinMeeting(
+                      await CallVideo.joinMeeting(
                           user: controller.appStateController.user,
                           booking: booking);
                     },

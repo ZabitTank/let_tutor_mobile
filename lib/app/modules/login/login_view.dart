@@ -7,10 +7,12 @@ import 'package:let_tutor_mobile/app/modules/login/widgets/clickable_textspan.da
 import 'package:let_tutor_mobile/app/modules/login/widgets/pass_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/valid_input_field.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
+import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/field_validation.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
+import 'package:let_tutor_mobile/core/values/enum.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -29,13 +31,13 @@ class LoginView extends GetView<LoginController> {
                     height: 300, width: 300),
                 const SizedBox(height: 15),
                 Text(
-                  "Say hello to your English tutors",
+                  LocalizationKeys.login1SubTitleText.tr,
                   textAlign: TextAlign.center,
                   style: context.headlineMedium,
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  "Say hello to your English tutorsSay hello to your English tutorsSay hello to your English tutorsSay hello to your English tutorsSay hello to your English tutors",
+                  LocalizationKeys.login1SubTitleText.tr,
                   textAlign: TextAlign.center,
                   style: context.labelMedium,
                 ),
@@ -50,11 +52,11 @@ class LoginView extends GetView<LoginController> {
                       children: [
                         Obx(() => !controller.isUsingPhone.value
                             ? Text(
-                                "Email",
+                                LocalizationKeys.mail.tr,
                                 style: context.bodyMedium,
                               )
                             : Text(
-                                "Phone",
+                                LocalizationKeys.phone.tr,
                                 style: context.bodyMedium,
                               )),
                         const SizedBox(height: 10),
@@ -106,7 +108,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          "Password",
+                          LocalizationKeys.login2UserPasswordText.tr,
                           style: context.bodyMedium,
                         ),
                         const SizedBox(height: 10),
@@ -115,7 +117,8 @@ class LoginView extends GetView<LoginController> {
                         const SizedBox(height: 15),
                         GestureDetector(
                           child: Text(
-                            'Forgot Password?',
+                            LocalizationKeys
+                                .login3ForgotPasswordHightLightText.tr,
                             style: BaseTextStyle.subtitle3(
                                 color: Theme.of(context).primaryColor),
                           ),
@@ -145,11 +148,11 @@ class LoginView extends GetView<LoginController> {
                             )
                           : !controller.isSignup.value
                               ? Text(
-                                  "Login",
+                                  "Login".tr,
                                   style: context.labelLarge,
                                 )
                               : Text(
-                                  "Signup",
+                                  "Signup".tr,
                                   style: context.labelLarge,
                                 ),
                     ),
@@ -161,7 +164,7 @@ class LoginView extends GetView<LoginController> {
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  'Or Continue With',
+                  LocalizationKeys.login_continue.tr,
                   style: context.labelMedium,
                 ),
                 const SizedBox(height: 15),
@@ -202,13 +205,13 @@ class LoginView extends GetView<LoginController> {
                   child: Obx(
                     () => !controller.isSignup.value
                         ? ClickableTextSpan(
-                            text: "Don't Have Account? ",
-                            highlightText: "Register now",
+                            text: LocalizationKeys.member_yet.tr,
+                            highlightText: LocalizationKeys.register_now.tr,
                             callback: controller.toggleSignup,
                           )
                         : ClickableTextSpan(
-                            text: "Already Have Account? ",
-                            highlightText: "Signin now",
+                            text: LocalizationKeys.login_continue.tr,
+                            highlightText: LocalizationKeys.signup_now.tr,
                             callback: controller.toggleSignup,
                           ),
                   ),
