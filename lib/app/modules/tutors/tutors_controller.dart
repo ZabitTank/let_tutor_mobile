@@ -91,12 +91,11 @@ class TutorsController extends GetxController {
     }
   }
 
-  Future<void> onPageChanged(int pageNumber) async {
-    paginationLoading.value = true;
-    if (pageNumber >= totalPage || pageNumber < 0) {
+  Future<void> onPageChanged(int newPage) async {
+    if (newPage > totalPage || newPage < 0) {
       return;
     } else {
-      page = pageNumber;
+      page = newPage;
       await filter(newFilter: false);
     }
   }

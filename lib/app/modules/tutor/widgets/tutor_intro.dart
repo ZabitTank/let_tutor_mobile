@@ -1,45 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
-import 'package:let_tutor_mobile/core/utils/helper.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class TutorIntro extends StatefulWidget {
   const TutorIntro({
     super.key,
     required this.tutor,
+    required this.flag,
+    required this.countryName,
   });
 
   final TutorInfoDetail tutor;
-
+  final String flag;
+  final String countryName;
   @override
   State<TutorIntro> createState() => _TutorIntroState();
 }
 
 class _TutorIntroState extends State<TutorIntro> {
-  String? flag;
-  String? countryName;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchCountryAndFlag();
-  }
-
-  Future<void> _fetchCountryAndFlag() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://restcountries.com/v2/alpha/${widget.tutor.country ?? "vn"}',
-      ),
-    );
-    if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
-      flag = json['flag'];
-      countryName = json["name"];
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -65,13 +43,13 @@ class _TutorIntroState extends State<TutorIntro> {
               Row(
                 children: [
                   SvgPicture.network(
-                    flag ?? "https://flagcdn.com/vn.svg",
+                    widget.flag,
                     height: 15,
                     width: 30,
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    countryName ?? "",
+                    widget.countryName,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

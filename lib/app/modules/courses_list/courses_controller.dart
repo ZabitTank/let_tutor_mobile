@@ -61,7 +61,7 @@ class CoursesController extends GetxController
       );
       totalPage = (result!.count / size).ceil();
     } catch (e) {
-      showSnackBar("Error", e.toString());
+      debugPrint(e.toString());
     } finally {
       paginationLoading.value = false;
     }
@@ -69,7 +69,7 @@ class CoursesController extends GetxController
 
   Future<void> onPageChanged(int pageNumber) async {
     paginationLoading.value = true;
-    if (pageNumber >= totalPage || pageNumber < 0) {
+    if (pageNumber > totalPage || pageNumber < 0) {
       return;
     } else {
       page = pageNumber;
@@ -86,7 +86,7 @@ class CoursesController extends GetxController
       isLoading.value = true;
       categoryList =
           await LetTutorAPIService.valueAPIService.getContentCategory();
-      await filter();
+      filter();
     } catch (e) {
       showSnackBar("Error", e.toString());
     } finally {

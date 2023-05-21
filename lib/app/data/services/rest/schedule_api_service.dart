@@ -78,7 +78,7 @@ class ScheduleAPIService {
       } else {
         query['sortBy'] = "asc";
         query['dateTimeGte'] = DateTime.now()
-            .subtract(const Duration(hours: 2))
+            .subtract(const Duration(minutes: 30))
             .millisecondsSinceEpoch;
       }
       final response = await RestAPIProvider.instance.request(
@@ -88,7 +88,9 @@ class ScheduleAPIService {
         query: query,
       );
 
-      return BookingsResponse.fromJson(response.data['data']);
+      final result = BookingsResponse.fromJson(response.data['data']);
+
+      return result;
     } catch (e, stack) {
       FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;

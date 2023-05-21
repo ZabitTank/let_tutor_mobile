@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_chat_provider.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/navigation_drawer.dart';
@@ -10,7 +9,6 @@ import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
 import 'package:let_tutor_mobile/core/values/constants.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsView extends GetView<SettingsController> {

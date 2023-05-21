@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_pagination.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/filter_widget.dart';
-import 'package:let_tutor_mobile/app/modules/_utils_widget/test_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/courses_controller.dart';
 import 'package:let_tutor_mobile/app/modules/courses_list/widgets/course_info_card.dart';
@@ -20,6 +19,7 @@ class CoursesView extends GetView<CoursesController> {
     debugPrint("Course View build");
     return SafeArea(
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Obx(
           () => controller.isLoading.value
               ? const Center(

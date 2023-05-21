@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_pagination.dart';
-import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/login/widgets/clickable_textspan.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/schedules_controller.dart';
 import 'package:let_tutor_mobile/app/modules/schedules/widgets/schedule_card.dart';
@@ -45,67 +44,73 @@ class SchedulesView extends GetView<SchedulesController> {
 
     return Obx(
       () => controller.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
+          ? Center(child: Container())
           : SafeArea(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      tutorsViewIntro,
-                      Obx(
-                        () => controller.paginationLoading.value
-                            ? const Center(child: CircularProgressIndicator())
-                            : controller.result?.rows.isEmpty ?? true
-                                ? Center(
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 500,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Text("Nothing to Show"),
-                                          IconButton(
-                                              onPressed: () async {
-                                                await controller.more();
-                                              },
-                                              icon: const Icon(
-                                                  Icons.replay_outlined))
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : Column(
-                                    children: [
-                                      Column(
-                                        children: List.generate(
-                                          controller.result?.rows.length ?? 0,
-                                          (index) => SecheduleCard(
-                                            booking:
-                                                controller.result!.rows[index],
-                                            editRequest: () async {
-                                              await controller.editRequest();
-                                            },
-                                          ),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await controller.more();
+                },
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        tutorsViewIntro,
+                        Obx(
+                          () => controller.paginationLoading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : controller.result?.rows.isEmpty ?? true
+                                  ? Center(
+                                      child: SizedBox(
+                                        width: 200,
+                                        height: 500,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Text("Nothing to Show"),
+                                            IconButton(
+                                                onPressed: () async {
+                                                  await controller.more();
+                                                },
+                                                icon: const Icon(
+                                                    Icons.replay_outlined))
+                                          ],
                                         ),
                                       ),
-                                      PaginationSection(
-                                        // Pass necessary parameters to the PaginationSection
-                                        currentPage: controller.page,
-                                        totalPages: controller.totalPage,
-                                        onPageChanged: (page) async {
-                                          await controller.onPageChanged(page);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                      ),
-                    ],
+                                    )
+                                  : Column(
+                                      children: [
+                                        Column(
+                                          children: List.generate(
+                                            controller.result?.rows.length ?? 0,
+                                            (index) => SecheduleCard(
+                                              controller: controller,
+                                              cancelBooking: (id) async {
+                                                await controller
+                                                    .cancelBooking(id);
+                                              },
+                                              booking: controller
+                                                  .result!.rows[index],
+                                            ),
+                                          ),
+                                        ),
+                                        PaginationSection(
+                                          // Pass necessary parameters to the PaginationSection
+                                          currentPage: controller.page,
+                                          totalPages: controller.totalPage,
+                                          onPageChanged: (page) async {
+                                            await controller
+                                                .onPageChanged(page);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

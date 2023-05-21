@@ -1,12 +1,9 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/tutor/tutor_controller.dart';
-import 'package:let_tutor_mobile/app/modules/tutor/widgets/tutor_course_section.dart';
+import 'package:let_tutor_mobile/app/modules/tutor/widgets/tutor_intro.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
 
@@ -35,6 +32,8 @@ class IntroSection extends StatelessWidget {
               children: [
                 TutorIntro(
                   tutor: tutor,
+                  countryName: controller.countryName ?? "Vietnamse",
+                  flag: controller.flag ?? "https://flagcdn.com/vn.svg",
                 ),
                 sh_20,
                 Row(

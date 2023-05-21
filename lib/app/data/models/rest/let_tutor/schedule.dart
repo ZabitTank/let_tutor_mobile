@@ -51,8 +51,9 @@ class ScheduleDetail {
 
   String? tutorId;
   TutorInfoDetail? tutorInfo;
+  bool? isBooked;
 
-  ScheduleDetail();
+  ScheduleDetail(this.isBooked);
 
   factory ScheduleDetail.fromJson(Map<String, dynamic> json) =>
       _$ScheduleDetailFromJson(json);

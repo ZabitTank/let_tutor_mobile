@@ -6,7 +6,6 @@ import 'package:let_tutor_mobile/app/modules/course_detail/course_detail_control
 import 'package:let_tutor_mobile/app/modules/course_detail/widgets/course_explore_card.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/appbar.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
-import 'package:let_tutor_mobile/core/languages/_en.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/routes/app_routes.dart';
 

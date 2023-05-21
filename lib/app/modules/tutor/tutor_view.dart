@@ -27,10 +27,10 @@ class TutorView extends GetView<TutorController> {
                     padding: const EdgeInsets.all(18),
                     child: Column(
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           width: double.infinity,
                           child: VideoSection(
-                            linkVideo:
+                            linkVideo: controller.tutor.video ??
                                 "https://api.app.lettutor.com/video/4d54d3d7-d2a9-42e5-97a2-5ed38af5789avideo1627913015871.mp4",
                           ),
                         ),

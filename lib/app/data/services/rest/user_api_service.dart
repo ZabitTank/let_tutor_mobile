@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/user_info.dart';
@@ -119,8 +118,6 @@ class UserAPIService {
           method: HttpMethod.POST,
           body: requestBody,
           useToken: true);
-
-      print("jaja");
     } catch (e, stack) {
       await FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;

@@ -4,7 +4,6 @@ import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/chat_ult
 import 'package:let_tutor_mobile/app/voice_gpt_module/chat_page/widgets/message_widget.dart';
 import 'package:let_tutor_mobile/app/voice_gpt_module/providers/gpt_model_provider.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
-import 'package:provider/provider.dart';
 
 class ModelDropdownWidget extends StatefulWidget {
   const ModelDropdownWidget({super.key, required this.provider});

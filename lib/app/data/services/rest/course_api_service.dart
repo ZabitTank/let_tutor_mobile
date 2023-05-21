@@ -2,9 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/course.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/courses_response.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
-import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 import 'package:let_tutor_mobile/core/values/exceptions/unexpected_exception.dart';
-import 'package:dio/dio.dart' as dio;
 
 class CourseAPIService {
   final String courseDomain;

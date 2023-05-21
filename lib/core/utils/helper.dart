@@ -11,11 +11,30 @@ class Helper {
     }
   }
 
+  static DateTime timeStampToDateTime(int epoch) {
+    return DateTime.fromMillisecondsSinceEpoch(epoch);
+  }
+
   static int? timeToMilliseconds(DateTime? date, TimeOfDay? time) {
     if (time == null || date == null) return null;
     DateTime dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
     return dateTime.millisecondsSinceEpoch;
+  }
+
+  static String addHoursToTime(String time) {
+    DateFormat format = DateFormat('HH:mm');
+    DateTime dateTime = format.parse(time);
+
+    DateTime updatedDateTime = dateTime.add(const Duration(hours: 7));
+
+    String updatedTime = format.format(updatedDateTime);
+
+    return updatedTime;
+  }
+
+  static String timeStampToHoursMinutes(int epoch) {
+    return hsFormatter.format(DateTime.fromMillisecondsSinceEpoch(epoch));
   }
 
   static double getSize(BuildContext context, double percent,
@@ -43,8 +62,8 @@ class Helper {
   }
 
   static String dateTimeToDate(DateTime? time) {
-    // return time == null ? "" : dmyFormatter.format(time.toLocal());
-    return time == null ? "" : dmyFormatter.format(time.add(_utcPlus7));
+    return time == null ? "" : dmyFormatter.format(time.toLocal());
+    // return time == null ? "" : dmyFormatter.format(time.add(_utcPlus7));
   }
 
   static String dateTimeToTime(DateTime? time) {

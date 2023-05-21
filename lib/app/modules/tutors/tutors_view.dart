@@ -36,55 +36,62 @@ class TutorsView extends GetView<TutorsController> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HomeBanner(themeData: themeData, controller: controller),
-                      sh_20,
-                      filterSection,
-                      Obx(
-                        () => controller.paginationLoading.value
-                            ? const Center(child: CircularProgressIndicator())
-                            : controller.result?.rows.isEmpty ?? true
-                                ? const Center(
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 500,
-                                      child: Center(
-                                        child: Text("Nothing to Show"),
-                                      ),
-                                    ),
-                                  )
-                                : Column(
-                                    children: [
-                                      Column(
-                                        children: List.generate(
-                                          controller.result?.rows.length ?? 0,
-                                          (index) => TutorCard(
-                                              addFavorite: (tutorId) async {
-                                                await controller
-                                                    .addFavorite(tutorId);
-                                              },
-                                              tutor: controller
-                                                  .result!.rows[index]),
+            : RefreshIndicator(
+                onRefresh: () async {
+                  await controller.filter(newFilter: false);
+                },
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        HomeBanner(
+                            themeData: themeData, controller: controller),
+                        sh_20,
+                        filterSection,
+                        Obx(
+                          () => controller.paginationLoading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : controller.result?.rows.isEmpty ?? true
+                                  ? const Center(
+                                      child: SizedBox(
+                                        width: 200,
+                                        height: 500,
+                                        child: Center(
+                                          child: Text("Nothing to Show"),
                                         ),
                                       ),
-                                      PaginationSection(
-                                        // Pass necessary parameters to the PaginationSection
-                                        currentPage: controller.page,
-                                        totalPages: controller.totalPage,
-                                        onPageChanged: (page) async {
-                                          await controller.onPageChanged(page);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                      ),
-                    ],
+                                    )
+                                  : Column(
+                                      children: [
+                                        Column(
+                                          children: List.generate(
+                                            controller.result?.rows.length ?? 0,
+                                            (index) => TutorCard(
+                                                addFavorite: (tutorId) async {
+                                                  await controller
+                                                      .addFavorite(tutorId);
+                                                },
+                                                tutor: controller
+                                                    .result!.rows[index]),
+                                          ),
+                                        ),
+                                        PaginationSection(
+                                          // Pass necessary parameters to the PaginationSection
+                                          currentPage: controller.page,
+                                          totalPages: controller.totalPage,
+                                          onPageChanged: (page) async {
+                                            await controller
+                                                .onPageChanged(page);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

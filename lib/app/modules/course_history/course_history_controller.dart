@@ -53,7 +53,7 @@ class CourseHistoryController extends GetxController {
 
   Future<void> onPageChanged(int pageNumber) async {
     paginationLoading.value = true;
-    if (pageNumber >= totalPage || pageNumber < 0) {
+    if (pageNumber > totalPage || pageNumber < 0) {
       return;
     } else {
       page = pageNumber;

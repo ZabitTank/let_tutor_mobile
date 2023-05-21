@@ -81,7 +81,7 @@ class OldMeetingCard extends StatelessWidget {
                 sh_20,
                 Card(
                   color: themeData.scaffoldBackgroundColor,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: Text(
                       "Lesson Time: ${sheduleInfo?.startTime ?? "Start"} - ${sheduleInfo?.endTime ?? "End"}",

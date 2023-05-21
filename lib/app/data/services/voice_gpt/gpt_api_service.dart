@@ -21,7 +21,6 @@ class GptApiService {
           useToken: true);
 
       if (response.data['error'] != null) {
-        print(response.data['error']["message"]);
         return Future.error(response.data['error']['message']);
       }
 
@@ -32,7 +31,6 @@ class GptApiService {
 
       return GPTModelInfo.modelsFromSnapshot(modelSnapshot);
     } catch (e) {
-      print(e.toString());
       return Future.error("App Error");
     }
   }

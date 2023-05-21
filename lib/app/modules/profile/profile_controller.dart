@@ -56,7 +56,6 @@ class ProfileController extends GetxController {
 
       appState.setUser = await LetTutorAPIService.userAPIService.getMe();
 
-      appState.user.learnTopics?.forEach((element) => print(element.toJson()));
       user = Rxn(appState.user);
 
       selectedOption.value = appState.user.level ?? "BEGINNER";

@@ -54,7 +54,9 @@ Map<String, dynamic> _$ScheduleDetailInfoToJson(ScheduleDetailInfo instance) =>
     };
 
 ScheduleDetail _$ScheduleDetailFromJson(Map<String, dynamic> json) =>
-    ScheduleDetail()
+    ScheduleDetail(
+      json['isBooked'] as bool?,
+    )
       ..id = json['id'] as String?
       ..date = json['date'] as String?
       ..startTime = json['startTime'] as String?
@@ -76,4 +78,5 @@ Map<String, dynamic> _$ScheduleDetailToJson(ScheduleDetail instance) =>
       'endTimeStamp': instance.endTimeStamp,
       'tutorId': instance.tutorId,
       'tutorInfo': instance.tutorInfo,
+      'isBooked': instance.isBooked,
     };

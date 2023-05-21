@@ -5,6 +5,9 @@ import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detai
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class TutorController extends GetxController {
   final isLoading = false.obs;
   final isFavorite = true.obs;
@@ -28,6 +31,7 @@ class TutorController extends GetxController {
       tutor = Get.arguments!;
       fetchedTutor =
           await LetTutorAPIService.tutorAPIService.getTutorById(tutor.userId!);
+      await fetchCountryAndFlag();
       isFavorite.value = fetchedTutor?.isFavorite ?? false;
     } catch (e) {
       debugPrint(e.toString());
@@ -49,5 +53,18 @@ class TutorController extends GetxController {
     } catch (_) {
       showSnackBar("Failed", "Failed to add favorite");
     } finally {}
+  }
+
+  Future<void> fetchCountryAndFlag() async {
+    final response = await http.get(
+      Uri.parse(
+        'https://restcountries.com/v2/alpha/${tutor.country ?? "vn"}',
+      ),
+    );
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      flag = json['flag'];
+      countryName = json["name"];
+    }
   }
 }
