@@ -63,7 +63,7 @@ final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.lightGreen,
   scaffoldBackgroundColor: const Color(0xff343541),
-  cardColor: const Color(0xff444654),
+  cardColor: const Color.fromARGB(255, 73, 54, 75),
   textTheme: TextTheme(
     bodySmall: BaseTextStyle.body3(color: Colors.white),
     bodyMedium: BaseTextStyle.body2(color: Colors.white),

@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/booking.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/bookings_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
+import 'package:let_tutor_mobile/core/utils/helper.dart';
 
 class TutorsController extends GetxController {
   final appStateController = Get.find<AppStateController>();
@@ -19,42 +24,20 @@ class TutorsController extends GetxController {
   int page = 1;
   int totalPage = 1;
 
-  TutorsSearchResponse? result;
+  TutorsSearchResponse? tutors;
+  Booking? booking;
 
-  int? hours;
-  int? minutes;
+  final hours = 0.obs;
+  final minutes = 1.obs;
 
   final isLoading = true.obs;
   final paginationLoading = true.obs;
-  @override
-  void onInit() async {
-    super.onInit();
-    try {
-      isLoading.value = true;
-
-      await filter();
-      int totalMinutes =
-          await LetTutorAPIService.valueAPIService.getTotalMinutesLearning();
-
-      hours = (totalMinutes / 60).ceil();
-      minutes = totalMinutes % 60;
-    } catch (e) {
-      showSnackBar("Error", e.toString());
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  Future<void> addFavorite(String tutorId) async {
-    try {
-      await LetTutorAPIService.userAPIService.addFavoriteTutor(tutorId);
-    } catch (_) {
-      showSnackBar("Failed", "Failed to add favorite");
-    }
-  }
 
   @override
   void onClose() {
+    timer?.cancel();
+    hours.close();
+    minutes.close();
     isLoading.close();
     paginationLoading.close();
     selectedStartTime.close();
@@ -66,6 +49,38 @@ class TutorsController extends GetxController {
     super.onClose();
   }
 
+  @override
+  void onInit() async {
+    try {
+      isLoading.value = true;
+
+      filter();
+      getTotalLearning();
+      getInComingLesson();
+    } catch (e) {
+      showSnackBar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+    super.onInit();
+  }
+
+  Future<void> getTotalLearning() async {
+    int totalMinutes =
+        await LetTutorAPIService.valueAPIService.getTotalMinutesLearning();
+
+    hours.value = (totalMinutes / 60).ceil();
+    minutes.value = totalMinutes % 60;
+  }
+
+  Future<void> addFavorite(String tutorId) async {
+    try {
+      await LetTutorAPIService.userAPIService.addFavoriteTutor(tutorId);
+    } catch (_) {
+      showSnackBar("Failed", "Failed to add favorite");
+    }
+  }
+
   Future<void> filter({
     bool newFilter = true,
   }) async {
@@ -74,7 +89,7 @@ class TutorsController extends GetxController {
       page = 1;
     }
     try {
-      result = await LetTutorAPIService.tutorAPIService.search(
+      tutors = await LetTutorAPIService.tutorAPIService.search(
           page: page,
           perPage: size,
           date: dateFilter.value,
@@ -83,7 +98,7 @@ class TutorsController extends GetxController {
           tutoringTimeAvailableFrom: selectedStartTime.value,
           tutoringTimeAvailableTo: selectedEndTime.value);
 
-      totalPage = (result!.count / size).ceil();
+      totalPage = (tutors!.count / size).ceil();
     } catch (e) {
       showSnackBar("Error", e.toString());
     } finally {
@@ -109,5 +124,41 @@ class TutorsController extends GetxController {
 
     specifierFilter.value = null;
     selectedEndTime.value = null;
+  }
+
+  Timer? timer;
+  final countdown = "".obs;
+  Future<void> getInComingLesson() async {
+    booking = await LetTutorAPIService.scheDuleAPIService.next();
+    if (booking == null) return;
+    DateTime start = Helper.timeStampToDateTime(
+        booking!.scheduleDetailInfo!.startPeriodTimestamp!);
+
+    final totalSecond = start.difference(DateTime.now()).inSeconds;
+
+    startTimer(totalSecond);
+  }
+
+  String convertSecondsToHMS(int seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int remainingSeconds = (seconds % 3600) % 60;
+
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  startTimer(int seconds) {
+    timer?.cancel();
+    const duration = Duration(seconds: 1);
+    var remainSecond = seconds;
+
+    timer = Timer.periodic(duration, (timer) {
+      if (remainSecond == 0) {
+        timer.cancel();
+      } else {
+        remainSecond--;
+        countdown.value = convertSecondsToHMS(remainSecond);
+      }
+    });
   }
 }

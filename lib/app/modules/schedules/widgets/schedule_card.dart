@@ -21,6 +21,7 @@ class SecheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheduleDetail = booking.scheduleDetailInfo?.scheduleInfo;
+
     final canGoMeeting = Helper.timeStampToDateTime(
                 booking.scheduleDetailInfo!.startPeriodTimestamp!)
             .difference(DateTime.now())
@@ -61,9 +62,9 @@ class SecheduleCard extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (!canGoMeeting) return;
-
                       await joinMeeting(
-                          controller.appStateController.user, booking);
+                          user: controller.appStateController.user,
+                          booking: booking);
                     },
                     child: Text(
                       "Go to Meeting",
@@ -139,11 +140,17 @@ class SecheduleCard extends StatelessWidget {
                           "Section $index: ${Helper.addHoursToTime(scheduleDetail?.startTime ?? "")} -  ${Helper.addHoursToTime(scheduleDetail?.endTime ?? "")}"),
                       TextButton(
                         onPressed: () {
+                          if (canGoMeeting) {
+                            showSnackBar("Failed",
+                                "You can't cancel booking before two hours");
+                          }
                           cancelBooking.call(booking.id!);
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                (themeData.highlightColor))),
+                                (canGoMeeting
+                                    ? Colors.grey
+                                    : themeData.highlightColor))),
                         child: Text(
                           "Cancel",
                           style: BaseTextStyle.button(

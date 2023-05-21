@@ -11,18 +11,13 @@ class Helper {
     }
   }
 
-  static DateTime timeStampToDateTime(int epoch) {
-    return DateTime.fromMillisecondsSinceEpoch(epoch);
+  static String formatDateTime(DateTime dateTime) {
+    final format = DateFormat('E, d MMM yy');
+    return format.format(dateTime.add(_utcPlus7));
   }
 
-  static int? timeToMilliseconds(DateTime? date, TimeOfDay? time) {
-    if (time == null || date == null) return null;
-    DateTime dateTime =
-        DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    return dateTime.millisecondsSinceEpoch;
-  }
-
-  static String addHoursToTime(String time) {
+  static String addHoursToTime(String? time) {
+    if (time == null) return "";
     DateFormat format = DateFormat('HH:mm');
     DateTime dateTime = format.parse(time);
 
@@ -31,6 +26,18 @@ class Helper {
     String updatedTime = format.format(updatedDateTime);
 
     return updatedTime;
+  }
+
+  static DateTime timeStampToDateTime(int? epoch) {
+    if (epoch == null) return DateTime.now();
+    return DateTime.fromMillisecondsSinceEpoch(epoch);
+  }
+
+  static int? timeToMilliseconds(DateTime? date, TimeOfDay? time) {
+    if (time == null || date == null) return null;
+    DateTime dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    return dateTime.millisecondsSinceEpoch;
   }
 
   static String timeStampToHoursMinutes(int epoch) {

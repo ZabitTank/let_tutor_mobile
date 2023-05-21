@@ -22,15 +22,15 @@ class SchedulesController extends GetxController {
   final paginationLoading = true.obs;
   @override
   void onInit() async {
-    super.onInit();
     try {
       isLoading.value = true;
-      await more();
+      more();
     } catch (e) {
       showSnackBar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }
+    super.onInit();
   }
 
   @override

@@ -79,7 +79,6 @@ class CoursesController extends GetxController
 
   @override
   void onInit() async {
-    super.onInit();
     searchController = TextEditingController();
     tabController = TabController(length: courseTab.length, vsync: this);
     try {
@@ -92,5 +91,6 @@ class CoursesController extends GetxController
     } finally {
       isLoading.value = false;
     }
+    super.onInit();
   }
 }

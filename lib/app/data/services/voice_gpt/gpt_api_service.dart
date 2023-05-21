@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/chat_completion_request.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/voice_gpt/chat_completion_response.dart';
@@ -30,7 +32,8 @@ class GptApiService {
       }
 
       return GPTModelInfo.modelsFromSnapshot(modelSnapshot);
-    } catch (e) {
+    } catch (e, stack) {
+      await FirebaseCrashlytics.instance.recordError(e, stack);
       return Future.error("App Error");
     }
   }
@@ -49,7 +52,9 @@ class GptApiService {
       }
 
       return ChatCompletionResponse.fromJson(response.data);
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      await FirebaseCrashlytics.instance.recordError(e, stack);
       return Future.error(e.toString());
     }
   }

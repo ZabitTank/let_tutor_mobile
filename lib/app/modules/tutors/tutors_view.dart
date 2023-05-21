@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_pagination.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
+import 'package:let_tutor_mobile/app/modules/call_video/call_video_view.dart';
 import 'package:let_tutor_mobile/app/modules/tutors/tutors_controller.dart';
 import 'package:let_tutor_mobile/core/extensions/string.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
+import 'package:let_tutor_mobile/core/utils/helper.dart';
 import 'package:let_tutor_mobile/core/values/enum.dart';
 
 import 'widgets/tutor_card.dart';
@@ -38,7 +40,7 @@ class TutorsView extends GetView<TutorsController> {
               )
             : RefreshIndicator(
                 onRefresh: () async {
-                  await controller.filter(newFilter: false);
+                  refresh();
                 },
                 child: SingleChildScrollView(
                   child: Padding(
@@ -54,7 +56,7 @@ class TutorsView extends GetView<TutorsController> {
                         Obx(
                           () => controller.paginationLoading.value
                               ? const Center(child: CircularProgressIndicator())
-                              : controller.result?.rows.isEmpty ?? true
+                              : controller.tutors?.rows.isEmpty ?? true
                                   ? const Center(
                                       child: SizedBox(
                                         width: 200,
@@ -68,14 +70,14 @@ class TutorsView extends GetView<TutorsController> {
                                       children: [
                                         Column(
                                           children: List.generate(
-                                            controller.result?.rows.length ?? 0,
+                                            controller.tutors?.rows.length ?? 0,
                                             (index) => TutorCard(
                                                 addFavorite: (tutorId) async {
                                                   await controller
                                                       .addFavorite(tutorId);
                                                 },
                                                 tutor: controller
-                                                    .result!.rows[index]),
+                                                    .tutors!.rows[index]),
                                           ),
                                         ),
                                         PaginationSection(
@@ -97,6 +99,12 @@ class TutorsView extends GetView<TutorsController> {
               ),
       ),
     );
+  }
+
+  void refresh() {
+    controller.getTotalLearning();
+    controller.filter(newFilter: false);
+    controller.getInComingLesson();
   }
 }
 
@@ -126,40 +134,68 @@ class HomeBanner extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Wed, 17 May 23 12:30 - 12:55",
-                  style: BaseTextStyle.body2(),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.start),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  "${LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr} ",
-                  style: BaseTextStyle.body1(),
-                ),
-                Text(
-                  controller.hours?.toString() ?? "x",
-                  style: BaseTextStyle.body1(),
-                ),
-                Text(
-                  " ${LocalizationKeys.hour.tr} ",
-                  style: BaseTextStyle.body1(),
-                ),
-                Text(
-                  controller.minutes?.toString() ?? "x",
-                  style: BaseTextStyle.body1(),
-                ),
-                Text(
-                  " ${LocalizationKeys.minutes.tr}",
-                  style: BaseTextStyle.body1(),
+                controller.booking == null
+                    ? const Text("You don't have any upcoming lesson")
+                    : Text(
+                        "${Helper.formatDateTime(Helper.timeStampToDateTime(controller.booking?.scheduleDetailInfo?.startPeriodTimestamp))} ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.startPeriod)} - ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.scheduleInfo?.endTime)}",
+                        style: BaseTextStyle.body2(),
+                      ),
+                sw_10,
+                Obx(
+                  () => Text(
+                    controller.countdown.value,
+                    style: BaseTextStyle.body2(color: themeData.highlightColor),
+                  ),
                 ),
               ],
             ),
+            Obx(
+              () => Row(
+                children: [
+                  Text(
+                    "${LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr} ",
+                    style: BaseTextStyle.body1(),
+                  ),
+                  Text(
+                    controller.hours.value.toString(),
+                    style: BaseTextStyle.body1(),
+                  ),
+                  Text(
+                    " ${LocalizationKeys.hour.tr} ",
+                    style: BaseTextStyle.body1(),
+                  ),
+                  Text(
+                    controller.minutes.value.toString(),
+                    style: BaseTextStyle.body1(),
+                  ),
+                  Text(
+                    " ${LocalizationKeys.minutes.tr}",
+                    style: BaseTextStyle.body1(),
+                  ),
+                ],
+              ),
+            ),
+            sh_10,
+            controller.booking != null
+                ? TextButton(
+                    onPressed: () {
+                      joinMeeting(
+                          user: controller.appStateController.user,
+                          booking: controller.booking!);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.yellowAccent),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.access_time),
+                        Text('Enter Room'),
+                      ],
+                    ),
+                  )
+                : Container()
           ],
         ),
       ),
