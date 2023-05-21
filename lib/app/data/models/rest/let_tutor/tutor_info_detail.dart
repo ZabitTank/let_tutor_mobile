@@ -50,7 +50,7 @@ class TutorInfoDetail {
   int? price;
   // ignore: non_constant_identifier_names
   MyUserInfo? User;
-  List<Feedback>? feedbacks;
+  List<Review>? feedbacks;
 
   TutorInfoDetail();
 

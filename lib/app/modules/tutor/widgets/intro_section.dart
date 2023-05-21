@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_widget.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/tutor/tutor_controller.dart';
+import 'package:let_tutor_mobile/app/modules/tutor/widgets/dialog_review.dart';
 import 'package:let_tutor_mobile/app/modules/tutor/widgets/tutor_intro.dart';
 import 'package:let_tutor_mobile/core/theme/base_style.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
@@ -74,9 +75,15 @@ class IntroSection extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Icon(
-                          Icons.reviews,
-                          color: themeData.primaryColor,
+                        IconButton(
+                          onPressed: () {
+                            Get.dialog(ReviewsDialog(
+                                userId: controller.tutor.userId!));
+                          },
+                          icon: Icon(
+                            Icons.reviews,
+                            color: themeData.primaryColor,
+                          ),
                         ),
                         Text(
                           "Review",

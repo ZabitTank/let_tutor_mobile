@@ -54,7 +54,7 @@ TutorInfoDetail _$TutorInfoDetailFromJson(Map<String, dynamic> json) =>
           ? null
           : MyUserInfo.fromJson(json['User'] as Map<String, dynamic>)
       ..feedbacks = (json['feedbacks'] as List<dynamic>?)
-          ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$TutorInfoDetailToJson(TutorInfoDetail instance) =>

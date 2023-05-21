@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/booking.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/bookings_response.dart';
@@ -51,10 +49,14 @@ class ScheduleAPIService {
         }
       };
 
-      await RestAPIProvider.instance.delete(
-          endpoint: "$bookingDomain/schedule-detail/",
-          body: jsonEncode(requestBody),
+      final response = await RestAPIProvider.instance.delete(
+          endpoint: "$bookingDomain/schedule-detail",
+          body: requestBody,
           useToken: true);
+
+      if (response.statusCode != 200) {
+        return Future.error("Faild to cancel booking");
+      }
     } catch (e, stack) {
       FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;

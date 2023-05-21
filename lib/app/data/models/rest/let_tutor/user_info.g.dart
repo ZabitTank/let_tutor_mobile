@@ -41,7 +41,7 @@ MyUserInfo _$MyUserInfoFromJson(Map<String, dynamic> json) => MyUserInfo(
       canSendMessage: json['canSendMessage'] as bool?,
       avgRating: (json['avgRating'] as num?)?.toDouble(),
       feedbacks: (json['feedbacks'] as List<dynamic>?)
-          ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList(),
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => Course.fromJson(e as Map<String, dynamic>))

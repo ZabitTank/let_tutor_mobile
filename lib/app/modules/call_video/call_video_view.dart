@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,13 +14,15 @@ class CallVideo {
 
   static Future<void> joinMeeting(
       {required Booking booking, required MyUserInfo user}) async {
-    String decoded = utf8
-        .decode(base64.decode(booking.studentMeetingLink?.split(".")[1] ?? ""));
+    // String decoded = utf8
+    //     .decode(base64.decode(booking.studentMeetingLink?.split(".")[1] ?? ""));
 
-    final map = json.decode(decoded);
+    // final map = json.decode(decoded);
     Map<FeatureFlag, Object> featureFlags = {};
     var options = JitsiMeetingOptions(
-      roomNameOrUrl: map['room'],
+      roomNameOrUrl:
+          "${user.id}-${booking.scheduleDetailInfo!.scheduleInfo!.tutorInfo!.id}",
+      serverUrl: "https://meet.lettutor.com",
       isAudioMuted: true,
       isAudioOnly: true,
       isVideoMuted: true,
@@ -49,7 +50,7 @@ class CallVideo {
                 gravity: ToastGravity.CENTER,
                 backgroundColor: Colors.transparent,
                 textColor: Colors.white,
-                timeInSecForIosWeb: 1,
+                timeInSecForIosWeb: 3,
                 fontSize: 18,
               );
               await Fluttertoast.cancel();

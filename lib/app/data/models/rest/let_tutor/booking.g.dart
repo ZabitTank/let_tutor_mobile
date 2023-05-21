@@ -18,7 +18,7 @@ Booking _$BookingFromJson(Map<String, dynamic> json) => Booking()
   ..studentMeetingLink = json['studentMeetingLink'] as String?
   ..tutorMeetingLink = json['tutorMeetingLink'] as String?
   ..feedbacks = (json['feedbacks'] as List<dynamic>?)
-      ?.map((e) => Feedback.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
       .toList()
   ..scheduleDetailId = json['scheduleDetailId'] as String?
   ..scheduleDetailInfo = json['scheduleDetailInfo'] == null

@@ -88,9 +88,10 @@ class SchedulesView extends GetView<SchedulesController> {
                                             controller.result?.rows.length ?? 0,
                                             (index) => SecheduleCard(
                                               controller: controller,
-                                              cancelBooking: (id) async {
-                                                await controller
-                                                    .cancelBooking(id);
+                                              cancelBooking: () async {
+                                                await controller.cancelBooking(
+                                                    controller.result!
+                                                        .rows[index].id!);
                                               },
                                               booking: controller
                                                   .result!.rows[index],

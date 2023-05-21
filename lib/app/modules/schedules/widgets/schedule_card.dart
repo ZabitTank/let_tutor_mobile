@@ -16,7 +16,7 @@ class SecheduleCard extends StatelessWidget {
 
   final Booking booking;
   final SchedulesController controller;
-  final void Function(String id) cancelBooking;
+  final void Function() cancelBooking;
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +143,9 @@ class SecheduleCard extends StatelessWidget {
                           if (canGoMeeting) {
                             showSnackBar("Failed",
                                 "You can't cancel booking before two hours");
+                            return;
                           }
-                          cancelBooking.call(booking.id!);
+                          cancelBooking.call();
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(

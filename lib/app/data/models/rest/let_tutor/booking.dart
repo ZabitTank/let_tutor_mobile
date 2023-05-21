@@ -20,7 +20,7 @@ class Booking {
   String? studentMeetingLink;
   String? tutorMeetingLink;
 
-  List<Feedback>? feedbacks;
+  List<Review>? feedbacks;
 
   String? scheduleDetailId;
   ScheduleDetailInfo? scheduleDetailInfo;

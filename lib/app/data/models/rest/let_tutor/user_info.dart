@@ -31,7 +31,7 @@ class MyUserInfo {
   bool? canSendMessage;
 
   double? avgRating;
-  List<Feedback>? feedbacks;
+  List<Review>? feedbacks;
   List<Course>? courses;
 
   MyUserInfo({

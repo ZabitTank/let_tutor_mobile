@@ -24,80 +24,85 @@ class HomeBanner extends StatelessWidget {
       decoration: BoxDecoration(
         color: themeData.primaryColor,
       ),
-      child: Center(
-        child: Column(
-          children: [
-            Text(
-              "Incoming Course",
-              style: BaseTextStyle.heading2(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                controller.booking == null
-                    ? const Text("You don't have any upcoming lesson")
-                    : Text(
-                        "${Helper.formatDateTime(Helper.timeStampToDateTime(controller.booking?.scheduleDetailInfo?.startPeriodTimestamp))} ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.startPeriod)} - ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.scheduleInfo?.endTime)}",
-                        style: BaseTextStyle.body2(),
-                      ),
-                sw_10,
-                Obx(
-                  () => Text(
-                    controller.countdown.value,
-                    style: BaseTextStyle.body2(color: themeData.highlightColor),
-                  ),
-                ),
-              ],
-            ),
-            Obx(
-              () => Row(
-                children: [
-                  Text(
-                    "${LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr} ",
-                    style: BaseTextStyle.body1(),
-                  ),
-                  Text(
-                    controller.hours.value.toString(),
-                    style: BaseTextStyle.body1(),
-                  ),
-                  Text(
-                    " ${LocalizationKeys.hour.tr} ",
-                    style: BaseTextStyle.body1(),
-                  ),
-                  Text(
-                    controller.minutes.value.toString(),
-                    style: BaseTextStyle.body1(),
-                  ),
-                  Text(
-                    " ${LocalizationKeys.minutes.tr}",
-                    style: BaseTextStyle.body1(),
-                  ),
-                ],
-              ),
-            ),
-            sh_10,
-            controller.booking != null
-                ? TextButton(
-                    onPressed: () {
-                      CallVideo.joinMeeting(
-                          user: controller.appStateController.user,
-                          booking: controller.booking!);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.yellowAccent),
+      child: Obx(
+        () => controller.isLoading.value
+            ? Container()
+            : Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Incoming Course",
+                      style: BaseTextStyle.heading2(),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.access_time),
-                        Text('Enter Room'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        controller.booking == null
+                            ? const Text("You don't have any upcoming lesson")
+                            : Text(
+                                "${Helper.formatDateTime(Helper.timeStampToDateTime(controller.booking?.scheduleDetailInfo?.startPeriodTimestamp))} ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.startPeriod)} - ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.scheduleInfo?.endTime)}",
+                                style: BaseTextStyle.body2(),
+                              ),
+                        sw_10,
+                        Obx(
+                          () => Text(
+                            controller.countdown.value,
+                            style: BaseTextStyle.body2(
+                                color: themeData.highlightColor),
+                          ),
+                        ),
                       ],
                     ),
-                  )
-                : Container()
-          ],
-        ),
+                    Obx(
+                      () => Row(
+                        children: [
+                          Text(
+                            "${LocalizationKeys.tutorscreen_total_hours_leared_textfield.tr} ",
+                            style: BaseTextStyle.body1(),
+                          ),
+                          Text(
+                            controller.hours.value.toString(),
+                            style: BaseTextStyle.body1(),
+                          ),
+                          Text(
+                            " ${LocalizationKeys.hour.tr} ",
+                            style: BaseTextStyle.body1(),
+                          ),
+                          Text(
+                            controller.minutes.value.toString(),
+                            style: BaseTextStyle.body1(),
+                          ),
+                          Text(
+                            " ${LocalizationKeys.minutes.tr}",
+                            style: BaseTextStyle.body1(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    sh_10,
+                    controller.booking != null
+                        ? TextButton(
+                            onPressed: () {
+                              CallVideo.joinMeeting(
+                                  user: controller.appStateController.user,
+                                  booking: controller.booking!);
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.yellowAccent),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Icon(Icons.access_time),
+                                Text('Enter Room'),
+                              ],
+                            ),
+                          )
+                        : Container()
+                  ],
+                ),
+              ),
       ),
     );
   }

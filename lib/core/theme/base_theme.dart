@@ -3,7 +3,7 @@ import 'package:let_tutor_mobile/core/theme/base_style.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: BaseColor.blue,
+  primaryColor: const Color.fromARGB(255, 95, 151, 203),
   highlightColor: BaseColor.red,
   scaffoldBackgroundColor: BaseColor.white,
   cardColor: const Color.fromARGB(255, 254, 254, 254),

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'feedback.g.dart';
 
 @JsonSerializable()
-class Feedback {
+class Review {
   final String? id;
   final String? bookingId;
   // first info is info the one who feed back
@@ -15,12 +15,11 @@ class Feedback {
   final DateTime? updatedAt;
   final FirstInfo? firstInfo;
 
-  Feedback(this.id, this.bookingId, this.firstId, this.secondId, this.rating,
+  Review(this.id, this.bookingId, this.firstId, this.secondId, this.rating,
       this.content, this.createdAt, this.updatedAt, this.firstInfo);
 
-  factory Feedback.fromJson(Map<String, dynamic> json) =>
-      _$FeedbackFromJson(json);
-  Map<String, dynamic> toJson() => _$FeedbackToJson(this);
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+  Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }
 
 @JsonSerializable()

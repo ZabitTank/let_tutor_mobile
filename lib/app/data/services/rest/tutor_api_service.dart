@@ -1,9 +1,11 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/feedback_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
 import 'package:let_tutor_mobile/app/data/providers/api_provider.dart';
 import 'package:let_tutor_mobile/core/utils/helper.dart';
+import 'package:let_tutor_mobile/core/values/backend_enviroment.dart';
 
 class TutorAPIService {
   final String domain;
@@ -101,6 +103,25 @@ class TutorAPIService {
     } catch (e, stack) {
       await FirebaseCrashlytics.instance.recordError(e, stack);
       rethrow;
+    }
+  }
+
+  Future<FeedbacksResponse> getReviews(
+      {required int perPage, required int page, required id}) async {
+    try {
+      var query = {
+        "perPage": perPage,
+        "page": page,
+      };
+      final response = await RestAPIProvider.instance.request(
+          endpoint: "${BackendEnviroment.letTutorUrl}/feedback/v2/$id",
+          method: HttpMethod.GET,
+          query: query,
+          useToken: true);
+
+      return FeedbacksResponse.fromJson(response.data['data']);
+    } catch (e) {
+      return Future.error(e);
     }
   }
 

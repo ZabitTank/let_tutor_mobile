@@ -20,7 +20,7 @@ class ProfileController extends GetxController {
   late Rxn<MyUserInfo> user;
 
   // dipose
-  var isLoading = true.obs;
+  var isLoading = false.obs;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
@@ -52,6 +52,7 @@ class ProfileController extends GetxController {
     try {
       testPrepareations =
           await LetTutorAPIService.valueAPIService.getTestPreparation();
+
       learnsTopic = await LetTutorAPIService.valueAPIService.getLearnTopics();
 
       appState.setUser = await LetTutorAPIService.userAPIService.getMe();
@@ -65,8 +66,9 @@ class ProfileController extends GetxController {
     } catch (e) {
       showSnackBar("Error", e.toString());
       return;
+    } finally {
+      isLoading.value = false;
     }
-    isLoading.value = false;
   }
 
   Future uploadAvatar(ImageSource source) async {
