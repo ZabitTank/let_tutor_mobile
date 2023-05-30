@@ -1,5 +1,4 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/material.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/booking.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/bookings_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/schedule.dart';
@@ -27,19 +26,20 @@ class ScheduleAPIService {
     }
   }
 
-  Future<List<Schedule>> getTutorSchedule(String tutorId) async {
+  Future<List<Schedule>> getTutorScheduleV2(String tutorId, int page) async {
     try {
-      var requestBody = {"tutorId": tutorId};
+      var requestQuery = {
+        "tutorId": tutorId,
+        "page": page,
+      };
 
       final response = await RestAPIProvider.instance.request(
           endpoint: scheduleDomain,
-          method: HttpMethod.POST,
+          method: HttpMethod.GET,
           useToken: true,
-          body: requestBody);
+          query: requestQuery);
 
-      final listData = response.data['data'] as List;
-
-      debugPrint(listData.length.toString());
+      final listData = response.data['scheduleOfTutor'] as List;
 
       final scheduleList = listData.map((e) => Schedule.fromJson(e)).toList();
 
@@ -52,8 +52,6 @@ class ScheduleAPIService {
 
       filterScheduleList
           .sort((s1, s2) => s1.startTimestamp!.compareTo(s2.startTimestamp!));
-
-      debugPrint(filterScheduleList.length.toString());
 
       List<Schedule> result = [];
 
@@ -90,7 +88,72 @@ class ScheduleAPIService {
                 DateTime.fromMillisecondsSinceEpoch(s2.startPeriodTimestamp!)));
       }
 
-      debugPrint(result.length.toString());
+      return result;
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack);
+      rethrow;
+    }
+  }
+
+  Future<List<Schedule>> getTutorSchedule(String tutorId) async {
+    try {
+      var requestBody = {"tutorId": tutorId};
+
+      final response = await RestAPIProvider.instance.request(
+          endpoint: scheduleDomain,
+          method: HttpMethod.POST,
+          useToken: true,
+          body: requestBody);
+
+      final listData = response.data['data'] as List;
+
+      final scheduleList = listData.map((e) => Schedule.fromJson(e)).toList();
+
+      final filterScheduleList = scheduleList.where((schedule) {
+        final now = DateTime.now();
+        final startTime =
+            DateTime.fromMillisecondsSinceEpoch(schedule.startTimestamp!);
+        return startTime.isAfter(now);
+      }).toList();
+
+      filterScheduleList
+          .sort((s1, s2) => s1.startTimestamp!.compareTo(s2.startTimestamp!));
+
+      List<Schedule> result = [];
+
+      for (int index = 0; index < filterScheduleList.length; index++) {
+        if (filterScheduleList[index].startTimestamp == null) continue;
+
+        bool isExist = false;
+
+        for (int index_2 = 0; index_2 < result.length; index_2++) {
+          final DateTime first = DateTime.fromMillisecondsSinceEpoch(
+              filterScheduleList[index].startTimestamp!);
+          final DateTime second = DateTime.fromMillisecondsSinceEpoch(
+              result[index_2].startTimestamp!);
+          if (first.day == second.day &&
+              first.month == second.month &&
+              first.year == second.year) {
+            result[index_2]
+                .scheduleDetails!
+                .addAll(filterScheduleList[index].scheduleDetails!);
+            isExist = true;
+            break;
+          }
+        }
+
+        if (!isExist) {
+          result.add(filterScheduleList[index]);
+        }
+      }
+
+      for (int index = 0; index < result.length; index++) {
+        result[index].scheduleDetails?.sort((s1, s2) => DateTime
+                .fromMillisecondsSinceEpoch(s1.startPeriodTimestamp!)
+            .compareTo(
+                DateTime.fromMillisecondsSinceEpoch(s2.startPeriodTimestamp!)));
+      }
+
       return result;
     } catch (e, stack) {
       FirebaseCrashlytics.instance.recordError(e, stack);

@@ -25,7 +25,7 @@ class HomeBanner extends StatelessWidget {
         color: themeData.primaryColor,
       ),
       child: Obx(
-        () => controller.isLoading.value
+        () => controller.bannerLoading.value
             ? Container()
             : Center(
                 child: Column(
@@ -37,10 +37,10 @@ class HomeBanner extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        controller.booking == null
+                        controller.nextSchedule == null
                             ? const Text("You don't have any upcoming lesson")
                             : Text(
-                                "${Helper.formatDateTime(Helper.timeStampToDateTime(controller.booking?.scheduleDetailInfo?.startPeriodTimestamp))} ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.startPeriod)} - ${Helper.addHoursToTime(controller.booking?.scheduleDetailInfo?.scheduleInfo?.endTime)}",
+                                "${Helper.formatDateTime(Helper.timeStampToDateTime(controller.nextSchedule?.scheduleDetailInfo?.startPeriodTimestamp))} ${Helper.addHoursToTime(controller.nextSchedule?.scheduleDetailInfo?.startPeriod)} - ${Helper.addHoursToTime(controller.nextSchedule?.scheduleDetailInfo?.scheduleInfo?.endTime)}",
                                 style: BaseTextStyle.body2(),
                               ),
                         sw_10,
@@ -80,12 +80,12 @@ class HomeBanner extends StatelessWidget {
                       ),
                     ),
                     sh_10,
-                    controller.booking != null
+                    controller.nextSchedule != null
                         ? TextButton(
                             onPressed: () {
                               CallVideo.joinMeeting(
                                   user: controller.appStateController.user,
-                                  booking: controller.booking!);
+                                  booking: controller.nextSchedule!);
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(

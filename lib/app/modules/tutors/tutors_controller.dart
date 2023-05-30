@@ -25,12 +25,13 @@ class TutorsController extends GetxController {
   int totalPage = 1;
 
   TutorsSearchResponse? tutors;
-  Booking? booking;
+  Booking? nextSchedule;
 
   final hours = 0.obs;
   final minutes = 1.obs;
 
   final isLoading = true.obs;
+  final bannerLoading = true.obs;
   final paginationLoading = true.obs;
 
   @override
@@ -45,12 +46,12 @@ class TutorsController extends GetxController {
     specifierFilter.close();
     filtersNation.close();
     findTutorController.dispose();
-
+    bannerLoading.close();
     super.onClose();
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     try {
       isLoading.value = true;
 
@@ -129,14 +130,20 @@ class TutorsController extends GetxController {
   Timer? timer;
   final countdown = "".obs;
   Future<void> getInComingLesson() async {
-    booking = await LetTutorAPIService.scheDuleAPIService.next();
-    if (booking == null) return;
-    DateTime start = Helper.timeStampToDateTime(
-        booking!.scheduleDetailInfo!.startPeriodTimestamp!);
+    try {
+      bannerLoading.value = true;
+      nextSchedule = await LetTutorAPIService.scheDuleAPIService.next();
+      if (nextSchedule == null) return;
+      DateTime start = Helper.timeStampToDateTime(
+          nextSchedule!.scheduleDetailInfo!.startPeriodTimestamp!);
 
-    final totalSecond = start.difference(DateTime.now()).inSeconds;
+      final totalSecond = start.difference(DateTime.now()).inSeconds;
 
-    startTimer(totalSecond);
+      startTimer(totalSecond);
+    } catch (_) {
+    } finally {
+      bannerLoading.value = false;
+    }
   }
 
   String convertSecondsToHMS(int seconds) {

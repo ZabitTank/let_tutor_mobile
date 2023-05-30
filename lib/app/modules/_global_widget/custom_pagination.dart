@@ -41,3 +41,46 @@ class PaginationSection extends StatelessWidget {
     );
   }
 }
+
+class PaginationCustomText extends StatelessWidget {
+  final int currentPage;
+  final int totalPages;
+  final int minPage;
+  final Text customText;
+  final Function(int) onPageChanged;
+
+  const PaginationCustomText({
+    super.key,
+    required this.currentPage,
+    required this.totalPages,
+    required this.onPageChanged,
+    required this.customText,
+    required this.minPage,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.chevron_left),
+          onPressed: currentPage > minPage
+              ? () {
+                  onPageChanged(currentPage - 1);
+                }
+              : null,
+        ),
+        customText,
+        IconButton(
+          icon: const Icon(Icons.chevron_right),
+          onPressed: currentPage < totalPages
+              ? () {
+                  onPageChanged(currentPage + 1);
+                }
+              : null,
+        ),
+      ],
+    );
+  }
+}
