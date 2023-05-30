@@ -16,7 +16,7 @@ class LetTutorAPIService {
 
   static final scheDuleAPIService = ScheduleAPIService(
       "${BackendEnviroment.letTutorUrl}/booking",
-      "${BackendEnviroment.letTutorUrl}/shedule");
+      "${BackendEnviroment.letTutorUrl}/schedule");
 
   static final tutorAPIService =
       TutorAPIService("${BackendEnviroment.letTutorUrl}/tutor");

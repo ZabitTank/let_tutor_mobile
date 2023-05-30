@@ -97,6 +97,7 @@ class IntroSection extends StatelessWidget {
                 sh_20,
                 Text(tutor.bio ??
                     "bio bio bio biobiobiobiobiobiobiobiobiobiobiobiobiobio"),
+                sh_20,
                 Text(
                   "Ratting",
                   style: themeData.textTheme.titleLarge,

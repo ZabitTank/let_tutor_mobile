@@ -16,7 +16,7 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) => Schedule()
   ..createdAtTimeStamp = json['createdAtTimeStamp'] as int?
   ..isBooked = json['isBooked'] as bool?
   ..scheduleDetails = (json['scheduleDetails'] as List<dynamic>?)
-      ?.map((e) => ScheduleDetail.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => ScheduleDetailInfo.fromJson(e as Map<String, dynamic>))
       .toList();
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
@@ -33,24 +33,28 @@ Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
 
 ScheduleDetailInfo _$ScheduleDetailInfoFromJson(Map<String, dynamic> json) =>
     ScheduleDetailInfo()
+      ..id = json['id'] as String?
       ..scheduleId = json['scheduleId'] as String?
       ..scheduleInfo = json['scheduleInfo'] == null
           ? null
           : ScheduleDetail.fromJson(
               json['scheduleInfo'] as Map<String, dynamic>)
-      ..endTime = json['endTime'] as String?
+      ..endPeriod = json['endPeriod'] as String?
       ..startPeriod = json['startPeriod'] as String?
-      ..endTimeStamp = json['endTimeStamp'] as int?
-      ..startPeriodTimestamp = json['startPeriodTimestamp'] as int?;
+      ..endPeriodTimestamp = json['endPeriodTimestamp'] as int?
+      ..startPeriodTimestamp = json['startPeriodTimestamp'] as int?
+      ..isBooked = json['isBooked'] as bool?;
 
 Map<String, dynamic> _$ScheduleDetailInfoToJson(ScheduleDetailInfo instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'scheduleId': instance.scheduleId,
       'scheduleInfo': instance.scheduleInfo,
-      'endTime': instance.endTime,
+      'endPeriod': instance.endPeriod,
       'startPeriod': instance.startPeriod,
-      'endTimeStamp': instance.endTimeStamp,
+      'endPeriodTimestamp': instance.endPeriodTimestamp,
       'startPeriodTimestamp': instance.startPeriodTimestamp,
+      'isBooked': instance.isBooked
     };
 
 ScheduleDetail _$ScheduleDetailFromJson(Map<String, dynamic> json) =>

@@ -14,7 +14,7 @@ class Schedule {
   int? endTimestamp;
   int? createdAtTimeStamp;
   bool? isBooked;
-  List<ScheduleDetail>? scheduleDetails;
+  List<ScheduleDetailInfo>? scheduleDetails;
   Schedule();
   factory Schedule.fromJson(Map<String, dynamic> json) =>
       _$ScheduleFromJson(json);
@@ -23,14 +23,16 @@ class Schedule {
 
 @JsonSerializable()
 class ScheduleDetailInfo {
+  String? id;
   String? scheduleId;
   ScheduleDetail? scheduleInfo;
 
-  String? endTime;
+  String? endPeriod;
   String? startPeriod;
 
-  int? endTimeStamp;
+  int? endPeriodTimestamp;
   int? startPeriodTimestamp;
+  bool? isBooked;
 
   ScheduleDetailInfo();
   factory ScheduleDetailInfo.fromJson(Map<String, dynamic> json) =>

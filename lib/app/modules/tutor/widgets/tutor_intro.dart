@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/tutor_info_detail.dart';
+import 'package:let_tutor_mobile/app/modules/tutor/widgets/tutor_schedule.dart';
 
 class TutorIntro extends StatefulWidget {
   const TutorIntro({
@@ -53,10 +54,16 @@ class _TutorIntroState extends State<TutorIntro> {
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
+        TutorScheduleBottomModal(
+          tutorId: widget.tutor.userId!,
+        )
+        // TextButton(onPressed: () {
+
+        // }, child: const Text("Booked"))
       ],
     );
   }
