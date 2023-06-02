@@ -157,4 +157,16 @@ class WalletInfo {
   factory WalletInfo.fromJson(Map<String, dynamic> json) =>
       _$WalletInfoFromJson(json);
   Map<String, dynamic> toJson() => _$WalletInfoToJson(this);
+
+  int toRemainLesson() {
+    int amount = 0;
+    try {
+      int trueAmmount = int.parse(this.amount ?? "0");
+      amount = trueAmmount ~/ 100000;
+      if (amount <= 0) {
+        amount = trueAmmount;
+      }
+    } catch (_) {}
+    return amount;
+  }
 }

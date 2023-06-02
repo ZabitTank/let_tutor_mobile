@@ -19,6 +19,12 @@ class AppStateController extends GetxController {
     _user.updateValues(user);
   }
 
+  Future<void> refreshUserInfo() async {
+    try {
+      setUser = await LetTutorAPIService.userAPIService.getMe();
+    } catch (_) {}
+  }
+
   late Box<GlobalSetting> database;
   late GlobalSetting appSettings;
 

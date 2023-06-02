@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
 import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
 import 'package:let_tutor_mobile/app/modules/home/home_controller.dart';
 import 'package:let_tutor_mobile/core/extensions/textstyle.dart';
@@ -23,12 +24,15 @@ class NavigationDrawer extends StatelessWidget {
     Color primaryColor = Theme.of(context).primaryColor;
     int currentIndex = Get.find<HomeController>().tabIndex.value;
     String currentPage = Get.currentRoute;
-
+    int amount = appState.user.walletInfo?.toRemainLesson() ?? 0;
     return Drawer(
       child: ListView(
         children: [
-          buildDrawerHeader(appState.user.name ?? "Unknown",
-              appState.user.email ?? "Email@gmail.com", appState.user.avatar),
+          buildDrawerHeader(
+              appState.user.name ?? "Unknown",
+              appState.user.email ?? "Email@gmail.com",
+              amount.toString(),
+              appState.user.avatar),
           const Divider(
             color: BaseColor.black,
           ),
@@ -130,18 +134,25 @@ class NavigationDrawer extends StatelessWidget {
     );
   }
 
-  Widget buildDrawerHeader(
-      String accountName, String accountEmail, String? url) {
+  Widget buildDrawerHeader(String accountName, String accountEmail,
+      String lessonNumber, String? url) {
     return UserAccountsDrawerHeader(
       accountName: Text(accountName),
-      accountEmail: Text(accountEmail),
+      accountEmail: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(accountEmail),
+          sh_10,
+          Text("You have $lessonNumber lessons left to book"),
+        ],
+      ),
       currentAccountPicture:
           url == "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png" ||
                   url == null
               ? const CircleAvatar(
                   backgroundImage: AssetImage(AssetsManager.userImage),
                 )
-              : Image.network(url),
+              : CircleAvatar(backgroundImage: NetworkImage(url)),
       currentAccountPictureSize: const Size.square(72),
     );
   }

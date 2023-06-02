@@ -8,8 +8,8 @@ import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/schedule.dart';
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/app/modules/_global_widget/custom_pagination.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
-
-import '../../../../core/utils/helper.dart';
+import 'package:let_tutor_mobile/app/modules/app_state_controller.dart';
+import 'package:let_tutor_mobile/core/utils/helper.dart';
 
 class TutorScheduleBottomModal extends StatefulWidget {
   const TutorScheduleBottomModal({Key? key, required this.tutorId})
@@ -23,6 +23,7 @@ class TutorScheduleBottomModal extends StatefulWidget {
 }
 
 class _TutorScheduleBottomModalState extends State<TutorScheduleBottomModal> {
+  AppStateController appStateController = Get.find<AppStateController>();
   List<Schedule> _schedules = [];
   bool isLoading = true;
   int page = 0;
@@ -142,51 +143,60 @@ class _TutorScheduleBottomModalState extends State<TutorScheduleBottomModal> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             right: 10, left: 10, bottom: 10),
-                        child: GridView.count(
-                          crossAxisCount:
-                              Helper.generateAsisChildRatio(constraints)[0]
-                                  .toInt(),
-                          childAspectRatio: (1 /
-                              Helper.generateAsisChildRatio(constraints)[1]),
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          shrinkWrap: true,
-                          children: List.generate(
-                            _schedules.length,
-                            (index) => ElevatedButton(
-                              onPressed: () async {
-                                await showTutorTimePicker(_schedules[index]);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                  side:
-                                      BorderSide(color: Colors.blue, width: 1),
-                                ),
-                              ),
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.only(top: 13, bottom: 13),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      DateFormat.MMMEd().format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            _schedules[index].startTimestamp!),
+                        child: _schedules.isEmpty
+                            ? const Center(
+                                child: Text("Nothing to show"),
+                              )
+                            : GridView.count(
+                                crossAxisCount: Helper.generateAsisChildRatio(
+                                        constraints)[0]
+                                    .toInt(),
+                                childAspectRatio: (1 /
+                                    Helper.generateAsisChildRatio(
+                                        constraints)[1]),
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  _schedules.length,
+                                  (index) => ElevatedButton(
+                                    onPressed: () async {
+                                      await showTutorTimePicker(
+                                          _schedules[index]);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                        side: BorderSide(
+                                            color: Colors.blue, width: 1),
                                       ),
-                                      style:
-                                          const TextStyle(color: Colors.blue),
-                                    )
-                                  ],
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 13, bottom: 13),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            DateFormat.MMMEd().format(
+                                              DateTime
+                                                  .fromMillisecondsSinceEpoch(
+                                                      _schedules[index]
+                                                          .startTimestamp!),
+                                            ),
+                                            style: const TextStyle(
+                                                color: Colors.blue),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -332,11 +342,21 @@ class _TutorScheduleBottomModalState extends State<TutorScheduleBottomModal> {
 
   Future<void> _handleBookingSchedule(
       List<ScheduleDetailInfo> scheduleDetails, int index) async {
+    int remainLesson =
+        appStateController.user.walletInfo?.toRemainLesson() ?? 0;
+    final isBook = await showYesNoDialog(
+        "Booking confirm", "You have $remainLesson lessons left to book");
+
+    if (isBook == null || !isBook) {
+      return;
+    }
+
     try {
       EasyLoading.show();
       await LetTutorAPIService.scheDuleAPIService.bookSchedule(
         scheduleDetails[index].id!,
       );
+      await appStateController.refreshUserInfo();
       EasyLoading.dismiss();
 
       scheduleDetails[index].isBooked = true;

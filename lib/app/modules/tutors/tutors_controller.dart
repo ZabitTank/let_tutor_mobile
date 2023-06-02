@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/booking.dart';
-import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/bookings_response.dart';
 import 'package:let_tutor_mobile/app/data/models/rest/let_tutor/response/tutors_search_response.dart';
 import 'package:let_tutor_mobile/app/data/services/lettutor_api_service.dart';
 import 'package:let_tutor_mobile/app/modules/_utils_widget/utils_widget.dart';
